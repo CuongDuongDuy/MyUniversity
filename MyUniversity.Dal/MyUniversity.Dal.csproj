@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4A63AE90-BC49-4AC2-B2E7-4B5F0C293E13}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MyUniversity.Dal</RootNamespace>
+    <AssemblyName>MyUniversity.Dal</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\packages\FluentNHibernate.2.0.1.0\lib\net40\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\packages\NHibernate.4.0.0.4000\lib\net40\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\AuditTrail.cs" />
+    <Compile Include="Entities\Course.cs" />
+    <Compile Include="Entities\Department.cs" />
+    <Compile Include="Entities\Enrollment.cs" />
+    <Compile Include="Entities\EntityBase.cs" />
+    <Compile Include="Entities\OfficeAssignment.cs" />
+    <Compile Include="Entities\Profile.cs" />
+    <Compile Include="Entities\StudentProfile.cs" />
+    <Compile Include="Entities\InstructorProfile.cs" />
+    <Compile Include="Mappings\EntityFramework\DepartmentMapping.cs" />
+    <Compile Include="Mappings\EntityFramework\EnrollmentMapping.cs" />
+    <Compile Include="Mappings\EntityFramework\OfficeAssignmentMapping.cs" />
+    <Compile Include="Mappings\EntityFramework\AuditTrailMapping.cs" />
+    <Compile Include="Entities\Person.cs" />
+    <Compile Include="Mappings\EntityFramework\CourseMapping.cs" />
+    <Compile Include="Mappings\EntityFramework\PersonMapping.cs" />
+    <Compile Include="Mappings\EntityFramework\InstructorProfileMapping.cs" />
+    <Compile Include="Migrations\201509291520392_InitialCreate.cs" />
+    <Compile Include="Migrations\201509291520392_InitialCreate.Designer.cs">
+      <DependentUpon>201509291520392_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509291538154_UpdateForeignKeys.cs" />
+    <Compile Include="Migrations\201509291538154_UpdateForeignKeys.Designer.cs">
+      <DependentUpon>201509291538154_UpdateForeignKeys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510011502167_UpdateDepartmentSetDeanIdNullable.cs" />
+    <Compile Include="Migrations\201510011502167_UpdateDepartmentSetDeanIdNullable.Designer.cs">
+      <DependentUpon>201510011502167_UpdateDepartmentSetDeanIdNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="MyUniversityDbContext.cs" />
+    <Compile Include="Mappings\EntityFramework\StudentProfileMapping.cs" />
+    <Compile Include="Mappings\NHibernate\StudentProfileMapping.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Contracts\IBaseRepository.cs" />
+    <Compile Include="Repositories\Contracts\IStudentProfileRepository.cs" />
+    <Compile Include="Repositories\Contracts\IUnitOfWork.cs" />
+    <Compile Include="Repositories\EntityFramework\BaseRepository.cs" />
+    <Compile Include="Repositories\EntityFramework\StudentProfileRepository.cs" />
+    <Compile Include="Repositories\EntityFramework\UnitOfWork.cs" />
+    <Compile Include="Repositories\NHibernate\BaseRepository.cs" />
+    <Compile Include="Repositories\NHibernate\StudentProfileRepository.cs" />
+    <Compile Include="Repositories\NHibernate\UnitOfWork.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyUniversity.Contracts\MyUniversity.Contracts.csproj">
+      <Project>{BCB4DDFD-F7D7-4187-AC3F-63AF6ABEEFD1}</Project>
+      <Name>MyUniversity.Contracts</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201509291520392_InitialCreate.resx">
+      <DependentUpon>201509291520392_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509291538154_UpdateForeignKeys.resx">
+      <DependentUpon>201509291538154_UpdateForeignKeys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510011502167_UpdateDepartmentSetDeanIdNullable.resx">
+      <DependentUpon>201510011502167_UpdateDepartmentSetDeanIdNullable.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
