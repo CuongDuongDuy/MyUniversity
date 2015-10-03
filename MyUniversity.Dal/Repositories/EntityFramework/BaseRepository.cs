@@ -10,7 +10,6 @@ namespace MyUniversity.Dal.Repositories.EntityFramework
 {
     public class BaseRepository<TEntity, TPrimaryKey> : IBaseRepository<TEntity, TPrimaryKey> where TEntity : EntityBase
     {
-       
         private readonly MyUniversityDbContext databaseContext;
 
         private readonly IDbSet<TEntity> dbSet; 

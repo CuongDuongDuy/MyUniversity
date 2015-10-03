@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace MyUniversity.Dal.Entities
 {
@@ -7,8 +8,10 @@ namespace MyUniversity.Dal.Entities
     public class InstructorProfile : Profile
     {
         public DateTime HireDate { get; set; }
-        public virtual ICollection<Course> Courses { get; set; }
-        public Guid DepartmentId { get; set; }
+        public Guid? DepartmentId { get; set; }
+        [JsonIgnore]
         public virtual Department Department { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Enrollment> Enrollments { get; set; }
     }
 }

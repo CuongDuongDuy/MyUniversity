@@ -20,10 +20,6 @@ namespace MyUniversity.Dal.Mappings.EntityFramework
                 .HasForeignKey(t => t.DepartmentId)
                 .WillCascadeOnDelete(false);
 
-            HasMany(e => e.InstructorProfiles)
-                .WithMany(e => e.Courses)
-                .Map(t => t.MapLeftKey("CouseId").MapRightKey("InstructorId").ToTable("CourseInstructor"));
-
             ToTable("Courses");
         }
     }

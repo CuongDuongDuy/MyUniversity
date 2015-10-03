@@ -32,9 +32,6 @@ namespace MyUniversity.ApiStart
             switch (dbFrameworkUse)
             {
                 case AppSettingConstant.DbFrameworkType.Nhibernate:
-                    builder.RegisterType<NHStudentRepository>()
-                          .As<IStudentRepository>()
-                          .InstancePerLifetimeScope();
                     builder.RegisterType<NHStudentProfileRepository>()
                           .As<IStudentProfileRepository>()
                           .InstancePerLifetimeScope();
@@ -48,9 +45,6 @@ namespace MyUniversity.ApiStart
                     break;
 
                 case AppSettingConstant.DbFrameworkType.EntityFramework:
-                    builder.RegisterType<EFStudentRepository>()
-                           .As<IStudentRepository>()
-                           .InstancePerLifetimeScope();
                     builder.RegisterType<EFStudentProfileRepository>()
                            .As<IStudentProfileRepository>()
                            .InstancePerLifetimeScope();

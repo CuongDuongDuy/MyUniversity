@@ -12,6 +12,7 @@ namespace MyUniversity.Dal.Mappings.EntityFramework
 
             Property(t => t.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(t => t.EnrollmentDate).IsRequired();
+            Property(t => t.DepartmentId).IsOptional();
 
             Property(t => t.EffectiveDate).IsRequired();
             Property(t => t.ExpiryDate);
@@ -24,8 +25,8 @@ namespace MyUniversity.Dal.Mappings.EntityFramework
 
             Map(x => x.MapInheritedProperties());
 
-            HasRequired(e => e.Department)
-                .WithMany(e => e.StudentProfiles)
+            HasOptional(t => t.Department)
+                .WithMany(t => t.StudentProfiles)
                 .HasForeignKey(t => t.DepartmentId)
                 .WillCascadeOnDelete(false);
 

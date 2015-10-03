@@ -23,7 +23,8 @@ namespace MyUniversity.Dal.Entities
 
     public enum AuditTrailActionType
     {
-        Added,
-        Modified
+        Add,
+        Modify,
+        Delete
     }
 }

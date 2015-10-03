@@ -88,6 +88,22 @@
     <Compile Include="Migrations\201510011502167_UpdateDepartmentSetDeanIdNullable.Designer.cs">
       <DependentUpon>201510011502167_UpdateDepartmentSetDeanIdNullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510031104425_UpdateStudentInstructorSetExpiryDateNullable.cs" />
+    <Compile Include="Migrations\201510031104425_UpdateStudentInstructorSetExpiryDateNullable.Designer.cs">
+      <DependentUpon>201510031104425_UpdateStudentInstructorSetExpiryDateNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510031240082_UpdateEnrollmentSetMarkNullable.cs" />
+    <Compile Include="Migrations\201510031240082_UpdateEnrollmentSetMarkNullable.Designer.cs">
+      <DependentUpon>201510031240082_UpdateEnrollmentSetMarkNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510031243376_UpdateOfficeAssignment.cs" />
+    <Compile Include="Migrations\201510031243376_UpdateOfficeAssignment.Designer.cs">
+      <DependentUpon>201510031243376_UpdateOfficeAssignment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510031418517_UpdateEnrollment.cs" />
+    <Compile Include="Migrations\201510031418517_UpdateEnrollment.Designer.cs">
+      <DependentUpon>201510031418517_UpdateEnrollment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MyUniversityDbContext.cs" />
     <Compile Include="Mappings\EntityFramework\StudentProfileMapping.cs" />
@@ -105,7 +121,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +138,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510011502167_UpdateDepartmentSetDeanIdNullable.resx">
       <DependentUpon>201510011502167_UpdateDepartmentSetDeanIdNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510031104425_UpdateStudentInstructorSetExpiryDateNullable.resx">
+      <DependentUpon>201510031104425_UpdateStudentInstructorSetExpiryDateNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510031240082_UpdateEnrollmentSetMarkNullable.resx">
+      <DependentUpon>201510031240082_UpdateEnrollmentSetMarkNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510031243376_UpdateOfficeAssignment.resx">
+      <DependentUpon>201510031243376_UpdateOfficeAssignment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510031418517_UpdateEnrollment.resx">
+      <DependentUpon>201510031418517_UpdateEnrollment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

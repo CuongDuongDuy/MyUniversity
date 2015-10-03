@@ -12,10 +12,9 @@ namespace MyUniversity.Dal.Mappings.EntityFramework
 
             Property(t => t.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(t => t.Location).IsRequired().HasMaxLength(250);
-            Property(t => t.OpeningTime).IsRequired().HasMaxLength(20);
-            Property(t => t.ClosedTime).IsRequired().HasMaxLength(20);
-            Property(t => t.Phone).IsRequired().HasMaxLength(20);
-            Property(t => t.DepartmentId).IsRequired();
+            Property(t => t.WorkingHours).IsRequired().HasMaxLength(100);
+            Property(t => t.Phone).IsRequired().HasMaxLength(50);
+            Property(t => t.DepartmentId).IsOptional();
 
             Property(t => t.Deactive);
             Property(t => t.CreatedOn).IsRequired();
@@ -23,7 +22,7 @@ namespace MyUniversity.Dal.Mappings.EntityFramework
             Property(t => t.UpdatedOn);
             Property(t => t.UpdatedBy);
 
-            HasRequired(t => t.Department).WithMany(c => c.OfficeAssignments).HasForeignKey(t => t.DepartmentId).WillCascadeOnDelete(false);
+            HasOptional(t => t.Department).WithMany(c => c.OfficeAssignments).HasForeignKey(t => t.DepartmentId).WillCascadeOnDelete(false);
 
             ToTable("OfficeAssignments");
         }
