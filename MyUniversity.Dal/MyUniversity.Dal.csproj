@@ -64,7 +64,7 @@
     <Compile Include="Entities\Department.cs" />
     <Compile Include="Entities\Enrollment.cs" />
     <Compile Include="Entities\EntityBase.cs" />
-    <Compile Include="Entities\IEnrollmentRepository.cs" />
+    <Compile Include="Repositories\Contracts\IEnrollmentRepository.cs" />
     <Compile Include="Entities\OfficeAssignment.cs" />
     <Compile Include="Entities\Profile.cs" />
     <Compile Include="Entities\StudentProfile.cs" />
@@ -121,6 +121,7 @@
     <Compile Include="Repositories\EntityFramework\BaseRepository.cs" />
     <Compile Include="Repositories\EntityFramework\CourseRepository.cs" />
     <Compile Include="Repositories\EntityFramework\DepartmentRepository.cs" />
+    <Compile Include="Repositories\EntityFramework\EnrollmentRepository.cs" />
     <Compile Include="Repositories\EntityFramework\InstructorProfileRepository.cs" />
     <Compile Include="Repositories\EntityFramework\OfficeAssignmentRepository.cs" />
     <Compile Include="Repositories\EntityFramework\PersonRepository.cs" />
