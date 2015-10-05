@@ -67,16 +67,14 @@ namespace MyUniversity.Dal.Repositories.EntityFramework
         public void Delete(TEntity entity)
         {
             dbSet.Attach(entity);
-            entity.Deactive = true;
-            databaseContext.Entry(entity).State = EntityState.Modified;
+            databaseContext.Entry(entity).State = EntityState.Deleted;
         }
 
         public void Delete(TPrimaryKey id)
         {
             var entity = dbSet.Find(id);
             if (entity == null) return;
-            entity.Deactive = true;
-            databaseContext.Entry(entity).State = EntityState.Modified;
+            databaseContext.Entry(entity).State = EntityState.Deleted;
         }
     }
 }
