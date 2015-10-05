@@ -1,7 +1,7 @@
 ﻿using System;
-using MyUniversity.Dal.Repositories.Contracts;
+using MyUniversity.Dal.Entities;
 
-namespace MyUniversity.Dal.Entities
+namespace MyUniversity.Dal.Repositories.Contracts
 {
     public interface IEnrollmentRepository : IBaseRepository<Enrollment, Guid>
     {
