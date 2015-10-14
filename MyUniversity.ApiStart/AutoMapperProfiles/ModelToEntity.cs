@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using AutoMapper;
 using MyUniversity.Contracts.Models;
 using MyUniversity.Dal.Entities;
+using Profile = AutoMapper.Profile;
 
 namespace MyUniversity.ApiStart.AutoMapperProfiles
 {
@@ -10,11 +11,9 @@ namespace MyUniversity.ApiStart.AutoMapperProfiles
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<StudentModel, Student>();
-            Mapper.CreateMap<Expression<Func<StudentModel, bool>>, Expression<Func<Student, bool>>>();
-            
-            Mapper.CreateMap<StudentProfileModel, AccountProfile>();
-            Mapper.CreateMap<Expression<Func<StudentProfileModel, bool>>, Expression<Func<AccountProfile, bool>>>();
+
+            Mapper.CreateMap<StudentModel, StudentProfile>();
+            Mapper.CreateMap<Expression<Func<StudentModel, bool>>, Expression<Func<StudentProfile, bool>>>();
 
         }
     }

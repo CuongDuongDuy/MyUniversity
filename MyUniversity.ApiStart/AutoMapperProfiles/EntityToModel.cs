@@ -9,7 +9,7 @@ namespace MyUniversity.ApiStart.AutoMapperProfiles
         protected override void Configure()
         {
             Mapper.CreateMap<Student, StudentModel>();
-            Mapper.CreateMap<AccountProfile, StudentProfileModel>();
+            Mapper.CreateMap<AccountProfile, StudentModel>();
         }
     }
 }

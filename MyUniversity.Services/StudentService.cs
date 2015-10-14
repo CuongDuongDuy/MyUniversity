@@ -11,11 +11,11 @@ using MyUniversity.Dal.Repositories.Contracts;
 
 namespace MyUniversity.Services
 {
-    public class StudentService : BaseService<StudentModel, Student, Guid, IStudentRepository>, IStudentService
+    public class StudentService : BaseService<StudentModel, StudentProfile, Guid, IStudentProfileRepository>, IStudentService
     {
         private readonly IStudentProfileRepository studentProfileRepository;
 
-        public StudentService(IStudentRepository studentRepository,
+        public StudentService(IStudentProfileRepository studentRepository,
             IStudentProfileRepository studentProfileRepository,
             IUnitOfWork unitOfWork)
             : base(studentRepository, unitOfWork)
@@ -74,9 +74,6 @@ namespace MyUniversity.Services
 
             var studentProfileModel = viewModel.StudentProfile;
             var studentProfile = Mapper.Map<AccountProfile>(studentProfileModel);
-            studentProfile.CreatedBy = student.CreatedBy;
-            studentProfile.CreatedOn = student.CreatedOn;
-            studentProfile.Deactive = false;
 
             student.Profile = studentProfile;
             Repository.Insert(student);
@@ -114,67 +111,9 @@ namespace MyUniversity.Services
             var viewmodel = new StudentViewModel
             {
                 Student = GetItem(id),
-                StudentProfile = Mapper.Map<StudentProfileModel>(studentProfileRepository.GetById(id))
+                StudentProfile = Mapper.Map<StudentModel>(studentProfileRepository.GetById(id))
             };
             return viewmodel;
-        }
-
-        public void SeedSampleData()
-        {
-            var students = new List<Student>
-            {
-                new Student
-                {
-                    FirstName = "Angela",
-                    LastName = "Phuong Trinh",
-                    DateOfBirth = new DateTime(1988, 09, 30),
-                    CreatedBy = EntityConstant.CreatedBy,
-                    CreatedOn = DateTime.Now,
-                },
-                new Student
-                {
-                    FirstName = "David",
-                    LastName = "Beckham",
-                    DateOfBirth = new DateTime(1952, 01, 15),
-                    CreatedBy = EntityConstant.CreatedBy,
-                    CreatedOn = DateTime.Now,
-                },
-                new Student
-                {
-                    FirstName = "Ha",
-                    LastName = "Tang Thanh",
-                    DateOfBirth = new DateTime(1984, 09, 03),
-                    CreatedBy = EntityConstant.CreatedBy,
-                    CreatedOn = DateTime.Now,
-                },
-                new Student
-                {
-                    FirstName = "Thanh",
-                    LastName = "Tran",
-                    DateOfBirth = new DateTime(1986, 04, 03),
-                    CreatedBy = EntityConstant.CreatedBy,
-                    CreatedOn = DateTime.Now,
-                },
-            };
-
-            Repository.Insert(students);
-            UnitOfWork.Commit();
-
-            var savedStudent = Repository.GetAll();
-            foreach (var student in savedStudent)
-            {
-                student.Profile = new AccountProfile
-                {
-                    AccountLogin = student.FirstName,
-                    AccountPassword = student.LastName,
-                    Deactive = false,
-                    CreatedBy = EntityConstant.CreatedBy,
-                    CreatedOn = DateTime.Now
-                };
-                Repository.Update(student);
-                UnitOfWork.Commit();
-            }
-
         }
         
     }

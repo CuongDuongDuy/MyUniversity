@@ -64,6 +64,12 @@
     <Compile Include="Entities\Department.cs" />
     <Compile Include="Entities\Enrollment.cs" />
     <Compile Include="Entities\EntityBase.cs" />
+    <Compile Include="Mappings\NHibernate\CourseMapping.cs" />
+    <Compile Include="Mappings\NHibernate\DepartmentMapping.cs" />
+    <Compile Include="Mappings\NHibernate\EnrollmentMapping.cs" />
+    <Compile Include="Mappings\NHibernate\InstructorProfileMapping.cs" />
+    <Compile Include="Mappings\NHibernate\OfficeAssignmentMapping.cs" />
+    <Compile Include="Mappings\NHibernate\PersonMapping.cs" />
     <Compile Include="Repositories\Contracts\IEnrollmentRepository.cs" />
     <Compile Include="Entities\OfficeAssignment.cs" />
     <Compile Include="Entities\Profile.cs" />

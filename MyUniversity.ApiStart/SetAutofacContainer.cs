@@ -8,9 +8,9 @@ using MyUniversity.Dal;
 using MyUniversity.Dal.Repositories.Contracts;
 using NHibernate;
 using NHStudentProfileRepository = MyUniversity.Dal.Repositories.NHibernate.StudentProfileRepository;
-using NHStudentRepository = MyUniversity.Dal.Repositories.NHibernate.StudentRepository;
+using NHStudentRepository = MyUniversity.Dal.Repositories.NHibernate.StudentProfileRepository;
 using NHUnitOfWork = MyUniversity.Dal.Repositories.NHibernate.UnitOfWork;
-using EFStudentRepository = MyUniversity.Dal.Repositories.EntityFramework.StudentRepository;
+using EFStudentRepository = MyUniversity.Dal.Repositories.EntityFramework.StudentProfileRepository;
 using EFStudentProfileRepository = MyUniversity.Dal.Repositories.EntityFramework.StudentProfileRepository;
 using EFUnitOfWork = MyUniversity.Dal.Repositories.EntityFramework.UnitOfWork;
 

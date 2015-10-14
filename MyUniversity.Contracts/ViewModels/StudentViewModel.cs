@@ -6,6 +6,5 @@ namespace MyUniversity.Contracts.ViewModels
     {
         public StudentModel Student { get; set; }
 
-        public StudentProfileModel StudentProfile { get; set; }
     }
 }

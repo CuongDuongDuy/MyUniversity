@@ -14,7 +14,6 @@ namespace MyUniversity.Contracts.Services
         void Update(StudentModel model);
         void Delete(Guid id);
         StudentViewModel GetViewModel(Guid id);
-        void SeedSampleData();
         Guid CreateViewModel(StudentViewModel viewModel);
         void UpdateViewModel(Guid id, StudentViewModel viewModel);
     }

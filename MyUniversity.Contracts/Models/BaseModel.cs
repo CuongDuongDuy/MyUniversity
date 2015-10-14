@@ -9,5 +9,6 @@ namespace MyUniversity.Contracts.Models
         public virtual DateTime CreatedOn { get; set; }
         public virtual string UpdatedBy { get; set; }
         public virtual DateTime? UpdatedOn { get; set; }
+        public bool? Deactive { get; set; }
     }
 }
