@@ -7,17 +7,22 @@ namespace MyUniversity.Dal.Mappings.NHibernate
     {
         public StudentProfileMapping()
         {
+            Id(t => t.Id).GeneratedBy.Guid();
+
+            Map(t => t.EnrollmentDate).Not.Nullable();
+            Map(t => t.DepartmentId).Nullable();
+
+            Map(t => t.EffectiveDate).Not.Nullable();
+            Map(t => t.ExpiryDate).Nullable();
+
+            Map(t => t.CreatedBy).Column("CreatedBy").Not.Nullable();
+            Map(t => t.CreatedOn).Column("CreatedOn").Not.Nullable();
+            Map(t => t.UpdatedBy).Column("UpdatedBy").Nullable();
+            Map(t => t.UpdatedOn).Column("UpdatedOn").Nullable();
+            Map(t => t.Deactive).Column("Deactive").Nullable();
+
             Table("StudentProfiles");
             Schema("dbo");
-
-            //Id(x => x.).Column("Guid").GeneratedBy.Foreign("Student");
-            Map(x => x.CreatedBy).Column("CreatedBy").Not.Nullable();
-            Map(x => x.CreatedOn).Column("CreatedOn").Not.Nullable();
-            Map(x => x.UpdatedBy).Column("UpdatedBy").Nullable();
-            Map(x => x.UpdatedOn).Column("UpdatedOn").Nullable();
-            Map(x => x.Deactive).Column("Deactive").Nullable();
-            
-            HasOne(x => x.Person).Constrained();
         }
     }
 }
