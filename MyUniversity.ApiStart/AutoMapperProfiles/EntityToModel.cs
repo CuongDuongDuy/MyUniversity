@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MyUniversity.Contracts.Models;
 using MyUniversity.Dal.Entities;
+using Profile = AutoMapper.Profile;
 
 namespace MyUniversity.ApiStart.AutoMapperProfiles
 {
@@ -8,8 +9,12 @@ namespace MyUniversity.ApiStart.AutoMapperProfiles
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<Student, StudentModel>();
-            Mapper.CreateMap<AccountProfile, StudentModel>();
+            Mapper.CreateMap<StudentProfile, StudentModel>();
+            Mapper.CreateMap<InstructorProfile, InstructorModel>();
+            Mapper.CreateMap<Course, CourseModel>();
+            Mapper.CreateMap<Department, DepartmentModel>();
+            Mapper.CreateMap<Enrollment, EnrollmentModel>();
+            Mapper.CreateMap<OfficeAssignment, OfficeAssignmentModel>();
         }
     }
 }
