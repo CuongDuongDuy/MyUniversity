@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using MyUniversity.Dal.Entities;
 using MyUniversity.Dal.Repositories.Contracts;
+using NHibernate;
 
 namespace MyUniversity.Dal.Repositories.EntityFramework
 {
-    public class BaseRepository<TEntity, TPrimaryKey> : IBaseRepository<TEntity, TPrimaryKey> where TEntity : EntityBase
+    public class BaseRepository<TEntity, TPrimaryKey> : IBaseEfRepository<TEntity, TPrimaryKey> where TEntity : EntityBase
     {
         private readonly MyUniversityDbContext databaseContext;
 
@@ -20,6 +22,10 @@ namespace MyUniversity.Dal.Repositories.EntityFramework
             dbSet = databaseContext.Set<TEntity>();
         }
 
+        public IDbSet<TEntity> DbSet()
+        {
+            return dbSet;
+        }
 
         public TEntity GetById(TPrimaryKey id)
         {
@@ -76,5 +82,12 @@ namespace MyUniversity.Dal.Repositories.EntityFramework
             if (entity == null) return;
             databaseContext.Entry(entity).State = EntityState.Deleted;
         }
+
+        public IQueryable<TEntity> ABC()
+        {
+            return dbSet;
+        }
     }
+
+    
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using MyUniversity.Dal.Entities;
@@ -9,7 +10,7 @@ using NHibernate.Linq;
 
 namespace MyUniversity.Dal.Repositories.NHibernate
 {
-    public class RepositoryBase<TEntity, TPrimaryKey> : IBaseRepository<TEntity, TPrimaryKey> where TEntity : EntityBase
+    public class RepositoryBase<TEntity, TPrimaryKey> : IBaseNhRepository<TEntity, TPrimaryKey> where TEntity : EntityBase
     {
         private readonly ISession session;
 
@@ -67,6 +68,21 @@ namespace MyUniversity.Dal.Repositories.NHibernate
         {
             var entity = session.Load<TEntity>(id);
             session.Delete(entity);
+        }
+
+        public IQueryable<TEntity> ABC()
+        {
+            return session.Query<TEntity>();
+        }
+
+        public IEnumerable<TEntity> Factory()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ISession Session()
+        {
+            return session;
         }
     }
 }

@@ -33,11 +33,11 @@ namespace MyUniversity.ApiStart
             {
                 case AppSettingConstant.DbFrameworkType.Nhibernate:
                     builder.RegisterType<NHStudentProfileRepository>()
-                          .As<IStudentProfileRepository>()
-                          .InstancePerLifetimeScope();
+                        .As<IStudentProfileRepository>()
+                        .InstancePerLifetimeScope();
                     builder.RegisterType<NHUnitOfWork>()
-                           .As<IUnitOfWork>()
-                           .InstancePerLifetimeScope();
+                        .As<IUnitOfWork>()
+                        .InstancePerLifetimeScope();
 
                     builder.Register(x => DatabaseInitialization.GetConfig()
                         .BuildSessionFactory()).As<ISessionFactory>().SingleInstance();
@@ -46,11 +46,11 @@ namespace MyUniversity.ApiStart
 
                 case AppSettingConstant.DbFrameworkType.EntityFramework:
                     builder.RegisterType<EFStudentProfileRepository>()
-                           .As<IStudentProfileRepository>()
-                           .InstancePerLifetimeScope();
+                        .As<IStudentProfileRepository>()
+                        .InstancePerLifetimeScope();
                     builder.RegisterType<EFUnitOfWork>()
-                           .As<IUnitOfWork>()
-                           .InstancePerLifetimeScope();
+                        .As<IUnitOfWork>()
+                        .InstancePerLifetimeScope();
                     builder.RegisterType<MyUniversityDbContext>().InstancePerLifetimeScope();
                     break;
             }

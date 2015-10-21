@@ -7,15 +7,15 @@ using MyUniversity.Dal.Repositories.Contracts;
 
 namespace MyUniversity.Services
 {
-    public abstract class BaseService<TModel, TEntity, TPrimaryKey, TRepository> where TRepository : IBaseRepository<TEntity, TPrimaryKey>
+    public abstract class BaseService<TModel, TEntity, TPrimaryKey, TRepository> where TRepository : IBaseRepository<TEntity, TPrimaryKey> where TEntity : class
     {
         public TRepository Repository { get; set; }
         public IUnitOfWork UnitOfWork { get; set; }
 
         protected BaseService(TRepository repository, IUnitOfWork unitOfWork)
         {
-            this.Repository = repository;
-            this.UnitOfWork = unitOfWork;
+            Repository = repository;
+            UnitOfWork = unitOfWork;
         }
         protected BaseService()
         {
@@ -28,7 +28,7 @@ namespace MyUniversity.Services
         }
         public static IEnumerable<TModel> TranferToModels(IEnumerable<TEntity> entities)
         {
-            var result = entities.Select(x => Mapper.Map<TModel>(x));
+            var result = entities.Select(Mapper.Map<TModel>);
             return result;
         }
         public static Expression<Func<TEntity, bool>> TranferToEntityExpFunc(Expression<Func<TModel, bool>> predicate = null)

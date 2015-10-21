@@ -1,4 +1,8 @@
 ﻿using System;
+using System.CodeDom;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using MyUniversity.Contracts.Models;
 using MyUniversity.Contracts.Services;
 using MyUniversity.Dal.Entities;
@@ -17,6 +21,10 @@ namespace MyUniversity.Services
         {
             this.studentRepository = studentProfileRepository;
         }
-        
+
+        public IEnumerable<StudentModel> GetModel()
+        {
+            return null;
+        }
     }
 }

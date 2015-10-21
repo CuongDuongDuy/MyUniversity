@@ -12,10 +12,8 @@ namespace MyUniversity.Api.Helpers
             {
                 case "EntityFramework":
                     return AppSettingConstant.DbFrameworkType.EntityFramework;
-                    break;
                 case "NHibernate":
                     return AppSettingConstant.DbFrameworkType.Nhibernate;
-                    break;
             }
             return AppSettingConstant.DbFrameworkType.EntityFramework;
         }
