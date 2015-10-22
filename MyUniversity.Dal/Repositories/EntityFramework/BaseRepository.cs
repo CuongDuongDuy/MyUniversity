@@ -83,7 +83,7 @@ namespace MyUniversity.Dal.Repositories.EntityFramework
             databaseContext.Entry(entity).State = EntityState.Deleted;
         }
 
-        public IQueryable<TEntity> ABC()
+        public IQueryable<TEntity> Entity()
         {
             return dbSet;
         }

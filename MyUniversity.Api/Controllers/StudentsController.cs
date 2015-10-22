@@ -19,7 +19,7 @@ namespace MyUniversity.Api.Controllers
         [Route("")]
         public IEnumerable<StudentModel> GetModel()
         {
-            var result = studentService.GetModel();
+            var result = studentService.GetStudentModel();
             return result;
         }
 

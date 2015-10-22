@@ -26,7 +26,7 @@ namespace MyUniversity.Dal.Repositories.Contracts
 
         void Delete(TPrimaryKey id);
 
-        IQueryable<TEntity> ABC();
+        IQueryable<TEntity> Entity();
     }
 
     public interface IBaseEfRepository<TEntity, TPrimaryKey> : IBaseRepository<TEntity, TPrimaryKey> where TEntity : class

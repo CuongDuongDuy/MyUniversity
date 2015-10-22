@@ -9,7 +9,12 @@ namespace MyUniversity.ApiStart.AutoMapperProfiles
     {
         protected override void Configure()
         {
-            Mapper.CreateMap<StudentProfile, StudentModel>();
+            Mapper.CreateMap<StudentProfile, StudentModel>()
+                .ForMember(x => x.IdentityNumber, opt => opt.MapFrom(x => x.Person.IdentityNumber))
+                .ForMember(x => x.FirstName, opt => opt.MapFrom(x => x.Person.FirstName))
+                .ForMember(x => x.LastName, opt => opt.MapFrom(x => x.Person.LastName))
+                .ForMember(x => x.DateOfBirth, opt => opt.MapFrom(x => x.Person.DateOfBirth))
+                .ForMember(x => x.Address, opt => opt.MapFrom(x => x.Person.Address));
             Mapper.CreateMap<InstructorProfile, InstructorModel>();
             Mapper.CreateMap<Course, CourseModel>();
             Mapper.CreateMap<Department, DepartmentModel>();

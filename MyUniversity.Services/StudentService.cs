@@ -22,9 +22,10 @@ namespace MyUniversity.Services
             this.studentRepository = studentProfileRepository;
         }
 
-        public IEnumerable<StudentModel> GetModel()
+        public IEnumerable<StudentModel> GetStudentModel()
         {
-            return null;
+            var result =  TranferToModels(studentRepository.Entity().Include(x => x.Department).ToList());
+            return result;
         }
     }
 }

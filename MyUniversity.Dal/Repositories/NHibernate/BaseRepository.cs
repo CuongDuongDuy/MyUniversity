@@ -70,7 +70,7 @@ namespace MyUniversity.Dal.Repositories.NHibernate
             session.Delete(entity);
         }
 
-        public IQueryable<TEntity> ABC()
+        public IQueryable<TEntity> Entity()
         {
             return session.Query<TEntity>();
         }
