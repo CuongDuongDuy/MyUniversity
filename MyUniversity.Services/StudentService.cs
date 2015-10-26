@@ -3,6 +3,7 @@ using System.CodeDom;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using MyUniversity.Contracts.Models;
 using MyUniversity.Contracts.Services;
 using MyUniversity.Dal.Entities;
@@ -22,9 +23,14 @@ namespace MyUniversity.Services
             this.studentRepository = studentProfileRepository;
         }
 
-        public IEnumerable<StudentModel> GetStudentModel()
+        public IEnumerable<StudentModel> GetStudentModel(IEnumerable<string> includes)
         {
-            var result =  TranferToModels(studentRepository.Entity().Include(x => x.Department).ToList());
+            var students = studentRepository.Entity();
+            if (includes != null)
+            {
+                students = includes.Aggregate(students, (current, include) => current.Include(include));
+            }
+            var result = TranferToModels(students).ToList();
             return result;
         }
     }

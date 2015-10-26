@@ -17,9 +17,9 @@ namespace MyUniversity.Api.Controllers
 
         [HttpGet]
         [Route("")]
-        public IEnumerable<StudentModel> GetModel()
+        public IEnumerable<StudentModel> GetStudentModel()
         {
-            var result = studentService.GetStudentModel();
+            var result = studentService.GetStudentModel(null);
             return result;
         }
 
