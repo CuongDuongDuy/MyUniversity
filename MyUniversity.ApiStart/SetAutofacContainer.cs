@@ -6,6 +6,7 @@ using Autofac;
 using MyUniversity.Contracts.Constants;
 using MyUniversity.Dal;
 using MyUniversity.Dal.Repositories.Contracts;
+using MyUniversity.Dal.Repositories.EntityFramework;
 using NHibernate;
 using NHStudentProfileRepository = MyUniversity.Dal.Repositories.NHibernate.StudentProfileRepository;
 using NHStudentRepository = MyUniversity.Dal.Repositories.NHibernate.StudentProfileRepository;
@@ -51,6 +52,12 @@ namespace MyUniversity.ApiStart
                     builder.RegisterType<EFUnitOfWork>()
                         .As<IUnitOfWork>()
                         .InstancePerLifetimeScope();
+                    builder.RegisterType<CourseRepository>()
+                        .As<ICourseRepository>()
+                        .InstancePerLifetimeScope();
+                    builder.RegisterType<DepartmentRepository>()
+                       .As<IDepartmentRepository>()
+                       .InstancePerLifetimeScope();
                     builder.RegisterType<MyUniversityDbContext>().InstancePerLifetimeScope();
                     break;
             }

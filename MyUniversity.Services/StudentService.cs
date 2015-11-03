@@ -11,19 +11,16 @@ namespace MyUniversity.Services
 {
     public class StudentService : BaseService<StudentModel, StudentProfile, Guid, IStudentProfileRepository>, IStudentService
     {
-        private readonly IStudentProfileRepository studentRepository;
 
-        public StudentService(IStudentProfileRepository studentRepository,
-            IStudentProfileRepository studentProfileRepository,
+        public StudentService(IStudentProfileRepository studentProfileRepository,
             IUnitOfWork unitOfWork)
-            : base(studentRepository, unitOfWork)
+            : base(studentProfileRepository, unitOfWork)
         {
-            this.studentRepository = studentProfileRepository;
         }
 
         public IEnumerable<StudentModel> GetStudentModel(IEnumerable<string> includes)
         {
-            var students = studentRepository.Entity();
+            var students = Repository.Entity();
             if (includes != null)
             {
                 students = includes.Aggregate(students, (current, include) => current.Include(include));
