@@ -20,11 +20,7 @@ namespace MyUniversity.Services
 
         public IEnumerable<StudentModel> GetStudentModel(IEnumerable<string> includes)
         {
-            var students = Repository.Entity();
-            if (includes != null)
-            {
-                students = includes.Aggregate(students, (current, include) => current.Include(include));
-            }
+            var students = Repository.GetAll(includes);
             var result = TranferToModels(students).ToList();
             return result;
         }

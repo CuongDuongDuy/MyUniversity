@@ -20,12 +20,15 @@ namespace MyUniversity.Services
 
         public IEnumerable<DepartmentModel> GetAllDepartments(IEnumerable<string> includes)
         {
-            var departments = Repository.Entity();
-            if (includes != null)
-            {
-                departments = includes.Aggregate(departments, (current, include) => current.Include(include));
-            }
+            var departments = Repository.GetAll(includes);
             var result = TranferToModels(departments).ToList();
+            return result;
+        }
+
+        public DepartmentModel GetById(Guid id)
+        {
+            var department = Repository.GetById(id);
+            var result = TranferToModel(department);
             return result;
         }
     }

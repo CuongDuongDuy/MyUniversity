@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using MyUniversity.Dal.Entities;
 using MyUniversity.Dal.Repositories.Contracts;
-using NHibernate;
 
 namespace MyUniversity.Dal.Repositories.EntityFramework
 {
-    public class BaseRepository<TEntity, TPrimaryKey> : IBaseEfRepository<TEntity, TPrimaryKey> where TEntity : EntityBase
+    public class BaseRepository<TEntity, TPrimaryKey> : IBaseRepository<TEntity, TPrimaryKey> where TEntity : EntityBase
     {
         private readonly MyUniversityDbContext databaseContext;
 
@@ -22,26 +20,29 @@ namespace MyUniversity.Dal.Repositories.EntityFramework
             dbSet = databaseContext.Set<TEntity>();
         }
 
-        public IDbSet<TEntity> DbSet()
-        {
-            return dbSet;
-        }
-
         public TEntity GetById(TPrimaryKey id)
         {
             var entity = dbSet.Find(id);
             return entity;
         }
 
-        public IQueryable<TEntity> GetAll()
+        public IQueryable<TEntity> GetAll(IEnumerable<string> includes)
         {
             var entities = dbSet.AsQueryable();
+            if (includes != null)
+            {
+                entities = includes.Aggregate(entities, (current, include) => current.Include(include));
+            }
             return entities;
         }
 
-        public IQueryable<TEntity> GetItems(Expression<Func<TEntity, bool>> predicate)
+        public IQueryable<TEntity> GetItems(Expression<Func<TEntity, bool>> predicate, IEnumerable<string> includes)
         {
             var entities = dbSet.Where(predicate);
+            if (includes != null)
+            {
+                entities = includes.Aggregate(entities, (current, include) => current.Include(include));
+            }
             return entities;
         }
 
@@ -56,12 +57,6 @@ namespace MyUniversity.Dal.Repositories.EntityFramework
             {
                 dbSet.Add(entity);
             }
-        }
-
-        public IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
-        {
-            var entities = dbSet.Where(predicate);
-            return entities;
         }
 
         public void Update(TEntity entity)
@@ -82,12 +77,6 @@ namespace MyUniversity.Dal.Repositories.EntityFramework
             if (entity == null) return;
             databaseContext.Entry(entity).State = EntityState.Deleted;
         }
-
-        public IQueryable<TEntity> Entity()
-        {
-            return dbSet;
-        }
     }
-
     
 }

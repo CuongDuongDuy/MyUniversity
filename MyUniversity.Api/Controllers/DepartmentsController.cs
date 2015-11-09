@@ -15,6 +15,15 @@ namespace MyUniversity.Api.Controllers
         }
 
         [HttpGet]
+        [Route("")]
+        public IEnumerable<DepartmentModel> GetAll()
+        {
+            var result = departmentService.GetAllDepartments(null);
+            return result;
+        }
+
+        [HttpGet]
+        [Route("courses")]
         public IEnumerable<DepartmentModel> GetAllPlusCourses()
         {
             var result = departmentService.GetAllDepartments(new[] { "Courses" });

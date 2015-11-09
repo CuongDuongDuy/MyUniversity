@@ -10,7 +10,7 @@ using NHibernate.Linq;
 
 namespace MyUniversity.Dal.Repositories.NHibernate
 {
-    public class RepositoryBase<TEntity, TPrimaryKey> : IBaseNhRepository<TEntity, TPrimaryKey> where TEntity : EntityBase
+    public class RepositoryBase<TEntity, TPrimaryKey> : IBaseRepository<TEntity, TPrimaryKey> where TEntity : EntityBase
     {
         private readonly ISession session;
 
@@ -24,20 +24,32 @@ namespace MyUniversity.Dal.Repositories.NHibernate
             return session.Get<TEntity>(id);
         }
 
-        public IQueryable<TEntity> GetAll()
+
+        public IQueryable<TEntity> GetItems(Expression<Func<TEntity, bool>> predicate, IEnumerable<string> includes)
         {
-            return session.Query<TEntity>();
+            var result = session.Query<TEntity>().Where(predicate);
+            if (includes != null)
+            {
+                result = includes.Aggregate(result, (current, include) => current.Include(include));
+            }
+            return result;
         }
 
-        public IQueryable<TEntity> GetItems(Expression<Func<TEntity, bool>> predicate)
+        public IQueryable<TEntity> GetAll(IEnumerable<string> includes)
         {
-            return Find(predicate);
+            var result = session.Query<TEntity>();
+            if (includes != null)
+            {
+                result = includes.Aggregate(result, (current, include) => current.Include(include));
+            }
+            return result;
         }
 
         public void Insert(TEntity entity)
         {
             session.Save(entity);
         }
+
         public void Insert(IEnumerable<TEntity> entities)
         {
             if (entities == null || !entities.Any())
@@ -48,10 +60,6 @@ namespace MyUniversity.Dal.Repositories.NHibernate
             {
                 session.Save(entity);
             }
-        }
-        public IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
-        {
-            return predicate == null ? session.Query<TEntity>() : session.Query<TEntity>().Where(predicate);
         }
 
         public void Update(TEntity entity)
@@ -68,21 +76,6 @@ namespace MyUniversity.Dal.Repositories.NHibernate
         {
             var entity = session.Load<TEntity>(id);
             session.Delete(entity);
-        }
-
-        public IQueryable<TEntity> Entity()
-        {
-            return session.Query<TEntity>();
-        }
-
-        public IEnumerable<TEntity> Factory()
-        {
-            throw new NotImplementedException();
-        }
-
-        public ISession Session()
-        {
-            return session;
         }
     }
 }
