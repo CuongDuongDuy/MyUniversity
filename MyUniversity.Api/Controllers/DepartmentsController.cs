@@ -18,15 +18,15 @@ namespace MyUniversity.Api.Controllers
         [Route("")]
         public IEnumerable<DepartmentModel> GetAll()
         {
-            var result = departmentService.GetAllDepartments(null);
+            var result = departmentService.GetAllDepartments();
             return result;
         }
 
         [HttpGet]
-        [Route("courses")]
-        public IEnumerable<DepartmentModel> GetAllPlusCourses()
+        [Route("{includes:regex([A-Za-z0-9\\-]+)}")]
+        public IEnumerable<DepartmentModel> GetAll(string includes)
         {
-            var result = departmentService.GetAllDepartments(new[] { "Courses" });
+            var result = departmentService.GetAllDepartments(includes != null ? includes.Split('-') : null);
             return result;
         }
     }

@@ -1,5 +1,7 @@
-﻿using System.Web;
+﻿using System.Net.Http.Formatting;
+using System.Web;
 using System.Web.Http;
+using Newtonsoft.Json;
 
 namespace MyUniversity.Api
 {
@@ -7,11 +9,12 @@ namespace MyUniversity.Api
     {
         protected void Application_Start()
         {
-            var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
-            json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.All;
-
             GlobalConfiguration.Configure(WebApiConfig.Register);
             Bootstrapper.Run();
+
+            GlobalConfiguration.Configuration.Formatters.JsonFormatter.MediaTypeMappings.Add(new QueryStringMapping("json", "true", "application/json"));
+
+            GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
         }
     }
 }

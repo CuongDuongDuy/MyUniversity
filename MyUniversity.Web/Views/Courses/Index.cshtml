@@ -1,5 +1,4 @@
-﻿@model IEnumerable<MyUniversity.Contracts.Models.CourseModel>
-
+﻿@model MyUniversity.Contracts.ViewModels.CourseIndexViewModel
 @{
     ViewBag.Title = "Courses";
 }
@@ -21,13 +20,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Id)
+            Id
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            Title
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Credits)
+            Credits
         </th>
         <th>
             Department
@@ -35,7 +34,7 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.Course)
     {
         <tr>
             <td>

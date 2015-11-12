@@ -6,6 +6,6 @@ namespace MyUniversity.Contracts.Services
 {
     public interface IDepartmentService : IBaseService<DepartmentModel, Guid>
     {
-        IEnumerable<DepartmentModel> GetAllDepartments(IEnumerable<string> includes);
+        IEnumerable<DepartmentModel> GetAllDepartments(IEnumerable<string> includes = null);
     }
 }

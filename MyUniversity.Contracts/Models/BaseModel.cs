@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace MyUniversity.Contracts.Models
 {
     [DataContract(IsReference = true)]
+    [JsonObject(IsReference = false)]
     public class BaseModel
     {
-        [DataMember]
         public Guid Id { get; set; }
         [DataMember]
         public string CreatedBy { get; set; }
