@@ -15,27 +15,19 @@ namespace MyUniversity.Api
             var config = GlobalConfiguration.Configuration;
 
             var dbFrameworkUse = AppSettingHelper.GetDbFrameworkType();
-            var attachedAssembly = Assembly.Load("MyUniversity.ApiStart");
+            ApiStart.AutoMapperConfig.Configure();
+          
 
             // Register for autofac
-            var assemblyType = attachedAssembly.GetType("MyUniversity.ApiStart.SetAutofacContainer");
-            var method = assemblyType.GetMethod("GetBuilder");
-            var autofacInstance = Activator.CreateInstance(assemblyType);
-            var builder = method.Invoke(autofacInstance, new object[] { dbFrameworkUse }) as ContainerBuilder;
+            var builder = ApiStart.SetAutofacContainer.GetBuilder(dbFrameworkUse);
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
             var container = builder.Build();
-            if (builder != null) config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+            config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 
-            assemblyType = attachedAssembly.GetType("MyUniversity.ApiStart.DatabaseInitialization");
-            method = assemblyType.GetMethod("Run");
-            var dbInstance = Activator.CreateInstance(assemblyType);
-            method.Invoke(dbInstance, new object[] { dbFrameworkUse });
+            ApiStart.DatabaseInitialization.Run(dbFrameworkUse);
 
             // Config for Auto Mapper
-            assemblyType = attachedAssembly.GetType("MyUniversity.ApiStart.AutoMapperConfig");
-            method = assemblyType.GetMethod("Configure");
-            var autoMapperInstance = Activator.CreateInstance(assemblyType);
-            method.Invoke(autoMapperInstance, null);
+            ApiStart.AutoMapperConfig.Configure();
 
         }
     }
