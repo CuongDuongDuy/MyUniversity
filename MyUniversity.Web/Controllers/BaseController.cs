@@ -13,6 +13,7 @@ namespace MyUniversity.Web.Controllers
         {
             Client = new HttpClient {BaseAddress = new Uri(WebConfigurationManager.AppSettings.Get("ApiBaseAddress"))};
             Client.DefaultRequestHeaders.Accept.Clear();
+            Client.DefaultRequestHeaders.Add("contentType", "application/xml; charset=utf-8");
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
         }
 

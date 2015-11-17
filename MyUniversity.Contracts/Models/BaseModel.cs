@@ -8,6 +8,7 @@ namespace MyUniversity.Contracts.Models
     [JsonObject(IsReference = false)]
     public class BaseModel
     {
+        [DataMember]
         public Guid Id { get; set; }
         [DataMember]
         public string CreatedBy { get; set; }
