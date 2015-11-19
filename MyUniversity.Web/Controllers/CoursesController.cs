@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using MyUniversity.Contracts.Models;
@@ -13,20 +12,15 @@ namespace MyUniversity.Web.Controllers
     {
         public async Task<ViewResult> Index(Guid? selectedDepartment)
         {
-            var response = await Client.GetAsync("api/courses/department");
-            var courses = response.IsSuccessStatusCode
-                ? await response.Content.ReadAsAsync<List<CourseModel>>()
-                : new List<CourseModel>();
+            var task1 = GetHttpResponMessageResultAsyc<List<CourseModel>>("api/courses/department");
+            var task2 = GetHttpResponMessageResultAsyc<List<DepartmentModel>>("api/departments");
 
-            response = await Client.GetAsync("api/departments");
-            var departments = response.IsSuccessStatusCode
-                ? await response.Content.ReadAsAsync<List<DepartmentModel>>()
-                : new List<DepartmentModel>();
+            var courses = await task1;
+            var departments = await task2;
+
             ViewBag.SelectedDepartment = new SelectList(departments, "Id", "Name", selectedDepartment);
 
             var selectedDepartmentId = selectedDepartment.GetValueOrDefault();
-
-
             var viewmodel = new CourseIndexViewModel
             {
                 Course = courses.Where(c => !selectedDepartment.HasValue || c.Department.Id == selectedDepartmentId)
@@ -35,5 +29,7 @@ namespace MyUniversity.Web.Controllers
 
             return View(viewmodel);
         }
+
+
     }
 }

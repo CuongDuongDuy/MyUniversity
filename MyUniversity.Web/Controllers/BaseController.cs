@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web.Configuration;
 using System.Web.Mvc;
 
@@ -15,6 +16,15 @@ namespace MyUniversity.Web.Controllers
             Client.DefaultRequestHeaders.Accept.Clear();
             Client.DefaultRequestHeaders.Add("contentType", "application/xml; charset=utf-8");
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
+        }
+
+        public async Task<TResult> GetHttpResponMessageResultAsyc<TResult>(string requestUri) where TResult : new()
+        {
+            var response = await Client.GetAsync(requestUri);
+            var result = response.IsSuccessStatusCode
+                ? await response.Content.ReadAsAsync<TResult>()
+                : new TResult();
+            return result;
         }
 
     }
