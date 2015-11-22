@@ -9,5 +9,8 @@ namespace MyUniversity.Dal.Repositories.EntityFramework
 {
     public class EnrollmentRepository : BaseRepository<Enrollment, Guid>, IEnrollmentRepository
     {
+        public EnrollmentRepository(MyUniversityDbContext dbContext) : base(dbContext)
+        {
+        }
     }
 }

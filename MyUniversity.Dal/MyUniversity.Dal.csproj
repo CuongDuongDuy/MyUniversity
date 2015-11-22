@@ -142,12 +142,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyUniversity.Contracts\MyUniversity.Contracts.csproj">
-      <Project>{BCB4DDFD-F7D7-4187-AC3F-63AF6ABEEFD1}</Project>
-      <Name>MyUniversity.Contracts</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Migrations\201509291520392_InitialCreate.resx">
       <DependentUpon>201509291520392_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
@@ -169,6 +163,12 @@
     <EmbeddedResource Include="Migrations\201510031418517_UpdateEnrollment.resx">
       <DependentUpon>201510031418517_UpdateEnrollment.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyUniversity.Contracts\MyUniversity.Contracts.csproj">
+      <Project>{bcb4ddfd-f7d7-4187-ac3f-63af6abeefd1}</Project>
+      <Name>MyUniversity.Contracts</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -9,5 +9,8 @@ namespace MyUniversity.Dal.Repositories.EntityFramework
 {
     public class OfficeAssignmentRepository : BaseRepository<OfficeAssignment, Guid>, IOfficeAssignmentRepository
     {
+        public OfficeAssignmentRepository(MyUniversityDbContext dbContext) : base(dbContext)
+        {
+        }
     }
 }

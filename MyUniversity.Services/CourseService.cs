@@ -47,5 +47,14 @@ namespace MyUniversity.Services
             var result = TranferToModels(courses);
             return result;
         }
+
+        public Guid Create(CourseModel courseModel)
+        {
+            var course = TranferToEntity(courseModel);
+            Repository.Insert(course);
+            UnitOfWork.Commit();
+            var result = course.Id;
+            return result;
+        }
     }
 }

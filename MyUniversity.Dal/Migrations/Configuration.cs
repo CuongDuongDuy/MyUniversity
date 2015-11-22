@@ -27,6 +27,11 @@ namespace MyUniversity.Dal.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+            //InitialDatabase(context);
+        }
+
+        public static void InitialDatabase(MyUniversityDbContext context)
+        {
             var departments = new List<Department>
             {
                 new Department

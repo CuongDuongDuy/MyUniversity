@@ -14,9 +14,9 @@ namespace MyUniversity.Dal.Repositories.EntityFramework
 
         private readonly IDbSet<TEntity> dbSet; 
 
-        public BaseRepository()
+        public BaseRepository(MyUniversityDbContext dbContext)
         {
-            databaseContext = new MyUniversityDbContext();
+            databaseContext = dbContext;
             dbSet = databaseContext.Set<TEntity>();
         }
 

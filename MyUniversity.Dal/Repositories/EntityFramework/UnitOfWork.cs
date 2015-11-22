@@ -7,9 +7,9 @@ namespace MyUniversity.Dal.Repositories.EntityFramework
     {
         private readonly MyUniversityDbContext myUniversityDbContext;
         private bool disposed = false;
-        public UnitOfWork()
+        public UnitOfWork(MyUniversityDbContext dbContext)
         {
-            myUniversityDbContext = new MyUniversityDbContext();
+            myUniversityDbContext = dbContext;
         }
 
         public int Commit()

@@ -6,5 +6,8 @@ namespace MyUniversity.Dal.Repositories.EntityFramework
 {
     public class InstructorProfileRepository : BaseRepository<InstructorProfile, Guid>, IInstructorProfileRepository
     {
+        public InstructorProfileRepository(MyUniversityDbContext dbContext) : base(dbContext)
+        {
+        }
     }
 }

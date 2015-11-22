@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MyUniversity.Contracts.Models
 {
@@ -7,6 +8,7 @@ namespace MyUniversity.Contracts.Models
         public string Title { get; set; }
         public double Credits { get; set; }
         public DepartmentModel Department { get; set; }
+        public Guid DepartmentId { get; set; }
         public IEnumerable<EnrollmentModel> Enrollments { get; set; }
     }
 }

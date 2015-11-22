@@ -10,13 +10,14 @@ namespace MyUniversity.Web.Controllers
 {
     public class CoursesController : BaseController
     {
-        public async Task<ViewResult> Index(Guid? selectedDepartment)
+        [HttpGet]
+        public async Task<ActionResult> Index(Guid? selectedDepartment)
         {
-            var task1 = GetHttpResponMessageResultAsyc<List<CourseModel>>("api/courses/department");
-            var task2 = GetHttpResponMessageResultAsyc<List<DepartmentModel>>("api/departments");
+            var getCoursesTask = GetHttpResponMessageResultAsyc<List<CourseModel>>("api/courses/department");
+            var getDepartmentsTask = GetHttpResponMessageResultAsyc<List<DepartmentModel>>("api/departments");
 
-            var courses = await task1;
-            var departments = await task2;
+            var courses = await getCoursesTask;
+            var departments = await getDepartmentsTask;
 
             ViewBag.SelectedDepartment = new SelectList(departments, "Id", "Name", selectedDepartment);
 
@@ -30,6 +31,31 @@ namespace MyUniversity.Web.Controllers
             return View(viewmodel);
         }
 
+        [HttpGet]
 
+        public async Task<ActionResult> Create()
+        {
+            var getDepartmentsTask = GetHttpResponMessageResultAsyc<List<DepartmentModel>>("api/departments");
+
+            var departments = await getDepartmentsTask;
+            ViewBag.DepartmentId = new SelectList(departments, "Id", "Name");
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Create(CourseModel course)
+        {
+            if (!ModelState.IsValid) return RedirectToAction("BadRequest", "Error");
+            var guid = await PostJsonAsyc("api/courses", course);
+            return RedirectToAction("Details", "Courses", new { id = guid });
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Details(Guid id)
+        {
+            var requestUri = string.Format("api/courses/{0}/department", id);
+            var course = await GetHttpResponMessageResultAsyc<CourseModel>(requestUri);
+            return View(course);
+        }
     }
 }

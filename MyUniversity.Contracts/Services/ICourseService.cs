@@ -9,5 +9,6 @@ namespace MyUniversity.Contracts.Services
         IEnumerable<CourseModel> GetAllCourses(IEnumerable<string> includes = null);
         CourseModel GetById(Guid id, IEnumerable<string> includes = null);
         IEnumerable<CourseModel> GetCoursesByName(string nameSearch, IEnumerable<string> includes = null);
+        Guid Create(CourseModel courseModel);
     }
 }
