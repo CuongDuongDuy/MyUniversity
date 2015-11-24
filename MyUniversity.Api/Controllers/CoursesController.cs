@@ -35,7 +35,7 @@ namespace MyUniversity.Api.Controllers
         }
 
         [HttpGet]
-        [Route("{id:guid}")]
+        [Route("id/{id:guid}")]
         public CourseModel GetById(Guid id)
         {
             var result = courseService.GetById(id);
@@ -43,7 +43,7 @@ namespace MyUniversity.Api.Controllers
         }
 
         [HttpGet]
-        [Route("{id:guid}/{includes:regex([A-Za-z0-9\\-]+)}")]
+        [Route("id/{id:guid}/{includes:regex([A-Za-z0-9\\-]+)}")]
         public CourseModel GetById(Guid id, string includes)
         {
             var result = courseService.GetById(id, includes != null ? includes.Split('-') : null);
