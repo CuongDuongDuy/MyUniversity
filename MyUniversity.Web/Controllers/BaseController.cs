@@ -20,12 +20,12 @@ namespace MyUniversity.Web.Controllers
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async Task<TResult> GetHttpResponMessageResultAsyc<TResult>(string requestUri) where TResult : new()
+        public async Task<TResult> GetHttpResponMessageResultAsyc<TResult>(string requestUri)
         {
             var response = await Client.GetAsync(requestUri);
             var result = response.IsSuccessStatusCode
                 ? await response.Content.ReadAsAsync<TResult>()
-                : new TResult();
+                : default(TResult);
             return result;
         }
 
@@ -37,6 +37,16 @@ namespace MyUniversity.Web.Controllers
                 return response.Content.ReadAsStringAsync().Result;
             }
             throw new HttpException((int) response.StatusCode, "Error");
+        }
+
+        public async Task<string> PutJsonAsyc(string requestUri, object value)
+        {
+            var response = await Client.PutAsJsonAsync(requestUri, value);
+            if (response.IsSuccessStatusCode)
+            {
+                return response.Content.ReadAsStringAsync().Result;
+            }
+            throw new HttpException((int)response.StatusCode, "Error");
         }
     }
 }

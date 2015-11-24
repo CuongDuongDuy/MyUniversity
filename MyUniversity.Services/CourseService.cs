@@ -56,5 +56,11 @@ namespace MyUniversity.Services
             var result = course.Id;
             return result;
         }
+
+        public bool Update(Guid id, CourseModel coureModel)
+        {
+            var courseToUpdate = Repository.GetById(id);
+            courseToUpdate.
+        }
     }
 }

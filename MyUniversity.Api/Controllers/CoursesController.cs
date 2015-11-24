@@ -87,5 +87,27 @@ namespace MyUniversity.Api.Controllers
             }
             return result;
         }
+
+        [HttpPut]
+        [Route("{id:guid}")]
+        public HttpResponseMessage Edit(Guid id, CourseModel coureModel)
+        {
+            var result = new HttpResponseMessage();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var isSuccessful = courseService.Update(id, coureModel);
+                    result.StatusCode = isSuccessful? HttpStatusCode.Accepted: HttpStatusCode.NotModified;
+                    result.Content = new StringContent(id.ToString());
+                }
+                catch
+                {
+                    result.StatusCode = HttpStatusCode.BadRequest;
+                }
+
+            }
+            return result;
+        }
     }
 }
