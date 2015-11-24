@@ -10,6 +10,6 @@ namespace MyUniversity.Contracts.Services
         CourseModel GetById(Guid id, IEnumerable<string> includes = null);
         IEnumerable<CourseModel> GetCoursesByName(string nameSearch, IEnumerable<string> includes = null);
         Guid Create(CourseModel courseModel);
-        bool Update(Guid id, CourseModel coureModel);
+        void Update(Guid id, CourseModel coureModel);
     }
 }

@@ -57,10 +57,14 @@ namespace MyUniversity.Services
             return result;
         }
 
-        public bool Update(Guid id, CourseModel coureModel)
+        public void Update(Guid id, CourseModel coureModel)
         {
             var courseToUpdate = Repository.GetById(id);
-            courseToUpdate.
+            courseToUpdate.Title = coureModel.Title;
+            courseToUpdate.Credits = coureModel.Credits;
+            courseToUpdate.DepartmentId = coureModel.DepartmentId;
+            Repository.Update(courseToUpdate);
+            UnitOfWork.Commit();
         }
     }
 }

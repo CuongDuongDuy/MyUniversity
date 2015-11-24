@@ -97,15 +97,14 @@ namespace MyUniversity.Api.Controllers
             {
                 try
                 {
-                    var isSuccessful = courseService.Update(id, coureModel);
-                    result.StatusCode = isSuccessful? HttpStatusCode.Accepted: HttpStatusCode.NotModified;
+                    courseService.Update(id, coureModel);
+                    result.StatusCode = HttpStatusCode.Accepted;
                     result.Content = new StringContent(id.ToString());
                 }
                 catch
                 {
                     result.StatusCode = HttpStatusCode.BadRequest;
                 }
-
             }
             return result;
         }

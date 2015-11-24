@@ -65,7 +65,7 @@ namespace MyUniversity.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> Edit(Guid id)
         {
-            var requestUri = string.Format("api/courses/{0}", id);
+            var requestUri = string.Format("api/courses/{0}/department", id);
             var course = await GetHttpResponMessageResultAsyc<CourseModel>(requestUri);
             if (course == null) return HttpNotFound();
             var departments = await GetHttpResponMessageResultAsyc<List<DepartmentModel>>("api/departments");
