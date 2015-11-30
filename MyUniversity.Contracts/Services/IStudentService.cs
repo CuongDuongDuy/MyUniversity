@@ -6,6 +6,6 @@ namespace MyUniversity.Contracts.Services
 {
     public interface IStudentService : IBaseService<StudentModel, Guid>
     {
-        IEnumerable<StudentModel> GetStudentModel(IEnumerable<string> includes);
+        IEnumerable<StudentModel> GetStudents(IEnumerable<string> includes);
     }
 }

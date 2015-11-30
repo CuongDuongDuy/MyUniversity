@@ -18,11 +18,12 @@ namespace MyUniversity.Services
         {
         }
 
-        public IEnumerable<StudentModel> GetStudentModel(IEnumerable<string> includes)
+        public IEnumerable<StudentModel> GetStudents(IEnumerable<string> includes)
         {
             var students = Repository.GetAll(includes);
             var result = TranferToModels(students).ToList();
             return result;
         }
+
     }
 }

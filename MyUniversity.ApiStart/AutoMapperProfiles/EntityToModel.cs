@@ -15,6 +15,7 @@ namespace MyUniversity.ApiStart.AutoMapperProfiles
                 .ForMember(x => x.LastName, opt => opt.MapFrom(x => x.Person.LastName))
                 .ForMember(x => x.DateOfBirth, opt => opt.MapFrom(x => x.Person.DateOfBirth))
                 .ForMember(x => x.Address, opt => opt.MapFrom(x => x.Person.Address))
+                .ForMember(x => x.Department, opt => opt.MapFrom(x => x.Department))
                 .ForMember(x => x.Enrollments, opt => opt.MapFrom(x => x.Enrollments));
 
             Mapper.CreateMap<InstructorProfile, InstructorModel>();
