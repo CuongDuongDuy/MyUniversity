@@ -20,10 +20,19 @@ namespace MyUniversity.Services
 
         public IEnumerable<StudentModel> GetStudents(IEnumerable<string> includes)
         {
-            var students = Repository.GetAll(includes);
+            var incluesList = includes == null ? new List<string>() : includes.ToList();
+            if (!incluesList.Contains("Person"))
+            {
+                incluesList.Add("Person");
+            }
+            var students = Repository.GetAll(incluesList);
             var result = TranferToModels(students).ToList();
             return result;
         }
 
+        public StudentModel GetById(Guid key)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

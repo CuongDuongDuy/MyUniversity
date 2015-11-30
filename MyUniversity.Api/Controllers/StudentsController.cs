@@ -50,9 +50,12 @@ namespace MyUniversity.Api.Controllers
             {
                 return BadRequest(ex.Message);
             }
-
-            // return Ok<StudentModel>(studentModel);
-            return StatusCode(HttpStatusCode.NotImplemented);
+            var student = studentService.GetById(key);
+            if (student == null)
+            {
+                return NotFound();
+            }
+            return Ok(student);
         }
 
         // PUT: odata/Students(5)
