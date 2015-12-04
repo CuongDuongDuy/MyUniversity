@@ -3,6 +3,7 @@ using System.Web.Http;
 using System.Web.Http.OData.Builder;
 using System.Web.Http.OData.Extensions;
 using MyUniversity.Contracts.Models;
+using MyUniversity.Dal.Entities;
 
 namespace MyUniversity.Api
 {
@@ -22,9 +23,10 @@ namespace MyUniversity.Api
                 );
 
             var builder = new ODataConventionModelBuilder();
-            builder.EntitySet<StudentModel>("Students");
-            builder.EntitySet<DepartmentModel>("Departments");
-            builder.EntitySet<EnrollmentModel>("Enrollments");
+            builder.EntitySet<StudentProfile>("Students");
+            builder.EntitySet<Person>("Persons");
+            builder.EntitySet<Department>("Departments");
+            builder.EntitySet<Enrollment>("Enrollments");
             config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
 
         }

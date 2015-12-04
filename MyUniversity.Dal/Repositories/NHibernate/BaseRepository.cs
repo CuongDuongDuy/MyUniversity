@@ -21,6 +21,7 @@ namespace MyUniversity.Dal.Repositories.NHibernate
 
         public TEntity GetById(TPrimaryKey id)
         {
+            session.
             return session.Get<TEntity>(id);
         }
 

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MyUniversity.Contracts.Models;
 using MyUniversity.Contracts.Services;
 using MyUniversity.Dal.Entities;
@@ -33,6 +35,12 @@ namespace MyUniversity.Services
         public StudentModel GetById(Guid key)
         {
             throw new NotImplementedException();
+        }
+
+        public IQueryable<StudentModel> GetAsQueryable()
+        {
+            var result = Repository.GetAll(null).Project().To<StudentModel>();
+            return result;
         }
     }
 }
