@@ -9,7 +9,7 @@ using MyUniversity.Contracts.Services;
 namespace MyUniversity.Api.Controllers
 {
     [RoutePrefix("api/courses")]
-    public class CoursesController : ApiController
+    public class CoursesController : BaseController
     {
         private readonly ICourseService courseService;
 
@@ -22,31 +22,23 @@ namespace MyUniversity.Api.Controllers
         [Route("")]
         public IEnumerable<CourseModel> GetAll()
         {
-            var result = courseService.GetAllCourses();
+            var result = courseService.GetAllCourses(QueryExpand());
             return result;
         }
 
-        [HttpGet]
-        [Route("{includes:regex([A-Za-z0-9\\-]+)}")]
-        public IEnumerable<CourseModel> GetAll(string includes)
-        {
-            var result = courseService.GetAllCourses(includes != null ? includes.Split('-') : null);
-            return result;
-        }
+        //[HttpGet]
+        //[Route("{includes:regex([A-Za-z0-9\\-]+)}")]
+        //public IEnumerable<CourseModel> GetAll(string includes)
+        //{
+        //    var result = courseService.GetAllCourses(includes != null ? includes.Split('-') : null);
+        //    return result;
+        //}
 
         [HttpGet]
-        [Route("id/{id:guid}")]
+        [Route("{id:guid}")]
         public CourseModel GetById(Guid id)
         {
-            var result = courseService.GetById(id);
-            return result;
-        }
-
-        [HttpGet]
-        [Route("id/{id:guid}/{includes:regex([A-Za-z0-9\\-]+)}")]
-        public CourseModel GetById(Guid id, string includes)
-        {
-            var result = courseService.GetById(id, includes != null ? includes.Split('-') : null);
+            var result = courseService.GetById(id, QueryExpand());
             return result;
         }
 
@@ -54,17 +46,17 @@ namespace MyUniversity.Api.Controllers
         [Route("searchname/{nameSearch:regex([A-Za-z0-9]+)}")]
         public IEnumerable<CourseModel> GetBySearchName(string nameSearch)
         {
-            var result = courseService.GetCoursesByName(nameSearch);
+            var result = courseService.GetCoursesByName(nameSearch, QueryExpand());
             return result;
         }
 
-        [HttpGet]
-        [Route("searchname/{nameSearch:regex([A-Za-z0-9]+)}/{includes:regex([A-Za-z0-9\\-])}")]
-        public IEnumerable<CourseModel> GetBySearchName(string nameSearch, string includes)
-        {
-            var result = courseService.GetCoursesByName(nameSearch, includes != null ? includes.Split('-') : null);
-            return result;
-        }
+        //[HttpGet]
+        //[Route("searchname/{nameSearch:regex([A-Za-z0-9]+)}/{includes:regex([A-Za-z0-9\\-])}")]
+        //public IEnumerable<CourseModel> GetBySearchName(string nameSearch, string includes)
+        //{
+        //    var result = courseService.GetCoursesByName(nameSearch, includes != null ? includes.Split('-') : null);
+        //    return result;
+        //}
 
         [HttpPost]
         [Route("")]

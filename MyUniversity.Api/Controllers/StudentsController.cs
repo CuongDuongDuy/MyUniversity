@@ -8,8 +8,7 @@ using System.Web.Http.OData.Query;
 using Microsoft.Data.OData;
 using MyUniversity.Contracts.Models;
 using MyUniversity.Contracts.Services;
-using MyUniversity.Dal;
-using MyUniversity.Dal.Entities;
+
 
 namespace MyUniversity.Api.Controllers
 {
@@ -26,7 +25,7 @@ namespace MyUniversity.Api.Controllers
         }
 
         [EnableQuery]
-        public IHttpActionResult GetStudents(ODataQueryOptions<StudentProfile> queryOptions)
+        public IHttpActionResult GetStudents(ODataQueryOptions<StudentModel> queryOptions)
         {
             try
             {
@@ -36,9 +35,7 @@ namespace MyUniversity.Api.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            var dbContext = new MyUniversityDbContext();
-            var students = dbContext.StudentProfiles;
-            queryOptions.ApplyTo()
+            var students = studentService.GetStudents(null);
             return Ok(students);
         }
 
