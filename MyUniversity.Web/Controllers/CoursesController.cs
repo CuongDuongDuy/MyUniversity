@@ -15,7 +15,7 @@ namespace MyUniversity.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> Index(Guid? selectedDepartment)
         {
-            var getCoursesTask = GetHttpResponMessageResultAsyc<List<CourseModel>>("api/courses/department");
+            var getCoursesTask = GetHttpResponMessageResultAsyc<List<CourseModel>>("api/courses", "department");
             var getDepartmentsTask = GetHttpResponMessageResultAsyc<List<DepartmentModel>>("api/departments");
 
             var courses = await getCoursesTask;
@@ -34,7 +34,6 @@ namespace MyUniversity.Web.Controllers
         }
 
         [HttpGet]
-
         public async Task<ActionResult> Create()
         {
             var getDepartmentsTask = GetHttpResponMessageResultAsyc<List<DepartmentModel>>("api/departments");
@@ -56,8 +55,8 @@ namespace MyUniversity.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> Details(Guid id)
         {
-            var requestUri = string.Format("api/courses/id/{0}/department", id);
-            var course = await GetHttpResponMessageResultAsyc<CourseModel>(requestUri);
+            var requestUri = string.Format("api/courses/{0}", id);
+            var course = await GetHttpResponMessageResultAsyc<CourseModel>(requestUri, "department");
             if (course == null) return HttpNotFound();
             return View(course);
         }
@@ -65,8 +64,8 @@ namespace MyUniversity.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> Edit(Guid id)
         {
-            var requestUri = string.Format("api/courses/id/{0}/department", id);
-            var course = await GetHttpResponMessageResultAsyc<CourseModel>(requestUri);
+            var requestUri = string.Format("api/courses/{0}", id);
+            var course = await GetHttpResponMessageResultAsyc<CourseModel>(requestUri,"department");
             if (course == null) return HttpNotFound();
             var departments = await GetHttpResponMessageResultAsyc<List<DepartmentModel>>("api/departments");
             ViewBag.DepartmentId = new SelectList(departments, "Id", "Name", course.DepartmentId);
@@ -77,7 +76,7 @@ namespace MyUniversity.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(Guid id, CourseModel courseModel)
         {
-            var requestUri = string.Format("api/courses/id/{0}", id);
+            var requestUri = string.Format("api/courses/{0}", id);
             if (!ModelState.IsValid) throw new HttpException((int)HttpStatusCode.BadRequest, "Error");
             var guid = await PutJsonAsyc(requestUri, courseModel);
             return RedirectToAction("Details", "Courses", new {id = guid});

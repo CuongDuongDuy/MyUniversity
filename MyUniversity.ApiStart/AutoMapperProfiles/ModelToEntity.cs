@@ -11,11 +11,31 @@ namespace MyUniversity.ApiStart.AutoMapperProfiles
         {
             Mapper.CreateMap<StudentModel, StudentProfile>()
                 .ForMember(x => x.Person,
-                    opt => opt.ResolveUsing(model => new Person {IdentityNumber = model.IdentityNumber, FirstName = model.FirstName, LastName = model.LastName, DateOfBirth = model.DateOfBirth, Address = model.Address}))
-                .ForMember(x => x.Department, opt => opt.MapFrom(x => x.Department))
-                .ForMember(x => x.Enrollments, opt => opt.MapFrom(x => x.Enrollments));
+                    opt =>
+                        opt.ResolveUsing(
+                            model =>
+                                new Person
+                                {
+                                    IdentityNumber = model.IdentityNumber,
+                                    FirstName = model.FirstName,
+                                    LastName = model.LastName,
+                                    DateOfBirth = model.DateOfBirth,
+                                    Address = model.Address
+                                }));
 
-            Mapper.CreateMap<InstructorModel, InstructorProfile>();
+            Mapper.CreateMap<TeacherModel, InstructorProfile>()
+                .ForMember(x => x.Person,
+                    opt =>
+                        opt.ResolveUsing(
+                            model =>
+                                new Person
+                                {
+                                    IdentityNumber = model.IdentityNumber,
+                                    FirstName = model.FirstName,
+                                    LastName = model.LastName,
+                                    DateOfBirth = model.DateOfBirth,
+                                    Address = model.Address
+                                }));
             Mapper.CreateMap<CourseModel, Course>();
             Mapper.CreateMap<DepartmentModel, Department>();
             Mapper.CreateMap<EnrollmentModel, Enrollment>();

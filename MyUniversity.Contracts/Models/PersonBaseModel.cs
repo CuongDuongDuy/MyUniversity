@@ -11,5 +11,9 @@ namespace MyUniversity.Contracts.Models
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string Address { get; set; }
+        public string FullName
+        {
+            get { return string.Format("{0} {1}", FirstName, LastName); }
+        }
     }
 }

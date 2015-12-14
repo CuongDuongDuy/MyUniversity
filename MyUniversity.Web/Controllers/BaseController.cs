@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -20,9 +21,9 @@ namespace MyUniversity.Web.Controllers
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async Task<TResult> GetHttpResponMessageResultAsyc<TResult>(string requestUri)
+        public async Task<TResult> GetHttpResponMessageResultAsyc<TResult>(string requestUri, params string[] includes)
         {
-            var response = await Client.GetAsync(requestUri);
+            var response = await Client.GetAsync(GetFullRequestUri(requestUri, includes));
             var result = response.IsSuccessStatusCode
                 ? await response.Content.ReadAsAsync<TResult>()
                 : default(TResult);
@@ -47,6 +48,15 @@ namespace MyUniversity.Web.Controllers
                 return response.Content.ReadAsStringAsync().Result;
             }
             throw new HttpException((int)response.StatusCode, "Error");
+        }
+
+        private string GetFullRequestUri(string requestUri, params string[] includes)
+        {
+            var result = requestUri;
+            if (!includes.Any()) return result;
+            var includesString = includes.Aggregate(string.Empty, (current, include) => current + (include + ','));
+            result = result + "?$expand=" + includesString.Substring(0, includesString.Length - 1);
+            return result;
         }
     }
 }

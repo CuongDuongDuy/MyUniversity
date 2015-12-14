@@ -35,6 +35,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
@@ -45,7 +46,7 @@
     <Compile Include="Models\CourseModel.cs" />
     <Compile Include="Models\DepartmentModel.cs" />
     <Compile Include="Models\EnrollmentModel.cs" />
-    <Compile Include="Models\InstructorModel.cs" />
+    <Compile Include="Models\TeacherModel.cs" />
     <Compile Include="Models\OfficeAssignmentModel.cs" />
     <Compile Include="Models\PersonBaseModel.cs" />
     <Compile Include="Models\StudentModel.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="Services\IBaseService.cs" />
     <Compile Include="Services\ICourseService.cs" />
     <Compile Include="Services\IDepartmentService.cs" />
+    <Compile Include="Services\ITeacherService.cs" />
     <Compile Include="Services\IStudentService.cs" />
     <Compile Include="ViewModels\CourseIndexViewModel.cs" />
     <Compile Include="ViewModels\CourseViewModel.cs" />

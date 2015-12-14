@@ -4,7 +4,7 @@
     {
         public CourseModel Course { get; set; }
         public StudentModel Student{ get; set; }
-        public InstructorModel Instructor { get; set; }
+        public TeacherModel Teacher { get; set; }
         public double? Mark { get; set; }
     }
 }

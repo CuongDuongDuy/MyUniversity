@@ -101,8 +101,10 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
-    <Compile Include="Helpers\DictionaryKey.cs" />
+    <Compile Include="Controllers\TeachersController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
+    <Compile Include="Helpers\DictionaryKey.cs" />
+    <Compile Include="Controllers\StudentsODataController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -7,5 +7,7 @@ namespace MyUniversity.Contracts.Services
     public interface IDepartmentService : IBaseService<DepartmentModel, Guid>
     {
         IEnumerable<DepartmentModel> GetAllDepartments(IEnumerable<string> includes = null);
+        Guid Create(DepartmentModel departmentModel);
+        DepartmentModel GetById(Guid id, IEnumerable<string> includes = null);
     }
 }

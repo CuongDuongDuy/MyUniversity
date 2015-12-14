@@ -58,6 +58,9 @@ namespace MyUniversity.ApiStart
                     builder.RegisterType<DepartmentRepository>()
                        .As<IDepartmentRepository>()
                        .InstancePerLifetimeScope();
+                    builder.RegisterType<InstructorProfileRepository>()
+                       .As<IInstructorProfileRepository>()
+                       .InstancePerLifetimeScope();
                     builder.RegisterType<MyUniversityDbContext>().InstancePerLifetimeScope();
                     break;
             }

@@ -25,11 +25,21 @@ namespace MyUniversity.Services
             return result;
         }
 
-        public DepartmentModel GetById(Guid id)
+        public Guid Create(DepartmentModel departmentModel)
         {
-            var department = Repository.GetById(id);
+            var department = TranferToEntity(departmentModel);
+            Repository.Insert(department);
+            UnitOfWork.Commit();
+            var result = department.Id;
+            return result;
+        }
+
+        public DepartmentModel GetById(Guid id, IEnumerable<string> includes = null)
+        {
+            var department = includes == null ? Repository.GetById(id) : Repository.GetItems(x => x.Id == id, includes).FirstOrDefault();
             var result = TranferToModel(department);
             return result;
         }
+
     }
 }

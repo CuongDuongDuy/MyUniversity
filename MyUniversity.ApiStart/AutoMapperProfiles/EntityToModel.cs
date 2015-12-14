@@ -14,11 +14,14 @@ namespace MyUniversity.ApiStart.AutoMapperProfiles
                 .ForMember(x => x.FirstName, opt => opt.MapFrom(x => x.Person.FirstName))
                 .ForMember(x => x.LastName, opt => opt.MapFrom(x => x.Person.LastName))
                 .ForMember(x => x.DateOfBirth, opt => opt.MapFrom(x => x.Person.DateOfBirth))
-                .ForMember(x => x.Address, opt => opt.MapFrom(x => x.Person.Address))
-                .ForMember(x => x.Department, opt => opt.MapFrom(x => x.Department))
-                .ForMember(x => x.Enrollments, opt => opt.MapFrom(x => x.Enrollments));
+                .ForMember(x => x.Address, opt => opt.MapFrom(x => x.Person.Address));
 
-            Mapper.CreateMap<InstructorProfile, InstructorModel>();
+            Mapper.CreateMap<InstructorProfile, TeacherModel>()
+                .ForMember(x => x.IdentityNumber, opt => opt.MapFrom(x => x.Person.IdentityNumber))
+                .ForMember(x => x.FirstName, opt => opt.MapFrom(x => x.Person.FirstName))
+                .ForMember(x => x.LastName, opt => opt.MapFrom(x => x.Person.LastName))
+                .ForMember(x => x.DateOfBirth, opt => opt.MapFrom(x => x.Person.DateOfBirth))
+                .ForMember(x => x.Address, opt => opt.MapFrom(x => x.Person.Address));
             Mapper.CreateMap<Course, CourseModel>();
             Mapper.CreateMap<Department, DepartmentModel>();
             Mapper.CreateMap<Enrollment, EnrollmentModel>();
