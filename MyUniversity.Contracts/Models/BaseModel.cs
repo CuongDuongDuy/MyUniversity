@@ -20,5 +20,7 @@ namespace MyUniversity.Contracts.Models
         public DateTime? UpdatedOn { get; set; }
         [DataMember]
         public bool? Deactive { get; set; }
+        [DataMember]
+        public byte[] RowVersion { get; set; }
     }
 }

@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
+using MyUniversity.Contracts.Services;
+using Newtonsoft.Json;
 
 namespace MyUniversity.Web.Controllers
 {
@@ -40,12 +42,22 @@ namespace MyUniversity.Web.Controllers
             throw new HttpException((int) response.StatusCode, "Error");
         }
 
-        public async Task<string> PutJsonAsyc(string requestUri, object value)
+        public async Task<ModificationServiceResult> PutJsonAsyc(string requestUri, object value)
         {
             var response = await Client.PutAsJsonAsync(requestUri, value);
             if (response.IsSuccessStatusCode)
             {
-                return response.Content.ReadAsStringAsync().Result;
+                return JsonConvert.DeserializeObject<ModificationServiceResult>(response.Content.ReadAsStringAsync().Result);
+            }
+            throw new HttpException((int)response.StatusCode, "Error");
+        }
+
+        public async Task<ModificationServiceResult> DeleteJsonAsyc(string requestUri)
+        {
+            var response = await Client.DeleteAsync(requestUri);
+            if (response.IsSuccessStatusCode)
+            {
+                return JsonConvert.DeserializeObject<ModificationServiceResult>(response.Content.ReadAsStringAsync().Result);
             }
             throw new HttpException((int)response.StatusCode, "Error");
         }

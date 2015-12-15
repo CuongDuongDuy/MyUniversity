@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using MyUniversity.Contracts.Models;
 using MyUniversity.Contracts.Services;
@@ -41,5 +43,74 @@ namespace MyUniversity.Services
             return result;
         }
 
+        public ModificationServiceResult Update(Guid id, DepartmentModel departmentModel)
+        {
+            var result = new ModificationServiceResult(id);
+            try
+            {
+                var departmentToUpdate = Repository.GetById(id);
+                departmentToUpdate.Name = departmentModel.Name;
+                departmentToUpdate.StartDate = departmentModel.StartDate;
+                departmentToUpdate.DeanId = departmentModel.DeanId;
+                Repository.Update(departmentToUpdate);
+                UnitOfWork.Commit();
+                result.Value = id;
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                result.Type = ResultType.DbUpdateConcurrencyException;
+            }
+            catch (DataException)
+            {
+                result.Type = ResultType.DataException;
+            }
+            return result;
+        }
+
+        public ModificationServiceResult Deactivate(Guid id, byte[] rowVersion)
+        {
+            var result = new ModificationServiceResult(id);
+            try
+            {
+                var departmentToDeactivate = Repository.GetById(id);
+                departmentToDeactivate.Deactive = true;
+                departmentToDeactivate.RowVersion = rowVersion;
+                Repository.Update(departmentToDeactivate);
+                UnitOfWork.Commit();
+                result.Value = id;
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                result.Type = ResultType.DbUpdateConcurrencyException;
+            }
+            catch (DataException)
+            {
+                result.Type = ResultType.DataException;
+            }
+            return result;
+        }
+
+        public ModificationServiceResult Activate(Guid id, byte[] rowVersion)
+        {
+            var result = new ModificationServiceResult(id);
+            try
+            {
+                var departmentToDeactivate = Repository.GetById(id);
+                departmentToDeactivate.Deactive = false;
+                departmentToDeactivate.RowVersion = rowVersion;
+                Repository.Update(departmentToDeactivate);
+                UnitOfWork.Commit();
+                result.Value = id;
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                result.Type = ResultType.DbUpdateConcurrencyException;
+            }
+            catch (DataException)
+            {
+                result.Type = ResultType.DataException;
+            }
+            return result;
+        }
     }
 }

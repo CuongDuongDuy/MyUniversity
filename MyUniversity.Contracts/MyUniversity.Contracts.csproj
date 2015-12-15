@@ -56,8 +56,10 @@
     <Compile Include="Services\IDepartmentService.cs" />
     <Compile Include="Services\ITeacherService.cs" />
     <Compile Include="Services\IStudentService.cs" />
+    <Compile Include="Services\ModificationServiceResult.cs" />
     <Compile Include="ViewModels\CourseIndexViewModel.cs" />
     <Compile Include="ViewModels\CourseViewModel.cs" />
+    <Compile Include="ViewModels\DepartmentIndexViewModel.cs" />
     <Compile Include="ViewModels\StudentViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

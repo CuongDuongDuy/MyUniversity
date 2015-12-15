@@ -9,5 +9,8 @@ namespace MyUniversity.Contracts.Services
         IEnumerable<DepartmentModel> GetAllDepartments(IEnumerable<string> includes = null);
         Guid Create(DepartmentModel departmentModel);
         DepartmentModel GetById(Guid id, IEnumerable<string> includes = null);
+        ModificationServiceResult Update(Guid id, DepartmentModel departmentModel);
+        ModificationServiceResult Deactivate(Guid id);
+        ModificationServiceResult Activate(Guid id);
     }
 }

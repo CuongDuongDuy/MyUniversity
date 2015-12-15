@@ -79,7 +79,7 @@ namespace MyUniversity.Web.Controllers
             var requestUri = string.Format("api/courses/{0}", id);
             if (!ModelState.IsValid) throw new HttpException((int)HttpStatusCode.BadRequest, "Error");
             var guid = await PutJsonAsyc(requestUri, courseModel);
-            return RedirectToAction("Details", "Courses", new {id = guid});
+            return RedirectToAction("Details", "Courses", new {id = guid.Value});
         }
     }
 }

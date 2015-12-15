@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyUniversity.Dal.Entities
 {
@@ -10,5 +11,8 @@ namespace MyUniversity.Dal.Entities
         public string UpdatedBy { get; set; }
         public DateTime? UpdatedOn { get; set; }
         public bool? Deactive { get; set; }
+        [Timestamp]
+        [ConcurrencyCheck]
+        public byte[] RowVersion { get; set; }
     }
 }

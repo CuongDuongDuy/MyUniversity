@@ -70,6 +70,10 @@
     <Compile Include="Mappings\NHibernate\InstructorProfileMapping.cs" />
     <Compile Include="Mappings\NHibernate\OfficeAssignmentMapping.cs" />
     <Compile Include="Mappings\NHibernate\PersonMapping.cs" />
+    <Compile Include="Migrations\201512150952304_AddRowVersion.cs" />
+    <Compile Include="Migrations\201512150952304_AddRowVersion.Designer.cs">
+      <DependentUpon>201512150952304_AddRowVersion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\Contracts\IEnrollmentRepository.cs" />
     <Compile Include="Entities\OfficeAssignment.cs" />
     <Compile Include="Entities\Profile.cs" />
@@ -162,6 +166,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510031418517_UpdateEnrollment.resx">
       <DependentUpon>201510031418517_UpdateEnrollment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512150952304_AddRowVersion.resx">
+      <DependentUpon>201512150952304_AddRowVersion.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Web.Http;
 using MyUniversity.Contracts.Models;
 using MyUniversity.Contracts.Services;
+using Newtonsoft.Json;
 
 namespace MyUniversity.Api.Controllers
 {
@@ -21,7 +22,7 @@ namespace MyUniversity.Api.Controllers
         [Route("")]
         public IEnumerable<DepartmentModel> GetAll()
         {
-            var result = departmentService.GetAllDepartments();
+            var result = departmentService.GetAllDepartments(QueryExpand());
             return result;
         }
 
@@ -59,6 +60,60 @@ namespace MyUniversity.Api.Controllers
                     result.StatusCode = HttpStatusCode.BadRequest;
                 }
 
+            }
+            return result;
+        }
+
+        [HttpPut]
+        [Route("{id:guid}")]
+        public HttpResponseMessage Edit(Guid id, DepartmentModel departmentModel)
+        {
+            var result = new HttpResponseMessage();
+            if (ModelState.IsValid)
+            {
+                var updated = departmentService.Update(id, departmentModel);
+                result.StatusCode = HttpStatusCode.OK;
+                result.Content = new StringContent(JsonConvert.SerializeObject(updated));
+            }
+            else
+            {
+                result.StatusCode = HttpStatusCode.BadRequest;
+            }
+            return result;
+        }
+
+        [HttpDelete]
+        [Route("{id:guid}")]
+        public HttpResponseMessage Deactivate(Guid id)
+        {
+            var result = new HttpResponseMessage();
+            if (ModelState.IsValid)
+            {
+                var updated = departmentService.Deactivate(id);
+                result.StatusCode = HttpStatusCode.OK;
+                result.Content = new StringContent(JsonConvert.SerializeObject(updated));
+            }
+            else
+            {
+                result.StatusCode = HttpStatusCode.BadRequest;
+            }
+            return result;
+        }
+
+        [HttpPut]
+        [Route("{id:guid}/activate")]
+        public HttpResponseMessage Activate(Guid id)
+        {
+            var result = new HttpResponseMessage();
+            if (ModelState.IsValid)
+            {
+                var updated = departmentService.Activate(id);
+                result.StatusCode = HttpStatusCode.OK;
+                result.Content = new StringContent(JsonConvert.SerializeObject(updated));
+            }
+            else
+            {
+                result.StatusCode = HttpStatusCode.BadRequest;
             }
             return result;
         }
