@@ -42,6 +42,8 @@
   <ItemGroup>
     <Compile Include="Constants\AppSettingConstant.cs" />
     <Compile Include="Constants\EntityConstant.cs" />
+    <Compile Include="Helpers\DictionaryKey.cs" />
+    <Compile Include="Helpers\ValueHelper.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\CourseModel.cs" />
     <Compile Include="Models\DepartmentModel.cs" />

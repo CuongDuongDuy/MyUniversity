@@ -103,13 +103,11 @@
     <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\TeachersController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
-    <Compile Include="Helpers\DictionaryKey.cs" />
     <Compile Include="Controllers\StudentsODataController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AppSettingHelper.cs" />
-    <Compile Include="Helpers\ValueHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

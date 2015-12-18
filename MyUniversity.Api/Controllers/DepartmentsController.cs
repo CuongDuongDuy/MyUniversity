@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using MyUniversity.Contracts.Helpers;
 using MyUniversity.Contracts.Models;
 using MyUniversity.Contracts.Services;
 using Newtonsoft.Json;
@@ -83,13 +84,13 @@ namespace MyUniversity.Api.Controllers
         }
 
         [HttpDelete]
-        [Route("{id:guid}")]
-        public HttpResponseMessage Deactivate(Guid id)
+        [Route("{id:guid}/deactivate")]
+        public HttpResponseMessage Deactivate(Guid id, string rowVersion)
         {
             var result = new HttpResponseMessage();
             if (ModelState.IsValid)
             {
-                var updated = departmentService.Deactivate(id);
+                var updated = departmentService.Deactivate(id, rowVersion.StringToByteArray());
                 result.StatusCode = HttpStatusCode.OK;
                 result.Content = new StringContent(JsonConvert.SerializeObject(updated));
             }
@@ -100,14 +101,14 @@ namespace MyUniversity.Api.Controllers
             return result;
         }
 
-        [HttpPut]
+        [HttpDelete]
         [Route("{id:guid}/activate")]
-        public HttpResponseMessage Activate(Guid id)
+        public HttpResponseMessage Activate(Guid id, string rowVersion)
         {
             var result = new HttpResponseMessage();
             if (ModelState.IsValid)
             {
-                var updated = departmentService.Activate(id);
+                var updated = departmentService.Activate(id, rowVersion.StringToByteArray());
                 result.StatusCode = HttpStatusCode.OK;
                 result.Content = new StringContent(JsonConvert.SerializeObject(updated));
             }

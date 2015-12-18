@@ -52,6 +52,7 @@ namespace MyUniversity.Services
                 departmentToUpdate.Name = departmentModel.Name;
                 departmentToUpdate.StartDate = departmentModel.StartDate;
                 departmentToUpdate.DeanId = departmentModel.DeanId;
+                departmentToUpdate.RowVersion = departmentModel.RowVersion;
                 Repository.Update(departmentToUpdate);
                 UnitOfWork.Commit();
                 result.Value = id;
@@ -77,7 +78,6 @@ namespace MyUniversity.Services
                 departmentToDeactivate.RowVersion = rowVersion;
                 Repository.Update(departmentToDeactivate);
                 UnitOfWork.Commit();
-                result.Value = id;
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -100,7 +100,6 @@ namespace MyUniversity.Services
                 departmentToDeactivate.RowVersion = rowVersion;
                 Repository.Update(departmentToDeactivate);
                 UnitOfWork.Commit();
-                result.Value = id;
             }
             catch (DbUpdateConcurrencyException)
             {
