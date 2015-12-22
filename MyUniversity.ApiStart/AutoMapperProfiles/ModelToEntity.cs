@@ -20,7 +20,8 @@ namespace MyUniversity.ApiStart.AutoMapperProfiles
                                     FirstName = model.FirstName,
                                     LastName = model.LastName,
                                     DateOfBirth = model.DateOfBirth,
-                                    Address = model.Address
+                                    Address = model.Address,
+                                    RowVersion = model.PersonRowVersion
                                 }));
 
             Mapper.CreateMap<TeacherModel, InstructorProfile>()
@@ -34,7 +35,8 @@ namespace MyUniversity.ApiStart.AutoMapperProfiles
                                     FirstName = model.FirstName,
                                     LastName = model.LastName,
                                     DateOfBirth = model.DateOfBirth,
-                                    Address = model.Address
+                                    Address = model.Address,
+                                    RowVersion = model.PersonRowVersion
                                 }));
             Mapper.CreateMap<CourseModel, Course>();
             Mapper.CreateMap<DepartmentModel, Department>();

@@ -69,46 +69,49 @@ namespace MyUniversity.Web.Controllers
         }
 
 
-        //// GET: Student/Details/5
-        //public ActionResult Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Student student = db.Students.Find(id);
-        //    if (student == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return System.Web.UI.WebControls.View(student);
-        //}
-
-        // GET: Student/Create
-        public ActionResult Create()
+        public ActionResult Details(Guid id)
         {
+            Student student = db.Students.Find(id);
+            if (student == null)
+            {
+                return HttpNotFound();
+            }
+            return System.Web.UI.WebControls.View(student);
+        }
+
+        public async Task<ActionResult> Create()
+        {
+            var getDepartmentsTask = GetHttpResponMessageResultAsyc<List<DepartmentModel>>("api/departments");
+
+            var departments = await getDepartmentsTask;
+
+            ViewBag.DepartmentId = new SelectList(departments.OrderBy(x=>x.Name), "Id", "Name");
             return View();
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "LastName, FirstMidName, EnrollmentDate")]StudentModel student)
-        //{
-        //    try
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            db.Students.Add(student);
-        //            db.SaveChanges();
-        //            return RedirectToAction("Index");
-        //        }
-        //    }
-        //    catch (RetryLimitExceededException)
-        //    {
-        //        ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
-        //    }
-        //    return View(student);
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        //[Bind(Include = "IdentityNumber, LastName, FirstMidName, DateOfBirth, Address, EnrollmentDate, EffectiveDate, ExpiryDate, DepartmentId")]
+        public ActionResult Create(StudentModel student)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var guid = PostJsonAsyc("api/students", student);
+                    return RedirectToAction("Details", new {id = guid});
+                }
+                else
+                {
+                    return RedirectToAction("BadRequest", "Error");
+                }
+            }
+            catch (RetryLimitExceededException)
+            {
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+            }
+            return View(student);
+        }
 
 
         //public ActionResult Edit(int? id)
