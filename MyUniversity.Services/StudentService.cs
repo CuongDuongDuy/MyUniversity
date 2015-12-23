@@ -32,14 +32,30 @@ namespace MyUniversity.Services
             return result;
         }
 
-        public StudentModel GetById(Guid key)
+        public StudentModel GetById(Guid id, IEnumerable<string> includes = null)
         {
-            throw new NotImplementedException();
+            var incluesList = includes == null ? new List<string>() : includes.ToList();
+            if (!incluesList.Contains("Person"))
+            {
+                incluesList.Add("Person");
+            }
+            var department = includes == null ? Repository.GetById(id) : Repository.GetItems(x => x.Id == id, incluesList).FirstOrDefault();
+            var result = TranferToModel(department);
+            return result;
         }
 
         public IQueryable<StudentModel> GetAsQueryable()
         {
             var result = Repository.GetAll(null).Project().To<StudentModel>();
+            return result;
+        }
+
+        public Guid Create(StudentModel studentModel)
+        {
+            var student = TranferToEntity(studentModel);
+            Repository.Insert(student);
+            UnitOfWork.Commit();
+            var result = student.Id;
             return result;
         }
     }

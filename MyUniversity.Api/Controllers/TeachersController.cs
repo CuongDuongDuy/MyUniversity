@@ -27,7 +27,7 @@ namespace MyUniversity.Api.Controllers
 
         [HttpPost]
         [Route("")]
-        public HttpResponseMessage Index(TeacherModel teacherModel)
+        public HttpResponseMessage Create(TeacherModel teacherModel)
         {
             var result = new HttpResponseMessage();
             if (ModelState.IsValid)

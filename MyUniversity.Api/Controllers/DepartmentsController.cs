@@ -45,7 +45,7 @@ namespace MyUniversity.Api.Controllers
 
         [HttpPost]
         [Route("")]
-        public HttpResponseMessage Index(DepartmentModel departmentModel)
+        public HttpResponseMessage Create(DepartmentModel departmentModel)
         {
             var result = new HttpResponseMessage();
             if (ModelState.IsValid)

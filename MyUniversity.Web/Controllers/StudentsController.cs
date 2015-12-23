@@ -68,17 +68,18 @@ namespace MyUniversity.Web.Controllers
             return View(students.ToPagedList(pageNumber, pageSize));
         }
 
-
-        public ActionResult Details(Guid id)
+        [HttpGet]
+        public async Task<ActionResult> Details(Guid id)
         {
-            Student student = db.Students.Find(id);
+            var student = await GetHttpResponMessageResultAsyc<StudentModel>(string.Format("api/students/{0}", id), "Enrollments", "Enrollments.Course");
             if (student == null)
             {
                 return HttpNotFound();
             }
-            return System.Web.UI.WebControls.View(student);
+            return View(student);
         }
 
+        [HttpGet]
         public async Task<ActionResult> Create()
         {
             var getDepartmentsTask = GetHttpResponMessageResultAsyc<List<DepartmentModel>>("api/departments");
@@ -92,19 +93,16 @@ namespace MyUniversity.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //[Bind(Include = "IdentityNumber, LastName, FirstMidName, DateOfBirth, Address, EnrollmentDate, EffectiveDate, ExpiryDate, DepartmentId")]
-        public ActionResult Create(StudentModel student)
+        public async Task<ActionResult> Create(StudentModel student)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var guid = PostJsonAsyc("api/students", student);
+                    var guid = await PostJsonAsyc("api/students", student);
                     return RedirectToAction("Details", new {id = guid});
                 }
-                else
-                {
-                    return RedirectToAction("BadRequest", "Error");
-                }
+                return RedirectToAction("BadRequest", "Error");
             }
             catch (RetryLimitExceededException)
             {

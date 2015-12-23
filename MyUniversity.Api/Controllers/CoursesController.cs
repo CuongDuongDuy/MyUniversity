@@ -60,7 +60,7 @@ namespace MyUniversity.Api.Controllers
 
         [HttpPost]
         [Route("")]
-        public HttpResponseMessage Index(CourseModel coureModel)
+        public HttpResponseMessage Create(CourseModel coureModel)
         {
             var result = new HttpResponseMessage();
             if (ModelState.IsValid)

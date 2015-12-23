@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
-using System.Text;
 
 namespace MyUniversity.Contracts.Models
 {
@@ -16,7 +13,6 @@ namespace MyUniversity.Contracts.Models
         public string LastName { get; set; }
         [Display(Name = "Date of Birth")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "0:dd/MM/yyyy", ApplyFormatInEditMode = true)]
         public DateTime DateOfBirth { get; set; }
         public string Address { get; set; }
         public string FullName

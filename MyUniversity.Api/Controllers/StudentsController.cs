@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
 using System.Web.Http;
 using MyUniversity.Contracts.Models;
 using MyUniversity.Contracts.Services;
+using MyUniversity.Contracts.ViewModels;
 
 namespace MyUniversity.Api.Controllers
 {
@@ -23,6 +26,32 @@ namespace MyUniversity.Api.Controllers
             return students;
         }
 
+        [HttpPost]
+        [Route("")]
+        public IHttpActionResult Create(StudentModel studentModel)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var newGuid = studentService.Create(studentModel);
+                    return Created("sadsadsadsadsa", newGuid);
+                }
+                catch
+                {
+                    return BadRequest();
+                }
+            }
+            return BadRequest();
+        }
+
+        [HttpGet]
+        [Route("{id:guid}")]
+        public StudentModel GetById(Guid id)
+        {
+            var result = studentService.GetById(id, QueryExpand());
+            return result;
+        }
     }
 
 
