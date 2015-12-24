@@ -35,7 +35,7 @@ namespace MyUniversity.Api.Controllers
                 try
                 {
                     var newGuid = studentService.Create(studentModel);
-                    return Created("sadsadsadsadsa", newGuid);
+                    return Created("api/students/" + newGuid, newGuid);
                 }
                 catch
                 {

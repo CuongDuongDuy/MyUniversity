@@ -6,6 +6,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using MyUniversity.Contracts.Models;
+using MyUniversity.Contracts.Services;
 using PagedList;
 
 namespace MyUniversity.Web.Controllers
@@ -16,9 +17,15 @@ namespace MyUniversity.Web.Controllers
         public async Task<ViewResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
-            ViewBag.FirstNameSortParm = string.IsNullOrEmpty(sortOrder) || sortOrder == "firstName_asc" ? "firstName_desc" : "firstName_asc";
-            ViewBag.LastNameSortParm = !string.IsNullOrEmpty(sortOrder) && sortOrder == "lastName_asc" ? "lastName_desc" : "lastName_asc";
-            ViewBag.EnrollmentDateSortParm = !string.IsNullOrEmpty(sortOrder) && sortOrder == "enrollmentDate_asc" ? "enrollmentDate_desc" : "enrollmentDate_asc";
+            ViewBag.FirstNameSortParm = string.IsNullOrEmpty(sortOrder) || sortOrder == "firstName_asc"
+                ? "firstName_desc"
+                : "firstName_asc";
+            ViewBag.LastNameSortParm = !string.IsNullOrEmpty(sortOrder) && sortOrder == "lastName_asc"
+                ? "lastName_desc"
+                : "lastName_asc";
+            ViewBag.EnrollmentDateSortParm = !string.IsNullOrEmpty(sortOrder) && sortOrder == "enrollmentDate_asc"
+                ? "enrollmentDate_desc"
+                : "enrollmentDate_asc";
 
             if (searchString != null)
             {
@@ -36,21 +43,23 @@ namespace MyUniversity.Web.Controllers
             var students = from s in allStudents select s;
             if (!string.IsNullOrEmpty(searchString))
             {
-                students = students.Where(s => s.LastName.Contains(searchString) || s.FirstName.Contains(searchString));
+                students =
+                    students.Where(
+                        s => s.Person.LastName.Contains(searchString) || s.Person.LastName.Contains(searchString));
             }
             switch (sortOrder)
             {
                 case "firstName_asc":
-                    students = students.OrderBy(s => s.FirstName);
+                    students = students.OrderBy(s => s.Person.FirstName);
                     break;
                 case "firstName_desc":
-                    students = students.OrderByDescending(s => s.FirstName);
+                    students = students.OrderByDescending(s => s.Person.FirstName);
                     break;
                 case "lastName_asc":
-                    students = students.OrderBy(s => s.LastName);
+                    students = students.OrderBy(s => s.Person.LastName);
                     break;
                 case "lastName_desc":
-                    students = students.OrderByDescending(s => s.LastName);
+                    students = students.OrderByDescending(s => s.Person.LastName);
                     break;
                 case "enrollmentDate_asc":
                     students = students.OrderBy(s => s.EnrollmentDate);
@@ -59,7 +68,7 @@ namespace MyUniversity.Web.Controllers
                     students = students.OrderByDescending(s => s.EnrollmentDate);
                     break;
                 default:
-                    students = students.OrderBy(s => s.FirstName);
+                    students = students.OrderBy(s => s.Person.FirstName);
                     break;
             }
 
@@ -71,7 +80,10 @@ namespace MyUniversity.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> Details(Guid id)
         {
-            var student = await GetHttpResponMessageResultAsyc<StudentModel>(string.Format("api/students/{0}", id), "Enrollments", "Enrollments.Course");
+            var student =
+                await
+                    GetHttpResponMessageResultAsyc<StudentModel>(string.Format("api/students/{0}", id), "Enrollments",
+                        "Enrollments.Course");
             if (student == null)
             {
                 return HttpNotFound();
@@ -86,7 +98,7 @@ namespace MyUniversity.Web.Controllers
 
             var departments = await getDepartmentsTask;
 
-            ViewBag.DepartmentId = new SelectList(departments.OrderBy(x=>x.Name), "Id", "Name");
+            ViewBag.DepartmentId = new SelectList(departments.OrderBy(x => x.Name), "Id", "Name");
             return View();
         }
 
@@ -106,51 +118,60 @@ namespace MyUniversity.Web.Controllers
             }
             catch (RetryLimitExceededException)
             {
-                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+                ModelState.AddModelError("",
+                    "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
             return View(student);
         }
 
+        [HttpGet]
+        public async Task<ActionResult> Edit(Guid id, bool? concurrencyError)
+        {
+            var student = await GetHttpResponMessageResultAsyc<StudentModel>(string.Format("api/students/{0}", id));
+            if (student == null)
+            {
+                return HttpNotFound();
+            }
+            if (concurrencyError.GetValueOrDefault())
+            {
+                ViewBag.ConcurrencyErrorMessage = "Concurrency issue. Please modify again and click Save button.";
+            }
+            return View(student);
+        }
 
-        //public ActionResult Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Student student = db.Students.Find(id);
-        //    if (student == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return System.Web.UI.WebControls.View(student);
-        //}
-
-        //[HttpPost, ActionName("Edit")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult EditPost(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    var studentToUpdate = db.Students.Find(id);
-        //    if (TryUpdateModel(studentToUpdate, "",
-        //       new string[] { "LastName", "FirstMidName", "EnrollmentDate" }))
-        //    {
-        //        try
-        //        {
-        //            db.SaveChanges();
-
-        //            return RedirectToAction("Index");
-        //        }
-        //        catch (RetryLimitExceededException)
-        //        {
-        //            ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
-        //        }
-        //    }
-        //    return System.Web.UI.WebControls.View(studentToUpdate);
-        //}
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditPost(Guid id)
+        {
+            var studentToUpdate = await GetHttpResponMessageResultAsyc<StudentModel>(string.Format("api/students/{0}", id));
+            if (TryUpdateModel(studentToUpdate, "",
+                new string[]
+                {
+                    "EffectiveDate", "ExpiryDate", "EnrollmentDate", "DepartmentId",
+                    "Person.IdentityNumber", "Person.LastName", "Person.FirstName", "Person.DateOfBirth", "Person.Address"
+                }))
+            {
+                try
+                {
+                    var updated = await PutJsonAsyc(string.Format("api/students/{0}", id), studentToUpdate);
+                    switch (updated.Type)
+                    {
+                        case ResultType.DbUpdateConcurrencyException:
+                            return RedirectToAction("Edit", new {id = studentToUpdate.Id, concurrencyError = true});
+                        case ResultType.DataException:
+                            ModelState.AddModelError(string.Empty,
+                                "Unable to deactivate. Try again, and if the problem persists contact your system administrator.");
+                            return View(studentToUpdate);
+                    }
+                }
+                catch (RetryLimitExceededException)
+                {
+                    ModelState.AddModelError("",
+                        "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                }
+            }
+            return View(studentToUpdate);
+        }
 
     }
 }

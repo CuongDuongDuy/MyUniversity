@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MyUniversity.Contracts.Models
 {
-    public class PersonBaseModel : BaseModel
+    public class PersonModel : BaseModel
     {
         [Display(Name = "Identity Number")]
         public string IdentityNumber { get; set; }
@@ -19,6 +19,5 @@ namespace MyUniversity.Contracts.Models
         {
             get { return string.Format("{0} {1}", FirstName, LastName); }
         }
-        public byte[] PersonRowVersion { get; set; }
     }
 }

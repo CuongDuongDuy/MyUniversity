@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MyUniversity.Contracts.Models
 {
-    public class StudentModel : PersonBaseModel
+    public class StudentModel : BaseModel
     {
         [Required]
         [DataType(DataType.Date)]
@@ -17,6 +17,7 @@ namespace MyUniversity.Contracts.Models
         [Required]
         public Guid? DepartmentId { get; set; }
         public DepartmentModel Department { get; set; }
+        public PersonModel Person { get; set; }
         public IEnumerable<EnrollmentModel> Enrollments { get; set; }
     }
 }

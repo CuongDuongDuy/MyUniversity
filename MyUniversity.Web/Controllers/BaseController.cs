@@ -37,7 +37,7 @@ namespace MyUniversity.Web.Controllers
             var response = await Client.PostAsJsonAsync(requestUri, value);
             if (response.IsSuccessStatusCode)
             {
-                return response.Content.ReadAsStringAsync().Result;
+                return response.Content.ReadAsStringAsync().Result.Replace("\"", string.Empty);
             }
             throw new HttpException((int) response.StatusCode, "Error");
         }
