@@ -45,7 +45,7 @@ namespace MyUniversity.Web.Controllers
             {
                 students =
                     students.Where(
-                        s => s.Person.LastName.Contains(searchString) || s.Person.LastName.Contains(searchString));
+                        s => s.Person.FullName.Contains(searchString));
             }
             switch (sortOrder)
             {
@@ -136,12 +136,14 @@ namespace MyUniversity.Web.Controllers
             {
                 ViewBag.ConcurrencyErrorMessage = "Concurrency issue. Please modify again and click Save button.";
             }
+            var departments = await GetHttpResponMessageResultAsyc<List<DepartmentModel>>("api/departments");
+            ViewBag.DepartmentId = new SelectList(departments, "Id", "Name", student.DepartmentId);
             return View(student);
         }
 
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditPost(Guid id)
+        public async Task<ActionResult> Edit(Guid id)
         {
             var studentToUpdate = await GetHttpResponMessageResultAsyc<StudentModel>(string.Format("api/students/{0}", id));
             if (TryUpdateModel(studentToUpdate, "",

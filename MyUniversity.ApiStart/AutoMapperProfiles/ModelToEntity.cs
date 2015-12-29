@@ -38,6 +38,7 @@ namespace MyUniversity.ApiStart.AutoMapperProfiles
                 //                    Address = model.Address,
                 //                    RowVersion = model.PersonRowVersion
                 //                }));
+            Mapper.CreateMap<PersonModel, Person>();
             Mapper.CreateMap<CourseModel, Course>();
             Mapper.CreateMap<DepartmentModel, Department>();
             Mapper.CreateMap<EnrollmentModel, Enrollment>();

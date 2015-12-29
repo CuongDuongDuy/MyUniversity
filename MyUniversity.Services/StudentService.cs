@@ -39,7 +39,7 @@ namespace MyUniversity.Services
             {
                 incluesList.Add("Person");
             }
-            var department = includes == null ? Repository.GetById(id) : Repository.GetItems(x => x.Id == id, incluesList).FirstOrDefault();
+            var department = Repository.GetItems(x => x.Id == id, incluesList).FirstOrDefault();
             var result = TranferToModel(department);
             return result;
         }

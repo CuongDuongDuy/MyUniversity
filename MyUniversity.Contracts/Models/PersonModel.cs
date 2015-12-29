@@ -12,6 +12,7 @@ namespace MyUniversity.Contracts.Models
         [Display(Name="Last Name")]
         public string LastName { get; set; }
         [Display(Name = "Date of Birth")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
         public string Address { get; set; }

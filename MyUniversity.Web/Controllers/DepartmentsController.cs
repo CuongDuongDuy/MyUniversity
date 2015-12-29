@@ -31,7 +31,7 @@ namespace MyUniversity.Web.Controllers
             var getDeanTask = GetHttpResponMessageResultAsyc<List<TeacherModel>>("api/teachers");
 
             var deans = await getDeanTask;
-            ViewBag.DeanId = new SelectList(deans, "Id", "FullName");
+            ViewBag.DeanId = new SelectList(deans, "Id", "Person.FullName");
             return View();
         }
 
@@ -64,7 +64,7 @@ namespace MyUniversity.Web.Controllers
             var departmentModel = await GetHttpResponMessageResultAsyc<DepartmentModel>(requestUri);
             if (departmentModel == null) return HttpNotFound();
             var teachersModels = await GetHttpResponMessageResultAsyc<List<TeacherModel>>("api/teachers");
-            ViewBag.DeanId = new SelectList(teachersModels, "Id", "FullName", departmentModel.DeanId);
+            ViewBag.DeanId = new SelectList(teachersModels, "Id", "Person.FullName", departmentModel.DeanId);
             if (concurrencyError.GetValueOrDefault())
             {
                 ViewBag.ConcurrencyErrorMessage = "Concurrency issue. If you still want to deactivate this "

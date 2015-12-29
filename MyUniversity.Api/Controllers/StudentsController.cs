@@ -20,9 +20,9 @@ namespace MyUniversity.Api.Controllers
 
         [HttpGet]
         [Route("")]
-        public IEnumerable<StudentModel> Index()
+        public IEnumerable<StudentModel> GetAll()
         {
-            var students = studentService.GetStudents(null);
+            var students = studentService.GetStudents(QueryExpand());
             return students;
         }
 

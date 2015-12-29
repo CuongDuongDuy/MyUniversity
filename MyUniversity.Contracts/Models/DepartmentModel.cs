@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Security.Policy;
 using Newtonsoft.Json;
 
 namespace MyUniversity.Contracts.Models
@@ -15,6 +16,8 @@ namespace MyUniversity.Contracts.Models
 
         [DataMember]
         [Display(Name = "Start Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime StartDate { get; set; }
 
         [DataMember]
