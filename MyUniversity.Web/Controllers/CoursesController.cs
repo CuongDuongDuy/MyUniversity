@@ -12,7 +12,6 @@ namespace MyUniversity.Web.Controllers
 {
     public class CoursesController : BaseController
     {
-        [HttpGet]
         public async Task<ActionResult> Index(Guid? selectedDepartment)
         {
             var getCoursesTask = GetHttpResponMessageResultAsyc<List<CourseModel>>("api/courses", "department");
