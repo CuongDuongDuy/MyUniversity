@@ -1,7 +1,8 @@
-﻿@model MyUniversity.Contracts.Models.StudentModel
+﻿@using System.Activities.DurableInstancing
+@model MyUniversity.Contracts.Models.StudentModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Student Details";
 }
 
 <h2>Details</h2>
@@ -48,6 +49,7 @@
                 <tr>
                     <th>Course Title</th>
                     <th>Grade</th>
+                    <th></th>
                 </tr>
                 @foreach (var item in Model.Enrollments)
                 {
@@ -58,13 +60,19 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Mark)
                         </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", "Enrollments", new {id = item.Id})
+                        </td>
                     </tr>
                 }
             </table>
+            @Html.ActionLink("Create", "Create", "Enrollments", htmlAttributes: new { studentId = Model.Id })
         </dd>
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id}) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index") |
+    @Html.ActionLink("Enrollments", "Details", "Enrollments", new { studentId = Model.Id })
+
 </p>

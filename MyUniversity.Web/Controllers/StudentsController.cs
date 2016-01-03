@@ -162,7 +162,7 @@ namespace MyUniversity.Web.Controllers
                             return RedirectToAction("Edit", new {id = studentToUpdate.Id, concurrencyError = true});
                         case ResultType.DataException:
                             ModelState.AddModelError(string.Empty,
-                                "Unable to deactivate. Try again, and if the problem persists contact your system administrator.");
+                                "Unable to edit. Try again, and if the problem persists contact your system administrator.");
                             return View(studentToUpdate);
                     }
                 }

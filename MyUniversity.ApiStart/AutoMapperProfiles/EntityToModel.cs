@@ -27,7 +27,11 @@ namespace MyUniversity.ApiStart.AutoMapperProfiles
             Mapper.CreateMap<Person, PersonModel>();
             Mapper.CreateMap<Course, CourseModel>();
             Mapper.CreateMap<Department, DepartmentModel>();
-            Mapper.CreateMap<Enrollment, EnrollmentModel>();
+            Mapper.CreateMap<Enrollment, EnrollmentModel>()
+                .ForMember(x => x.Teacher, opt => opt.MapFrom(x => x.InstructorProfile))
+                .ForMember(x => x.Student, opt => opt.MapFrom(x => x.StudentProfile))
+                .ForMember(x => x.StudentId, opt => opt.MapFrom(x => x.StudentProfileId))
+                .ForMember(x => x.TeacherId, opt => opt.MapFrom(x => x.InstructorProfileId));
             Mapper.CreateMap<OfficeAssignment, OfficeAssignmentModel>();
         }
     }

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<MyUniversity.Contracts.Models.EnrollmentModel>
+
+@{
+    ViewBag.Title = string.Format("Enrollments of Student {0}", ViewBag.StudentFullName as string);
+}
+
+<h2>Student's Enrollment Details @ViewBag.StudentFullName</h2>
+<table class="table">
+    <tr>
+        <th>
+            Course Title
+        </th>
+        <th>
+            Teacher
+        </th>
+        <th>
+            Grade
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Course.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Teacher.Person.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mark)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

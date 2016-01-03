@@ -12,10 +12,12 @@ namespace MyUniversity.Api.Controllers
     public class StudentsController : BaseController
     {
         private readonly IStudentService studentService;
+        private readonly IEnrollmentService enrollmentService;
 
-        public StudentsController(IStudentService studentService)
+        public StudentsController(IStudentService studentService, IEnrollmentService enrollmentService)
         {
             this.studentService = studentService;
+            this.enrollmentService = enrollmentService;
         }
 
         [HttpGet]
@@ -50,6 +52,14 @@ namespace MyUniversity.Api.Controllers
         public StudentModel GetById(Guid id)
         {
             var result = studentService.GetById(id, QueryExpand());
+            return result;
+        }
+
+        [HttpGet]
+        [Route("{id:guid}/enrollments")]
+        public IEnumerable<EnrollmentModel> GetEnrollemntsByStudentId(Guid id)
+        {
+            var result = enrollmentService.GetByStudentId(id);
             return result;
         }
     }

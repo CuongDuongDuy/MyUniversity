@@ -56,6 +56,7 @@
     <Compile Include="Services\IBaseService.cs" />
     <Compile Include="Services\ICourseService.cs" />
     <Compile Include="Services\IDepartmentService.cs" />
+    <Compile Include="Services\IEnrollmentService.cs" />
     <Compile Include="Services\ITeacherService.cs" />
     <Compile Include="Services\IStudentService.cs" />
     <Compile Include="Services\ModificationServiceResult.cs" />
