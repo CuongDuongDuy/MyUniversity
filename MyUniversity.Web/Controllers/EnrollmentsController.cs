@@ -42,26 +42,19 @@ namespace MyUniversity.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id, Mark")] EnrollmentModel enrollmentModel)
+        public async Task<ActionResult> Edit([Bind(Include = "Id, Mark, RowVersion")] EnrollmentModel enrollmentModel)
         {
             if (!ModelState.IsValid) return RedirectToAction("BadRequest", "Error");
-            try
+            var updated =
+                await PutJsonAsyc(string.Format("api/enrollments/{0}", enrollmentModel.Id), enrollmentModel);
+            switch (updated.Type)
             {
-                var updated =
-                    await PutJsonAsyc(string.Format("api/enrollments/{0}", enrollmentModel.Id), enrollmentModel);
-                switch (updated.Type)
-                {
-                    case ResultType.DbUpdateConcurrencyException:
-                        return RedirectToAction("Edit", new {id = enrollmentModel.Id, concurrencyError = true});
-                    case ResultType.DataException:
-                        ModelState.AddModelError(string.Empty,
-                            "Unable to edit. Try again, and if the problem persists contact your system administrator.");
-                        return View(enrollmentModel);
-                }
-            }
-            catch (RetryLimitExceededException)
-            {
-                //TODO
+                case ResultType.DbUpdateConcurrencyException:
+                    return RedirectToAction("Edit", new {id = enrollmentModel.Id, concurrencyError = true});
+                case ResultType.DataException:
+                    ModelState.AddModelError(string.Empty,
+                        "Unable to edit. Try again, and if the problem persists contact your system administrator.");
+                    return View(enrollmentModel);
             }
             return RedirectToAction("Edit", "Enrollments", new {id = enrollmentModel.Id, concurrencyError = false});
         }
@@ -69,28 +62,32 @@ namespace MyUniversity.Web.Controllers
         [HttpGet]
         public async Task<ViewResult> Create(Guid studentId)
         {
-            var getDepartmentsTask = GetHttpResponMessageResultAsyc<List<DepartmentModel>>("api/teachers","Person");
-
-            var departments = await getDepartmentsTask;
-
-            ViewBag.SelectedDepartment = new SelectList(departments, "Id", "Person.FullName");
+            var getStudentTask = GetHttpResponMessageResultAsyc<StudentModel>("api/students/" + studentId);
+            var getTeachersTask = GetHttpResponMessageResultAsyc<List<DepartmentModel>>("api/teachers");
+            var getCouresTask = GetHttpResponMessageResultAsyc<List<DepartmentModel>>("api/courses");
+            var student = await getStudentTask;
+            var teachers = await getTeachersTask;
+            var courses = await getCouresTask;
+            ViewBag.Teachers = new SelectList(teachers, "Id", "Person.FullName");
+            ViewBag.Courses = new SelectList(courses, "Id", "Title");
             var viewModel = new EnrollmentModel
             {
-                StudentId = studentId
+                StudentId = studentId,
+                Student = student
             };
             return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(DepartmentModel departmentModel)
+        public async Task<ActionResult> Create(EnrollmentModel enrollmentModel)
         {
             if (ModelState.IsValid)
             {
                 return RedirectToAction("BadRequest", "Error");
             }
-            var guid = await PostJsonAsyc("api/departments", departmentModel);
-            return RedirectToAction("Details", "Departments", new { id = guid });
+            var guid = await PostJsonAsyc("api/enrollments", enrollmentModel);
+            return RedirectToAction("GetByStudent", "Enrollments", new {id = enrollmentModel.StudentId});
         }
     }
 }
