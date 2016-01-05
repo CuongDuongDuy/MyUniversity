@@ -16,26 +16,33 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.Label("Student's Full Name: " + Model.Student.Person.FullName)
+            @Html.HiddenFor(model=>model.StudentId)
         </div>
         <div class="form-group">
             @Html.Label("Course Title", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("Course.Title", ViewBag.Courses as SelectList, "Select course", htmlAttributes: new { @class = "form-control col-md-2" })
+                @Html.DropDownList("CourseId", ViewBag.Courses as SelectList, "Select course", htmlAttributes: new { @class = "form-control col-md-2" })
                 @Html.ValidationMessageFor(model => model.Course.Title, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
             @Html.Label("Teacher", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("Teacher.Id", ViewBag.Teachers as SelectList, "Select teacher", htmlAttributes: new { @class = "form-control col-md-2" })
+                @Html.DropDownList("TeacherId", ViewBag.Teachers as SelectList, "Select teacher", htmlAttributes: new { @class = "form-control col-md-2" })
                 @Html.ValidationMessageFor(model => model.Course.Title, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.Label("Grade", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Grade", htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Mark, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Mark, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Mark, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.Mark, "", new {@class = "text-danger"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>

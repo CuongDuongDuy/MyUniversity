@@ -63,8 +63,8 @@ namespace MyUniversity.Web.Controllers
         public async Task<ViewResult> Create(Guid studentId)
         {
             var getStudentTask = GetHttpResponMessageResultAsyc<StudentModel>("api/students/" + studentId);
-            var getTeachersTask = GetHttpResponMessageResultAsyc<List<DepartmentModel>>("api/teachers");
-            var getCouresTask = GetHttpResponMessageResultAsyc<List<DepartmentModel>>("api/courses");
+            var getTeachersTask = GetHttpResponMessageResultAsyc<List<TeacherModel>>("api/teachers");
+            var getCouresTask = GetHttpResponMessageResultAsyc<List<CourseModel>>("api/courses");
             var student = await getStudentTask;
             var teachers = await getTeachersTask;
             var courses = await getCouresTask;
@@ -82,7 +82,7 @@ namespace MyUniversity.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(EnrollmentModel enrollmentModel)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return RedirectToAction("BadRequest", "Error");
             }

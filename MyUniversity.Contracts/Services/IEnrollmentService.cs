@@ -12,5 +12,6 @@ namespace MyUniversity.Contracts.Services
         EnrollmentModel GetById(Guid id);
         IEnumerable<EnrollmentModel> GetByStudentId(Guid studentId);
         ModificationServiceResult Update(Guid id, EnrollmentModel departmentModel);
+        Guid Create(EnrollmentModel enrollmentModel);
     }
 }

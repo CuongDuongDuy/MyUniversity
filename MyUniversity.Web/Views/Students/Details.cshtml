@@ -61,12 +61,12 @@
                             @Html.DisplayFor(modelItem => item.Mark)
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", "Enrollments", new {id = item.Id})
+                            @Html.ActionLink("Edit", "Edit", "Enrollments", new { id = item.Id }, null)
                         </td>
                     </tr>
                 }
             </table>
-            @Html.ActionLink("Create", "Create", "Enrollments", htmlAttributes: new { studentId = Model.Id })
+            @Html.ActionLink("Create", "Create", "Enrollments", new { studentId = Model.Id }, null)
         </dd>
     </dl>
 </div>

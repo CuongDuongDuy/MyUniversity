@@ -60,6 +60,16 @@ namespace MyUniversity.Services
             {
                 result.Type = ResultType.DataException;
             }
+            return result;
+        }
+
+        public Guid Create(EnrollmentModel enrollmentModel)
+        {
+            var enrollment = TranferToEntity(enrollmentModel);
+            Repository.Insert(enrollment);
+            UnitOfWork.Commit();
+            var result = enrollment.Id;
+            return result;
         }
     }
 }

@@ -54,5 +54,27 @@ namespace MyUniversity.Api.Controllers
             }
             return result;
         }
+
+        [HttpPost]
+        [Route("")]
+        public HttpResponseMessage Create(EnrollmentModel enrollmentModel)
+        {
+            var result = new HttpResponseMessage();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var newGuid = enrollmentService.Create(enrollmentModel);
+                    result.StatusCode = HttpStatusCode.Created;
+                    result.Content = new StringContent(newGuid.ToString());
+                }
+                catch
+                {
+                    result.StatusCode = HttpStatusCode.BadRequest;
+                }
+
+            }
+            return result;
+        }
     }
 }
