@@ -13,7 +13,7 @@ namespace MyUniversity.Web.Controllers
     public class EnrollmentsController : BaseController
     {
         [HttpGet]
-        [ActionName("GetByStudent")]
+        [ActionName("Index")]
         public async Task<ActionResult> Index(Guid studentId)
         {
             var uri = string.Format("api/students/{0}", studentId);
@@ -21,6 +21,7 @@ namespace MyUniversity.Web.Controllers
                 await
                     GetHttpResponMessageResultAsyc<StudentModel>(uri, "Enrollments", "Enrollments.Course", "Enrollments.InstructorProfile", "Enrollments.InstructorProfile.Person");
             ViewBag.StudentFullName = studentModel.Person.FullName;
+            ViewBag.StudentId = studentModel.Id;
             return View(studentModel.Enrollments);
         }
 
@@ -56,7 +57,7 @@ namespace MyUniversity.Web.Controllers
                         "Unable to edit. Try again, and if the problem persists contact your system administrator.");
                     return View(enrollmentModel);
             }
-            return RedirectToAction("Edit", "Enrollments", new {id = enrollmentModel.Id, concurrencyError = false});
+            return RedirectToAction("Edit", "Enrollments", new {id = enrollmentModel.Id});
         }
 
         [HttpGet]
@@ -87,7 +88,7 @@ namespace MyUniversity.Web.Controllers
                 return RedirectToAction("BadRequest", "Error");
             }
             var guid = await PostJsonAsyc("api/enrollments", enrollmentModel);
-            return RedirectToAction("GetByStudent", "Enrollments", new {id = enrollmentModel.StudentId});
+            return RedirectToAction("Index", "Enrollments", new {id = enrollmentModel.StudentId});
         }
     }
 }

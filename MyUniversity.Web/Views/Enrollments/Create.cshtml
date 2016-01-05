@@ -15,7 +15,7 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.Label("Student's Full Name: " + Model.Student.Person.FullName)
+            @Html.Label("Student: " + Model.Student.Person.FullName)
             @Html.HiddenFor(model=>model.StudentId)
         </div>
         <div class="form-group">
@@ -49,7 +49,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "GetByStudent", new { studentId = Model.StudentId })
+    @Html.ActionLink("Back to List", "Index", new { studentId = Model.StudentId })
 </div>
 
 @section Scripts {

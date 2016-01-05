@@ -269,7 +269,7 @@
     <Content Include="Views\Students\Edit.cshtml" />
     <Content Include="Views\Students\Index.cshtml" />
     <Content Include="Views\Departments\Restore.cshtml" />
-    <Content Include="Views\Enrollments\GetByStudent.cshtml" />
+    <Content Include="Views\Enrollments\Index.cshtml" />
     <Content Include="Views\Enrollments\Edit.cshtml" />
     <None Include="Views\Enrollments\Create.cshtml" />
   </ItemGroup>

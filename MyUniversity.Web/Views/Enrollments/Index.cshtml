@@ -4,7 +4,12 @@
     ViewBag.Title = "Enrollments Details";
 }
 
-<h2>Student's Enrollment Details @ViewBag.StudentFullName</h2>
+<h2>Details</h2>
+<h4>Enrollment</h4>
+<br />
+<h4>@ViewBag.StudentFullName's Enrollment Details</h4>
+@Html.ActionLink("Create", "Create", "Enrollments", new { studentId = ViewBag.StudentId }, null)
+
 <table class="table">
     <tr>
         <th>
@@ -22,9 +27,6 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Course.Title)
             </td>

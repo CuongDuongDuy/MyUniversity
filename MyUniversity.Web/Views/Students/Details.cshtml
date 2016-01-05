@@ -10,6 +10,7 @@
 <div>
     <h4>Student</h4>
     <hr />
+    <h3>Personal Infomation</h3>
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Person.IdentityNumber)
@@ -41,38 +42,38 @@
         <dd>
             @Html.DisplayFor(model => model.EnrollmentDate)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Enrollments)
-        </dt>
-        <dd>
-            <table class="table">
+    </dl>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+
+    <h3>Enrollments Infomation</h3>
+    @Html.ActionLink("Create", "Create", "Enrollments", new { studentId = Model.Id }, null)
+    <dl class="dl-horizontal">
+        <table class="table">
+            <tr>
+                <th>Course Title</th>
+                <th>Grade</th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model.Enrollments)
+            {
                 <tr>
-                    <th>Course Title</th>
-                    <th>Grade</th>
-                    <th></th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Course.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mark)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "Enrollments", new { id = item.Id }, null)
+                    </td>
                 </tr>
-                @foreach (var item in Model.Enrollments)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Course.Title)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Mark)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", "Enrollments", new { id = item.Id }, null)
-                        </td>
-                    </tr>
-                }
-            </table>
-            @Html.ActionLink("Create", "Create", "Enrollments", new { studentId = Model.Id }, null)
-        </dd>
+            }
+        </table>
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index") |
-    @Html.ActionLink("Enrollments", "Details", "Enrollments", new { studentId = Model.Id })
-
+    @Html.ActionLink("Enrollments", "Index", "Enrollments", new { studentId = Model.Id }, null)
 </p>
