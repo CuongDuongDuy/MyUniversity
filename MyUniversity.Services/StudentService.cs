@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
+using System.Data;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
-using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MyUniversity.Contracts.Models;
 using MyUniversity.Contracts.Services;
@@ -13,11 +13,13 @@ namespace MyUniversity.Services
 {
     public class StudentService : BaseService<StudentModel, StudentProfile, Guid, IStudentProfileRepository>, IStudentService
     {
+        private readonly IPersonRepository personRepository;
 
-        public StudentService(IStudentProfileRepository studentProfileRepository,
+        public StudentService(IStudentProfileRepository studentProfileRepository, IPersonRepository personRepository,
             IUnitOfWork unitOfWork)
             : base(studentProfileRepository, unitOfWork)
         {
+            this.personRepository = personRepository;
         }
 
         public IEnumerable<StudentModel> GetStudents(IEnumerable<string> includes)
@@ -56,6 +58,39 @@ namespace MyUniversity.Services
             Repository.Insert(student);
             UnitOfWork.Commit();
             var result = student.Id;
+            return result;
+        }
+
+        public ModificationServiceResult Update(Guid id, StudentModel studentModel)
+        {
+            var result = new ModificationServiceResult(id);
+            try
+            {
+                var teacherToUpdate = Repository.GetById(id);
+                teacherToUpdate.Person.IdentityNumber = studentModel.Person.IdentityNumber;
+                teacherToUpdate.Person.FirstName = studentModel.Person.FirstName;
+                teacherToUpdate.Person.LastName = studentModel.Person.LastName;
+                teacherToUpdate.Person.DateOfBirth = studentModel.Person.DateOfBirth;
+                teacherToUpdate.Person.Address = studentModel.Person.Address;
+                teacherToUpdate.Person.RowVersion = studentModel.Person.RowVersion;
+
+                teacherToUpdate.EnrollmentDate = studentModel.EnrollmentDate;
+                teacherToUpdate.EffectiveDate = studentModel.EffectiveDate;
+                teacherToUpdate.ExpiryDate = studentModel.ExpiryDate;
+                teacherToUpdate.RowVersion = studentModel.RowVersion;
+                Repository.Update(teacherToUpdate);
+                personRepository.Update(teacherToUpdate.Person);
+                UnitOfWork.Commit();
+                result.Value = id;
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                result.Type = ResultType.DbUpdateConcurrencyException;
+            }
+            catch (DataException)
+            {
+                result.Type = ResultType.DataException;
+            }
             return result;
         }
     }

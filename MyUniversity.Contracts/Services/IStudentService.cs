@@ -11,5 +11,6 @@ namespace MyUniversity.Contracts.Services
         StudentModel GetById(Guid id, IEnumerable<string> includes = null);
         IQueryable<StudentModel> GetAsQueryable();
         Guid Create(StudentModel studentModel);
+        ModificationServiceResult Update(Guid id, StudentModel studentModel);
     }
 }
