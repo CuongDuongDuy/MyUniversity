@@ -1,13 +1,13 @@
-﻿@model MyUniversity.Contracts.Models.StudentModel
+﻿@model MyUniversity.Contracts.Models.TeacherModel
 
 @{
-    ViewBag.Title = "Student Details";
+    ViewBag.Title = "Teacher Details";
 }
 
 <h2>Details</h2>
 
 <div>
-    <h4>Student</h4>
+    <h4>Teacher</h4>
     <hr />
     <h3>Personal Infomation</h3>
     <dl class="dl-horizontal">
@@ -35,11 +35,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.EnrollmentDate)
+            @Html.DisplayNameFor(model => model.HireDate)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.EnrollmentDate)
+            @Html.DisplayFor(model => model.HireDate)
         </dd>
     </dl>
     <p>
