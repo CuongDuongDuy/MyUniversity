@@ -11,8 +11,6 @@ using NHibernate;
 using NHStudentProfileRepository = MyUniversity.Dal.Repositories.NHibernate.StudentProfileRepository;
 using NHStudentRepository = MyUniversity.Dal.Repositories.NHibernate.StudentProfileRepository;
 using NHUnitOfWork = MyUniversity.Dal.Repositories.NHibernate.UnitOfWork;
-using EFStudentRepository = MyUniversity.Dal.Repositories.EntityFramework.StudentProfileRepository;
-using EFStudentProfileRepository = MyUniversity.Dal.Repositories.EntityFramework.StudentProfileRepository;
 using EFUnitOfWork = MyUniversity.Dal.Repositories.EntityFramework.UnitOfWork;
 
 namespace MyUniversity.ApiStart
@@ -46,24 +44,30 @@ namespace MyUniversity.ApiStart
                     break;
 
                 case AppSettingConstant.DbFrameworkType.EntityFramework:
-                    builder.RegisterType<EFStudentProfileRepository>()
-                        .As<IStudentProfileRepository>()
+                    builder.RegisterGeneric(typeof (BaseRepository<,>))
+                        .As(typeof (IBaseRepository<,>))
                         .InstancePerLifetimeScope();
+                    //builder.RegisterType<EFStudentProfileRepository>()
+                    //    .As<IStudentProfileRepository>()
+                    //    .InstancePerLifetimeScope();
+                    ////builder.RegisterType<CourseRepository>()
+                    ////    .As<ICourseRepository>()
+                    ////    .InstancePerLifetimeScope();
+                    //builder.RegisterType<DepartmentRepository>()
+                    //   .As<IDepartmentRepository>()
+                    //   .InstancePerLifetimeScope();
+                    //builder.RegisterType<InstructorProfileRepository>()
+                    //   .As<IInstructorProfileRepository>()
+                    //   .InstancePerLifetimeScope();
+                    //builder.RegisterType<EnrollmentRepository>()
+                    //   .As<IEnrollmentRepository>()
+                    //   .InstancePerLifetimeScope();
+                    //builder.RegisterType<PersonRepository>()
+                    //   .As<IPersonRepository>()
+                    //   .InstancePerLifetimeScope();
                     builder.RegisterType<EFUnitOfWork>()
                         .As<IUnitOfWork>()
                         .InstancePerLifetimeScope();
-                    builder.RegisterType<CourseRepository>()
-                        .As<ICourseRepository>()
-                        .InstancePerLifetimeScope();
-                    builder.RegisterType<DepartmentRepository>()
-                       .As<IDepartmentRepository>()
-                       .InstancePerLifetimeScope();
-                    builder.RegisterType<InstructorProfileRepository>()
-                       .As<IInstructorProfileRepository>()
-                       .InstancePerLifetimeScope();
-                    builder.RegisterType<EnrollmentRepository>()
-                       .As<IEnrollmentRepository>()
-                       .InstancePerLifetimeScope();
                     builder.RegisterType<MyUniversityDbContext>().InstancePerLifetimeScope();
                     break;
             }

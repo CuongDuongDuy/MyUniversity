@@ -10,9 +10,9 @@ using MyUniversity.Dal.Repositories.Contracts;
 
 namespace MyUniversity.Services
 {
-    public class EnrollmentService : BaseService<EnrollmentModel, Enrollment, Guid, IEnrollmentRepository>, IEnrollmentService
+    public class EnrollmentService : BaseService<EnrollmentModel, Enrollment, Guid, IBaseRepository<Enrollment, Guid>>, IEnrollmentService
     {
-        public EnrollmentService(IEnrollmentRepository repository, IUnitOfWork unitOfWork)
+        public EnrollmentService(IBaseRepository<Enrollment, Guid> repository, IUnitOfWork unitOfWork)
             : base(repository, unitOfWork)
         {
         }

@@ -19,6 +19,7 @@
         @Html.HiddenFor(model => model.RowVersion)
         <div class="form-group">
             @Html.Label("Student: " + Model.Student.Person.FullName)
+            @Html.HiddenFor(model => model.StudentId)
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Course.Title, htmlAttributes: new { @class = "control-label col-md-2" })

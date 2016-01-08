@@ -43,7 +43,7 @@ namespace MyUniversity.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id, Mark, RowVersion")] EnrollmentModel enrollmentModel)
+        public async Task<ActionResult> Edit([Bind(Include = "Id, StudentId, Mark, RowVersion")] EnrollmentModel enrollmentModel)
         {
             if (!ModelState.IsValid) return RedirectToAction("BadRequest", "Error");
             var updated =
@@ -57,7 +57,7 @@ namespace MyUniversity.Web.Controllers
                         "Unable to edit. Try again, and if the problem persists contact your system administrator.");
                     return View(enrollmentModel);
             }
-            return RedirectToAction("Edit", "Enrollments", new {id = enrollmentModel.Id});
+            return RedirectToAction("Index", "Enrollments", new { studentId = enrollmentModel.StudentId });
         }
 
         [HttpGet]
@@ -88,7 +88,7 @@ namespace MyUniversity.Web.Controllers
                 return RedirectToAction("BadRequest", "Error");
             }
             var guid = await PostJsonAsyc("api/enrollments", enrollmentModel);
-            return RedirectToAction("Index", "Enrollments", new {id = enrollmentModel.StudentId});
+            return RedirectToAction("Index", "Enrollments", new {studentId = enrollmentModel.StudentId});
         }
     }
 }

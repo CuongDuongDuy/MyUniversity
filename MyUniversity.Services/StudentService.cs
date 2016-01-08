@@ -11,11 +11,11 @@ using MyUniversity.Dal.Repositories.Contracts;
 
 namespace MyUniversity.Services
 {
-    public class StudentService : BaseService<StudentModel, StudentProfile, Guid, IStudentProfileRepository>, IStudentService
+    public class StudentService : BaseService<StudentModel, StudentProfile, Guid, IBaseRepository<StudentProfile, Guid>>, IStudentService
     {
         private readonly IPersonRepository personRepository;
 
-        public StudentService(IStudentProfileRepository studentProfileRepository, IPersonRepository personRepository,
+        public StudentService(IBaseRepository<StudentProfile, Guid> studentProfileRepository, IPersonRepository personRepository,
             IUnitOfWork unitOfWork)
             : base(studentProfileRepository, unitOfWork)
         {

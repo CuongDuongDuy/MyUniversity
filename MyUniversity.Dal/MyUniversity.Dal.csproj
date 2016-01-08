@@ -129,13 +129,6 @@
     <Compile Include="Repositories\Contracts\IStudentProfileRepository.cs" />
     <Compile Include="Repositories\Contracts\IUnitOfWork.cs" />
     <Compile Include="Repositories\EntityFramework\BaseRepository.cs" />
-    <Compile Include="Repositories\EntityFramework\CourseRepository.cs" />
-    <Compile Include="Repositories\EntityFramework\DepartmentRepository.cs" />
-    <Compile Include="Repositories\EntityFramework\EnrollmentRepository.cs" />
-    <Compile Include="Repositories\EntityFramework\InstructorProfileRepository.cs" />
-    <Compile Include="Repositories\EntityFramework\OfficeAssignmentRepository.cs" />
-    <Compile Include="Repositories\EntityFramework\PersonRepository.cs" />
-    <Compile Include="Repositories\EntityFramework\StudentProfileRepository.cs" />
     <Compile Include="Repositories\EntityFramework\UnitOfWork.cs" />
     <Compile Include="Repositories\NHibernate\BaseRepository.cs" />
     <Compile Include="Repositories\NHibernate\StudentProfileRepository.cs" />

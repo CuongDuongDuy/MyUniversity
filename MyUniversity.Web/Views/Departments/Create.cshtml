@@ -7,10 +7,10 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Department</h4>
         <hr />
@@ -34,7 +34,7 @@
         <div class="form-group">
             <label class="control-label col-md-2" for="DeanId">Dean</label>
             <div class="col-md-10">
-                @Html.DropDownList("DeanId", ViewBag.DeanId as IEnumerable<SelectListItem>, "Select dean", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownList("DeanId", ViewBag.DeanId as IEnumerable<SelectListItem>, "Select dean", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.DeanId, "", new { @class = "text-danger" })
             </div>
         </div>

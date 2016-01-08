@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using MyUniversity.Contracts.Models;
@@ -11,12 +10,12 @@ using MyUniversity.Dal.Repositories.Contracts;
 
 namespace MyUniversity.Services
 {
-    public class DepartmentService : BaseService<DepartmentModel, Department, Guid, IDepartmentRepository>,
+    public class DepartmentService : BaseService<DepartmentModel, Department, Guid, IBaseRepository<Department, Guid>>,
         IDepartmentService
     {
 
-        public DepartmentService(IDepartmentRepository departmentRepository, IUnitOfWork unitOfWork)
-            : base(departmentRepository, unitOfWork)
+        public DepartmentService(IBaseRepository<Department, Guid> repository, IUnitOfWork unitOfWork)
+            : base(repository, unitOfWork)
         {
         }
 

@@ -9,7 +9,7 @@ namespace MyUniversity.Services
 {
     public abstract class BaseService<TModel, TEntity, TPrimaryKey, TRepository> where TRepository : IBaseRepository<TEntity, TPrimaryKey> where TEntity : class
     {
-        public TRepository Repository { get; set; }
+        protected TRepository Repository { get; set; }
         public IUnitOfWork UnitOfWork { get; set; }
 
         protected BaseService(TRepository repository, IUnitOfWork unitOfWork)
