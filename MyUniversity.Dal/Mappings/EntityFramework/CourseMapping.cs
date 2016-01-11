@@ -14,6 +14,11 @@ namespace MyUniversity.Dal.Mappings.EntityFramework
             Property(t => t.Title).IsRequired().HasMaxLength(250);
             Property(t => t.Credits).IsRequired();
             Property(t => t.DepartmentId).IsRequired();
+            Property(t => t.Deactive);
+            Property(t => t.CreatedOn).IsRequired();
+            Property(t => t.CreatedBy).IsRequired();
+            Property(t => t.UpdatedOn);
+            Property(t => t.UpdatedBy);
 
             HasRequired(e => e.Department)
                 .WithMany(e => e.Courses)

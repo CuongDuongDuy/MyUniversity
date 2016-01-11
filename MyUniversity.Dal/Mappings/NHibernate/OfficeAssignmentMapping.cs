@@ -20,6 +20,8 @@ namespace MyUniversity.Dal.Mappings.NHibernate
             Map(t => t.UpdatedOn).Nullable();
             Map(t => t.UpdatedBy).Nullable();
 
+            HasOne(t => t.Department).Cascade.None().Constrained();
+            
             Table("OfficeAssignments");
             Schema("dbo");
         }

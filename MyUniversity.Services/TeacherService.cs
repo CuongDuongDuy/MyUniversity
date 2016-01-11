@@ -13,9 +13,9 @@ namespace MyUniversity.Services
 {
     public class TeacherService : BaseService<TeacherModel, InstructorProfile, Guid, IBaseRepository<InstructorProfile, Guid>>, ITeacherService
     {
-        private readonly IPersonRepository personRepository;
+        private readonly IBaseRepository<Person, Guid> personRepository;
 
-        public TeacherService(IBaseRepository<InstructorProfile, Guid> teacherProfileRepository, IPersonRepository personRepository,
+        public TeacherService(IBaseRepository<InstructorProfile, Guid> teacherProfileRepository, IBaseRepository<Person, Guid> personRepository,
             IUnitOfWork unitOfWork)
             : base(teacherProfileRepository, unitOfWork)
         {

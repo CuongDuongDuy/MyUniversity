@@ -50,7 +50,7 @@ namespace MyUniversity.Dal
         {
             ChangeTracker.DetectChanges();
 
-            var ctx = ((IObjectContextAdapter) this).ObjectContext;
+            var ctx = ((IObjectContextAdapter)this).ObjectContext;
 
             var objectStateEntryList = ctx.ObjectStateManager.GetObjectStateEntries(EntityState.Added
                                                                                     | EntityState.Modified
@@ -60,7 +60,7 @@ namespace MyUniversity.Dal
             foreach (var entry in objectStateEntryList)
             {
                 var entity = entry.Entity;
-                if (entry.IsRelationship || entity == null || entity.GetType() == typeof (AuditTrail))
+                if (entry.IsRelationship || entity == null || entity.GetType() == typeof(AuditTrail))
                 {
                     continue;
                 }
@@ -102,63 +102,48 @@ namespace MyUniversity.Dal
                 {
                     Name = "English",
                     StartDate = DateTime.Parse("2010-01-01"),
-                    OfficeAssignments = new[]
-                    {
+                    OfficeAssignment = 
                         new OfficeAssignment
                         {
                             WorkingHours = "9:00 - 11:30, 13:30 - 17:00, weekdays",
                             Location = "Rom 101, headquarter, 97 Vo Van Tan, q1, Ho Chi Minh city",
                             Phone = "38 908 957, 38 908 958"
                         }
-                    }
                 },
                 new Department
                 {
                     Name = "Mathematics",
                     StartDate = DateTime.Parse("2010-01-01"),
-                    OfficeAssignments = new[]
-                    {
+                    OfficeAssignment = 
                         new OfficeAssignment
                         {
                             WorkingHours = "9:00 - 11:30, 13:30 - 17:00, weekdays",
                             Location = "Rom 102, headquarter, 97 Vo Van Tan, q1, Ho Chi Minh city",
                             Phone = "38 908 957, 38 908 958"
                         }
-                    }
                 },
                 new Department
                 {
                     Name = "Economics",
                     StartDate = DateTime.Parse("2010-01-01"),
-                    OfficeAssignments = new[]
-                    {
+                    OfficeAssignment = 
                         new OfficeAssignment
                         {
                             WorkingHours = "9:00 - 11:30, 13:30 - 17:00, weekdays",
                             Location = "Rom 104, headquarter, 97 Vo Van Tan, q1, Ho Chi Minh city",
                             Phone = "38 908 957, 38 908 958"
                         }
-                    }
                 },
                 new Department
                 {
                     Name = "Engineering",
                     StartDate = DateTime.Parse("2010-01-01"),
-                    OfficeAssignments = new[]
-                    {
-                        new OfficeAssignment
+                    OfficeAssignment = new OfficeAssignment
                         {
                             WorkingHours = "9:00 - 11:30, 13:30 - 17:00, weekdays",
                             Location = "Rom 109, headquarter, 97 Vo Van Tan, q1, Ho Chi Minh city",
                             Phone = "38 908 957, 38 908 958"
-                        },
-                        new OfficeAssignment
-                        {
-                            WorkingHours = "9:00 - 11:30, 13:30 - 17:00, weekdays",
-                            Location = "GFloor, 100 Dinh Tien Hoan, Binh Thanh, Ho Chi Minh city",
-                            Phone = "39 897 888"
                         }
-                    }
                 }
             };
 
