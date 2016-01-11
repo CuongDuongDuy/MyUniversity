@@ -74,9 +74,9 @@
     <Compile Include="Migrations\201512150952304_AddRowVersion.Designer.cs">
       <DependentUpon>201512150952304_AddRowVersion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201601100644120_UpdateRelationshipDepartment-OfficeAssignment.cs" />
-    <Compile Include="Migrations\201601100644120_UpdateRelationshipDepartment-OfficeAssignment.Designer.cs">
-      <DependentUpon>201601100644120_UpdateRelationshipDepartment-OfficeAssignment.cs</DependentUpon>
+    <Compile Include="Migrations\201601111406589_UpdateDepartmentOfficeAssignments.cs" />
+    <Compile Include="Migrations\201601111406589_UpdateDepartmentOfficeAssignments.Designer.cs">
+      <DependentUpon>201601111406589_UpdateDepartmentOfficeAssignments.cs</DependentUpon>
     </Compile>
     <Compile Include="Repositories\Contracts\IEnrollmentRepository.cs" />
     <Compile Include="Entities\OfficeAssignment.cs" />
@@ -135,7 +135,6 @@
     <Compile Include="Repositories\EntityFramework\BaseRepository.cs" />
     <Compile Include="Repositories\EntityFramework\UnitOfWork.cs" />
     <Compile Include="Repositories\NHibernate\BaseRepository.cs" />
-    <Compile Include="Repositories\NHibernate\StudentProfileRepository.cs" />
     <Compile Include="Repositories\NHibernate\UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -167,8 +166,8 @@
     <EmbeddedResource Include="Migrations\201512150952304_AddRowVersion.resx">
       <DependentUpon>201512150952304_AddRowVersion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601100644120_UpdateRelationshipDepartment-OfficeAssignment.resx">
-      <DependentUpon>201601100644120_UpdateRelationshipDepartment-OfficeAssignment.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201601111406589_UpdateDepartmentOfficeAssignments.resx">
+      <DependentUpon>201601111406589_UpdateDepartmentOfficeAssignments.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

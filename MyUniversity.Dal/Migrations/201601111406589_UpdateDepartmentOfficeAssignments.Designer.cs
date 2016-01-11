@@ -7,13 +7,13 @@ namespace MyUniversity.Dal.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class UpdateRelationshipDepartmentOfficeAssignment : IMigrationMetadata
+    public sealed partial class UpdateDepartmentOfficeAssignments : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateRelationshipDepartmentOfficeAssignment));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateDepartmentOfficeAssignments));
         
         string IMigrationMetadata.Id
         {
-            get { return "201601100644120_UpdateRelationshipDepartment-OfficeAssignment"; }
+            get { return "201601111406589_UpdateDepartmentOfficeAssignments"; }
         }
         
         string IMigrationMetadata.Source

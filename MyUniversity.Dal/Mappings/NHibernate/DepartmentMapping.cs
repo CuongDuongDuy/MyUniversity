@@ -19,7 +19,6 @@ namespace MyUniversity.Dal.Mappings.NHibernate
             Map(t => t.UpdatedBy).Nullable();
 
             References(t => t.Dean).ForeignKey("DeanId");
-            HasOne(t => t.OfficeAssignment).Cascade.None().ForeignKey("OfficeAssignmentId");
 
             Table("Departments");
             Schema("dbo");

@@ -38,49 +38,63 @@ namespace MyUniversity.Dal.Migrations
                 {
                     Name = "English",
                     StartDate = DateTime.Parse("2010-01-01"),
-                    OfficeAssignment = 
+                    OfficeAssignments = new[]
+                    {
                         new OfficeAssignment
                         {
                             WorkingHours = "9:00 - 11:30, 13:30 - 17:00, weekdays",
                             Location = "Rom 101, headquarter, 97 Vo Van Tan, q1, Ho Chi Minh city",
                             Phone = "38 908 957, 38 908 958"
                         }
+                    }
                 },
                 new Department
                 {
                     Name = "Mathematics",
                     StartDate = DateTime.Parse("2010-01-01"),
-                    OfficeAssignment = 
+                    OfficeAssignments = new[]
+                    {
                         new OfficeAssignment
                         {
                             WorkingHours = "9:00 - 11:30, 13:30 - 17:00, weekdays",
                             Location = "Rom 102, headquarter, 97 Vo Van Tan, q1, Ho Chi Minh city",
                             Phone = "38 908 957, 38 908 958"
                         }
+                    }
                 },
                 new Department
                 {
                     Name = "Economics",
                     StartDate = DateTime.Parse("2010-01-01"),
-                    OfficeAssignment =
+                    OfficeAssignments = new[]
+                    {
                         new OfficeAssignment
                         {
                             WorkingHours = "9:00 - 11:30, 13:30 - 17:00, weekdays",
                             Location = "Rom 104, headquarter, 97 Vo Van Tan, q1, Ho Chi Minh city",
                             Phone = "38 908 957, 38 908 958"
                         }
+                    }
                 },
                 new Department
                 {
                     Name = "Engineering",
                     StartDate = DateTime.Parse("2010-01-01"),
-                    OfficeAssignment = 
+                    OfficeAssignments = new[]
+                    {
                         new OfficeAssignment
                         {
                             WorkingHours = "9:00 - 11:30, 13:30 - 17:00, weekdays",
                             Location = "Rom 109, headquarter, 97 Vo Van Tan, q1, Ho Chi Minh city",
                             Phone = "38 908 957, 38 908 958"
+                        },
+                        new OfficeAssignment
+                        {
+                            WorkingHours = "9:00 - 11:30, 13:30 - 17:00, weekdays",
+                            Location = "GFloor, 100 Dinh Tien Hoan, Binh Thanh, Ho Chi Minh city",
+                            Phone = "39 897 888"
                         }
+                    }
                 }
             };
 

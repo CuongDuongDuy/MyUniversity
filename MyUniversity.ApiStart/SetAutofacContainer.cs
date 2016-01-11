@@ -8,8 +8,6 @@ using MyUniversity.Dal;
 using MyUniversity.Dal.Repositories.Contracts;
 using MyUniversity.Dal.Repositories.EntityFramework;
 using NHibernate;
-using NHStudentProfileRepository = MyUniversity.Dal.Repositories.NHibernate.StudentProfileRepository;
-using NHStudentRepository = MyUniversity.Dal.Repositories.NHibernate.StudentProfileRepository;
 using NHUnitOfWork = MyUniversity.Dal.Repositories.NHibernate.UnitOfWork;
 using EFUnitOfWork = MyUniversity.Dal.Repositories.EntityFramework.UnitOfWork;
 
@@ -31,20 +29,20 @@ namespace MyUniversity.ApiStart
             switch (dbFrameworkUse)
             {
                 case AppSettingConstant.DbFrameworkType.Nhibernate:
-                    builder.RegisterType<NHStudentProfileRepository>()
-                        .As<IStudentProfileRepository>()
+                    builder.RegisterGeneric(typeof(MyUniversity.Dal.Repositories.NHibernate.BaseRepository<,>))
+                        .As(typeof(IBaseRepository<,>))
                         .InstancePerLifetimeScope();
+
                     builder.RegisterType<NHUnitOfWork>()
                         .As<IUnitOfWork>()
                         .InstancePerLifetimeScope();
-
                     builder.Register(x => DatabaseInitialization.GetConfig()
                         .BuildSessionFactory()).As<ISessionFactory>().SingleInstance();
                     builder.Register(x => x.Resolve<ISessionFactory>().OpenSession()).InstancePerLifetimeScope();
                     break;
 
                 case AppSettingConstant.DbFrameworkType.EntityFramework:
-                    builder.RegisterGeneric(typeof (BaseRepository<,>))
+                    builder.RegisterGeneric(typeof(MyUniversity.Dal.Repositories.EntityFramework.BaseRepository<,>))
                         .As(typeof (IBaseRepository<,>))
                         .InstancePerLifetimeScope();
                     //builder.RegisterType<EFStudentProfileRepository>()

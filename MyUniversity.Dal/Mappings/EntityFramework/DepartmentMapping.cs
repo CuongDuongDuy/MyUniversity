@@ -22,8 +22,6 @@ namespace MyUniversity.Dal.Mappings.EntityFramework
 
             HasOptional(t => t.Dean).WithMany().HasForeignKey(c => c.DeanId).WillCascadeOnDelete(false);
 
-            HasRequired(t=>t.OfficeAssignment).WithRequiredDependent(t=>t.Department).WillCascadeOnDelete(false);
-
             ToTable("Departments");
         }
     }

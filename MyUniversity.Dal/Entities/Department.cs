@@ -11,8 +11,7 @@ namespace MyUniversity.Dal.Entities
         public Guid? DeanId { get; set; }
         public virtual InstructorProfile Dean { get; set; }
         public virtual ICollection<Course> Courses { get; set; }
-        public virtual OfficeAssignment OfficeAssignment { get; set; }
-        public Guid OfficeAssignmentId { get; set; }
+        public virtual ICollection<OfficeAssignment> OfficeAssignments { get; set; }
         public virtual ICollection<InstructorProfile> InstructorProfiles { get; set; }
         public virtual ICollection<StudentProfile> StudentProfiles { get; set; } 
         

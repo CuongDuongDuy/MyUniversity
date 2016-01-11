@@ -10,11 +10,11 @@ using NHibernate.Linq;
 
 namespace MyUniversity.Dal.Repositories.NHibernate
 {
-    public class RepositoryBase<TEntity, TPrimaryKey> : IBaseRepository<TEntity, TPrimaryKey> where TEntity : EntityBase
+    public class BaseRepository<TEntity, TPrimaryKey> : IBaseRepository<TEntity, TPrimaryKey> where TEntity : EntityBase
     {
         private readonly ISession session;
 
-        public RepositoryBase(ISession session)
+        public BaseRepository(ISession session)
         {
             this.session = session;
         }
