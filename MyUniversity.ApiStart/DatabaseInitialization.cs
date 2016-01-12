@@ -13,7 +13,8 @@ namespace MyUniversity.ApiStart
                 .Database(
                     MsSqlConfiguration.MsSql2012.ShowSql()
                         .ConnectionString(c => c.FromConnectionStringWithKey("MyUniversityDb")))
-                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<StudentProfileMapping>());
+                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<StudentProfileMapping>()
+                    .Conventions.Add(FluentNHibernate.Conventions.Helpers.DefaultLazy.Never()));
         }
 
         public static void Run(AppSettingConstant.DbFrameworkType dbFrameworkUse)

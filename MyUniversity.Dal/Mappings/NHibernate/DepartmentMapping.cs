@@ -18,7 +18,7 @@ namespace MyUniversity.Dal.Mappings.NHibernate
             Map(t => t.UpdatedOn).Nullable();
             Map(t => t.UpdatedBy).Nullable();
 
-            References(t => t.Dean).ForeignKey("DeanId");
+            References(t => t.Dean).Column("DeanId");
 
             Table("Departments");
             Schema("dbo");

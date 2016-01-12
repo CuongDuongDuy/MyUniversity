@@ -19,9 +19,9 @@ namespace MyUniversity.Dal.Mappings.NHibernate
             Map(t => t.UpdatedOn);
             Map(t => t.UpdatedBy);
 
-            References(t => t.Course).ForeignKey("CourseId").Not.Nullable();
-            References(t => t.StudentProfile).ForeignKey("StudentProfileId").Not.Nullable();
-            References(t => t.InstructorProfile).ForeignKey("InstructorProfileId").Not.Nullable();
+            References(t => t.Course).Column("CourseId").Not.Nullable();
+            References(t => t.StudentProfile).Column("StudentProfileId").Not.Nullable();
+            References(t => t.InstructorProfile).Column("InstructorProfileId").Not.Nullable();
 
             Table("Enrollments");
             Schema("dbo");
