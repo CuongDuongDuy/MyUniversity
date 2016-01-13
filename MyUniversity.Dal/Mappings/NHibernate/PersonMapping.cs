@@ -16,8 +16,8 @@ namespace MyUniversity.Dal.Mappings.NHibernate
             Map(t => t.Address).Not.Nullable().Length(250);
 
             Map(t => t.Deactive);
-            Map(t => t.CreatedOn).Not.Nullable();
-            Map(t => t.CreatedBy).Not.Nullable();
+            Map(t => t.CreatedOn);
+            Map(t => t.CreatedBy);
             Map(t => t.UpdatedOn);
             Map(t => t.UpdatedBy);
 

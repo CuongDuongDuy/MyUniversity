@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using AutoMapper.QueryableExtensions;
+using MyUniversity.Contracts.Constants;
 using MyUniversity.Contracts.Models;
 using MyUniversity.Contracts.Services;
 using MyUniversity.Dal.Entities;
@@ -55,6 +56,10 @@ namespace MyUniversity.Services
         public Guid Create(StudentModel studentModel)
         {
             var student = TranferToEntity(studentModel);
+            student.Person.CreatedBy = EntityConstant.CreatedBy;
+            student.Person.CreatedOn = DateTime.UtcNow;
+            student.CreatedBy = EntityConstant.CreatedBy;
+            student.CreatedOn = DateTime.UtcNow;
             Repository.Insert(student);
             UnitOfWork.Commit();
             var result = student.Id;

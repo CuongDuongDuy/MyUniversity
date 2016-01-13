@@ -38,6 +38,10 @@ namespace MyUniversity.Dal.Repositories.NHibernate
 
             try
             {
+                var sessionContext = session.GetSessionImplementation().PersistenceContext;
+                foreach (var entity in sessionContext.EntitiesByKey.Values)
+                {
+                }
                 transaction.Commit();
                 return 0;
             }

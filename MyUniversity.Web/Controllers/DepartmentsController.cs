@@ -39,7 +39,7 @@ namespace MyUniversity.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(DepartmentModel departmentModel)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return RedirectToAction("BadRequest", "Error");
             }

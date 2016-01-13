@@ -11,7 +11,7 @@ namespace MyUniversity.Dal.Entities
             ActionType = auditTrailAction.ToString();
             Value = value;
             CreatedBy = EntityConstant.CreatedBy;
-            CreatedOn = DateTime.Now;
+            CreatedOn = DateTime.UtcNow;
         }
 
         public Guid Guid { get; set; }

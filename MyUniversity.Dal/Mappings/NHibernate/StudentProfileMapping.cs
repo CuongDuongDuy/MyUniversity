@@ -10,19 +10,18 @@ namespace MyUniversity.Dal.Mappings.NHibernate
             Id(t => t.Id).GeneratedBy.Guid();
 
             Map(t => t.EnrollmentDate).Not.Nullable();
-            Map(t => t.DepartmentId).Nullable();
 
             Map(t => t.EffectiveDate).Not.Nullable();
             Map(t => t.ExpiryDate).Nullable();
 
-            Map(t => t.CreatedBy).Column("CreatedBy").Not.Nullable();
-            Map(t => t.CreatedOn).Column("CreatedOn").Not.Nullable();
-            Map(t => t.UpdatedBy).Column("UpdatedBy").Nullable();
-            Map(t => t.UpdatedOn).Column("UpdatedOn").Nullable();
-            Map(t => t.Deactive).Column("Deactive").Nullable();
+            Map(t => t.CreatedBy).Column("CreatedBy");
+            Map(t => t.CreatedOn).Column("CreatedOn");
+            Map(t => t.UpdatedBy).Column("UpdatedBy");
+            Map(t => t.UpdatedOn).Column("UpdatedOn");
+            Map(t => t.Deactive).Column("Deactive");
 
-            References(t => t.Department).Column("DepartmentId").Not.Nullable();
-            References(t => t.Person).Column("PersonId").Not.Nullable();
+            References(t => t.Department, "DepartmentId").Cascade.All();
+            References(t => t.Person,"PersonId").Cascade.All();
 
             Table("StudentProfiles");
             Schema("dbo");
