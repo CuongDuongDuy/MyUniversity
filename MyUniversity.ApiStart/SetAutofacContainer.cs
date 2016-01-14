@@ -4,9 +4,11 @@ using System.Linq;
 using System.Reflection;
 using Autofac;
 using MyUniversity.Contracts.Constants;
+using MyUniversity.Contracts.Services;
 using MyUniversity.Dal;
 using MyUniversity.Dal.Repositories.Contracts;
 using MyUniversity.Dal.Repositories.EntityFramework;
+using MyUniversity.Services;
 using NHibernate;
 using NHUnitOfWork = MyUniversity.Dal.Repositories.NHibernate.UnitOfWork;
 using EFUnitOfWork = MyUniversity.Dal.Repositories.EntityFramework.UnitOfWork;
@@ -19,12 +21,13 @@ namespace MyUniversity.ApiStart
         {
             var builder = new ContainerBuilder();
 
-            var serviceAssembly = Assembly.Load("MyUniversity.Services");
-            builder.RegisterAssemblyTypes(serviceAssembly)
-                   .Where(x => x.Name.EndsWith("Service"))
-                   .AsImplementedInterfaces()
-                   .InstancePerLifetimeScope();
-
+            //var serviceAssembly = Assembly.Load("MyUniversity.Services");
+            //builder.RegisterAssemblyTypes(serviceAssembly)
+            //       .Where(x => x.Name.EndsWith("Service"))
+            //       .AsImplementedInterfaces()
+            //       .InstancePerLifetimeScope()
+            builder.RegisterType<CourseService>().As<ICourseService>().InstancePerLifetimeScope();
+            builder.RegisterType<DepartmentService>().As<IDepartmentService>().InstancePerLifetimeScope();
             // Register for Repositories, UnitOfWork
             switch (dbFrameworkUse)
             {

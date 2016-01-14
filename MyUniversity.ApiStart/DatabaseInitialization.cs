@@ -1,7 +1,9 @@
 ﻿using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using MyUniversity.Contracts.Constants;
+using MyUniversity.Dal;
 using MyUniversity.Dal.Mappings.NHibernate;
+using NHibernate.Event;
 
 namespace MyUniversity.ApiStart
 {
@@ -13,8 +15,11 @@ namespace MyUniversity.ApiStart
                 .Database(
                     MsSqlConfiguration.MsSql2012.ShowSql()
                         .ConnectionString(c => c.FromConnectionStringWithKey("MyUniversityDb")))
-                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<StudentProfileMapping>()
-                    .Conventions.Add(FluentNHibernate.Conventions.Helpers.DefaultLazy.Never()));
+                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<CourseMapping>()
+                    .Conventions.Add(FluentNHibernate.Conventions.Helpers.DefaultLazy.Never()))
+                .ExposeConfiguration(c => c.EventListeners.PreUpdateEventListeners = new IPreUpdateEventListener[] { new NHibernateCustomPreEventListener() })
+                .ExposeConfiguration(c => c.EventListeners.PreInsertEventListeners = new IPreInsertEventListener[] { new NHibernateCustomPreEventListener() })
+                .ExposeConfiguration(c => c.EventListeners.PreDeleteEventListeners = new IPreDeleteEventListener[] { new NHibernateCustomPreEventListener() });
         }
 
         public static void Run(AppSettingConstant.DbFrameworkType dbFrameworkUse)

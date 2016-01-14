@@ -20,8 +20,7 @@ namespace MyUniversity.Dal.Mappings.NHibernate
             Map(t => t.UpdatedOn).Column("UpdatedOn");
             Map(t => t.Deactive).Column("Deactive");
 
-            References(t => t.Department, "DepartmentId").Cascade.All();
-            References(t => t.Person,"PersonId").Cascade.All();
+            References(t => t.Person).Column("PersonId").Cascade.SaveUpdate();
 
             Table("StudentProfiles");
             Schema("dbo");

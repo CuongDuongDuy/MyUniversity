@@ -56,10 +56,6 @@ namespace MyUniversity.Services
         public Guid Create(StudentModel studentModel)
         {
             var student = TranferToEntity(studentModel);
-            student.Person.CreatedBy = EntityConstant.CreatedBy;
-            student.Person.CreatedOn = DateTime.UtcNow;
-            student.CreatedBy = EntityConstant.CreatedBy;
-            student.CreatedOn = DateTime.UtcNow;
             Repository.Insert(student);
             UnitOfWork.Commit();
             var result = student.Id;

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using MyUniversity.Contracts.Constants;
 using MyUniversity.Dal.Entities;
 using MyUniversity.Dal.Repositories.Contracts;
 using NHibernate;
@@ -48,17 +47,6 @@ namespace MyUniversity.Dal.Repositories.NHibernate
 
         public void Insert(TEntity entity)
         {
-            var entityType = entity.GetType();
-            var createdByProp = entityType.GetProperty("CreatedBy");
-            if (createdByProp != null)
-            {
-                createdByProp.SetValue(entity, EntityConstant.CreatedBy, null);
-            }
-            var createdOnProp = entityType.GetProperty("CreatedOn");
-            if (createdOnProp != null)
-            {
-                createdOnProp.SetValue(entity, DateTime.UtcNow, null);
-            }
             session.Save(entity);
         }
 
@@ -70,67 +58,23 @@ namespace MyUniversity.Dal.Repositories.NHibernate
             }
             foreach (var entity in entities)
             {
-                var entityType = entity.GetType();
-                var createdByProp = entityType.GetProperty("CreatedBy", entityType);
-                if (createdByProp != null)
-                {
-                    createdByProp.SetValue(entity, EntityConstant.CreatedBy, null);
-                }
-                var createdOnProp = entityType.GetProperty("CreatedOn", entityType);
-                if (createdOnProp != null)
-                {
-                    createdOnProp.SetValue(entity, DateTime.UtcNow, null);
-                }
                 session.Save(entity);
             }
         }
 
         public void Update(TEntity entity)
         {
-            var entityType = entity.GetType();
-            var createdByProp = entityType.GetProperty("UpdatedBy", entityType);
-            if (createdByProp != null)
-            {
-                createdByProp.SetValue(entity, EntityConstant.UpdatedBy, null);
-            }
-            var createdOnProp = entityType.GetProperty("UpdatedOn", entityType);
-            if (createdOnProp != null)
-            {
-                createdOnProp.SetValue(entity, DateTime.UtcNow, null);
-            }
             session.Update(entity);
         }
 
         public void Delete(TEntity entity)
         {
-            var entityType = entity.GetType();
-            var createdByProp = entityType.GetProperty("UpdatedBy", entityType);
-            if (createdByProp != null)
-            {
-                createdByProp.SetValue(entity, EntityConstant.UpdatedBy, null);
-            }
-            var createdOnProp = entityType.GetProperty("UpdatedOn", entityType);
-            if (createdOnProp != null)
-            {
-                createdOnProp.SetValue(entity, DateTime.UtcNow, null);
-            }
             session.Delete(entity);
         }
 
         public void Delete(TPrimaryKey id)
         {
             var entity = session.Load<TEntity>(id);
-            var entityType = entity.GetType();
-            var createdByProp = entityType.GetProperty("UpdatedBy", entityType);
-            if (createdByProp != null)
-            {
-                createdByProp.SetValue(entity, EntityConstant.UpdatedBy, null);
-            }
-            var createdOnProp = entityType.GetProperty("UpdatedOn", entityType);
-            if (createdOnProp != null)
-            {
-                createdOnProp.SetValue(entity, DateTime.UtcNow, null);
-            }
             session.Delete(entity);
         }
     }

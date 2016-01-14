@@ -48,6 +48,8 @@ namespace MyUniversity.Services
         public Guid Create(CourseModel courseModel)
         {
             var course = TranferToEntity(courseModel);
+            course.CreatedBy = "Admin";
+            course.CreatedOn=DateTime.UtcNow;
             Repository.Insert(course);
             UnitOfWork.Commit();
             var result = course.Id;
