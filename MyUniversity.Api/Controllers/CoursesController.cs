@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Web.Http;
 using MyUniversity.Contracts.Models;
 using MyUniversity.Contracts.Services;
+using Newtonsoft.Json;
 
 namespace MyUniversity.Api.Controllers
 {
@@ -89,9 +90,9 @@ namespace MyUniversity.Api.Controllers
             {
                 try
                 {
-                    courseService.Update(id, coureModel);
-                    result.StatusCode = HttpStatusCode.Accepted;
-                    result.Content = new StringContent(id.ToString());
+                    var updated = courseService.Update(id, coureModel);
+                    result.StatusCode = HttpStatusCode.OK;
+                    result.Content = new StringContent(JsonConvert.SerializeObject(updated));
                 }
                 catch
                 {

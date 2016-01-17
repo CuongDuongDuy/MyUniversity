@@ -17,9 +17,9 @@ namespace MyUniversity.Dal.Mappings.NHibernate
             Map(t => t.UpdatedOn).Nullable();
             Map(t => t.UpdatedBy).Nullable();
 
-            References(t => t.Dean).Column("DeanId").Nullable().ReadOnly();
-            HasMany(x => x.StudentProfiles).KeyColumn("DepartmentId").Cascade.SaveUpdate().Inverse();
-            HasMany(x => x.Courses).KeyColumn("DepartmentId").Cascade.SaveUpdate().Inverse();
+            References(t => t.Dean).Column("DeanId").Nullable().Cascade.None();
+            HasMany(x => x.StudentProfiles).KeyColumn("DepartmentId").Inverse().Cascade.None();
+            HasMany(x => x.Courses).KeyColumn("DepartmentId").Inverse().Cascade.None();
 
             Table("Departments");
             Schema("dbo");

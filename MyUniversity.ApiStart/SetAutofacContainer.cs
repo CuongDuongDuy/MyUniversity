@@ -21,13 +21,13 @@ namespace MyUniversity.ApiStart
         {
             var builder = new ContainerBuilder();
 
-            //var serviceAssembly = Assembly.Load("MyUniversity.Services");
-            //builder.RegisterAssemblyTypes(serviceAssembly)
-            //       .Where(x => x.Name.EndsWith("Service"))
-            //       .AsImplementedInterfaces()
-            //       .InstancePerLifetimeScope()
-            builder.RegisterType<CourseService>().As<ICourseService>().InstancePerLifetimeScope();
-            builder.RegisterType<DepartmentService>().As<IDepartmentService>().InstancePerLifetimeScope();
+            var serviceAssembly = Assembly.Load("MyUniversity.Services");
+            builder.RegisterAssemblyTypes(serviceAssembly)
+                .Where(x => x.Name.EndsWith("Service"))
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
+            //builder.RegisterType<CourseService>().As<ICourseService>().InstancePerLifetimeScope();
+            //builder.RegisterType<DepartmentService>().As<IDepartmentService>().InstancePerLifetimeScope();
             // Register for Repositories, UnitOfWork
             switch (dbFrameworkUse)
             {

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using MyUniversity.Contracts.Models;
 using MyUniversity.Contracts.Services;
@@ -48,22 +50,34 @@ namespace MyUniversity.Services
         public Guid Create(CourseModel courseModel)
         {
             var course = TranferToEntity(courseModel);
-            course.CreatedBy = "Admin";
-            course.CreatedOn=DateTime.UtcNow;
             Repository.Insert(course);
             UnitOfWork.Commit();
             var result = course.Id;
             return result;
         }
 
-        public void Update(Guid id, CourseModel coureModel)
+        public ModificationServiceResult Update(Guid id, CourseModel coureModel)
         {
-            var courseToUpdate = Repository.GetById(id);
-            courseToUpdate.Title = coureModel.Title;
-            courseToUpdate.Credits = coureModel.Credits;
-            courseToUpdate.DepartmentId = coureModel.DepartmentId;
-            Repository.Update(courseToUpdate);
-            UnitOfWork.Commit();
+            var result = new ModificationServiceResult(id);
+            try
+            {
+                var courseToUpdate = Repository.GetById(id);
+                courseToUpdate.Title = coureModel.Title;
+                courseToUpdate.Credits = coureModel.Credits;
+                courseToUpdate.DepartmentId = coureModel.DepartmentId;
+                courseToUpdate.RowVersion = coureModel.RowVersion;
+                Repository.Update(courseToUpdate);
+                UnitOfWork.Commit();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                result.Type = ResultType.DbUpdateConcurrencyException;
+            }
+            catch (DataException)
+            {
+                result.Type = ResultType.DataException;
+            }
+            return result;
         }
     }
 }

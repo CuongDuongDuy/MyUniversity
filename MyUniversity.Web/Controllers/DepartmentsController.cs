@@ -67,7 +67,7 @@ namespace MyUniversity.Web.Controllers
             ViewBag.DeanId = new SelectList(teachersModels, "Id", "Person.FullName", departmentModel.DeanId);
             if (concurrencyError.GetValueOrDefault())
             {
-                ViewBag.ConcurrencyErrorMessage = "Concurrency issue. If you still want to deactivate this "
+                ViewBag.ConcurrencyErrorMessage = "Concurrency issue. If you still want to edit this "
                                                   + "record, click the Save button again. Otherwise "
                                                   + "click the Back to List hyperlink.";
             }
@@ -87,7 +87,7 @@ namespace MyUniversity.Web.Controllers
                     return RedirectToAction("Edit", new { id = departmentModel.Id, concurrencyError = true });
                 case ResultType.DataException:
                     ModelState.AddModelError(string.Empty,
-                        "Unable to deactivate. Try again, and if the problem persists contact your system administrator.");
+                        "Unable to edit. Try again, and if the problem persists contact your system administrator.");
                     return View(departmentModel);
             }
             return RedirectToAction("Details", "Departments", new {id = updated.Value});
