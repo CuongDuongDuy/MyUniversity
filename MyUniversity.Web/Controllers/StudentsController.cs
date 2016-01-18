@@ -143,36 +143,27 @@ namespace MyUniversity.Web.Controllers
 
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Guid id)
+        public async Task<ActionResult> Edit(Guid id, StudentModel studentToUpdate)
         {
-            var studentToUpdate = await GetHttpResponMessageResultAsyc<StudentModel>(string.Format("api/students/{0}", id));
-            if (TryUpdateModel(studentToUpdate, "",
-                new string[]
-                {
-                    "EffectiveDate", "ExpiryDate", "EnrollmentDate", "DepartmentId",
-                    "Person.IdentityNumber", "Person.LastName", "Person.FirstName", "Person.DateOfBirth", "Person.Address"
-                }))
+            try
             {
-                try
+                var updated = await PutJsonAsyc(string.Format("api/students/{0}", id), studentToUpdate);
+                switch (updated.Type)
                 {
-                    var updated = await PutJsonAsyc(string.Format("api/students/{0}", id), studentToUpdate);
-                    switch (updated.Type)
-                    {
-                        case ResultType.DbUpdateConcurrencyException:
-                            return RedirectToAction("Edit", new {id = studentToUpdate.Id, concurrencyError = true});
-                        case ResultType.DataException:
-                            ModelState.AddModelError(string.Empty,
-                                "Unable to edit. Try again, and if the problem persists contact your system administrator.");
-                            return View(studentToUpdate);
-                    }
-                }
-                catch (RetryLimitExceededException)
-                {
-                    ModelState.AddModelError("",
-                        "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                    case ResultType.DbUpdateConcurrencyException:
+                        return RedirectToAction("Edit", new {id = studentToUpdate.Id, concurrencyError = true});
+                    case ResultType.DataException:
+                        ModelState.AddModelError(string.Empty,
+                            "Unable to edit. Try again, and if the problem persists contact your system administrator.");
+                        return View(studentToUpdate);
                 }
             }
-            return View(studentToUpdate);
+            catch (RetryLimitExceededException)
+            {
+                ModelState.AddModelError("",
+                    "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+            }
+            return RedirectToAction("Details", "Students", new {id = studentToUpdate.Id});
         }
 
     }

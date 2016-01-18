@@ -15,6 +15,7 @@ namespace MyUniversity.Web.Controllers
     {
         public async Task<ActionResult> Index(Guid? selectedDepartment)
         {
+            throw new HttpException((int)HttpStatusCode.BadRequest, "Error");
             var getCoursesTask = GetHttpResponMessageResultAsyc<List<CourseModel>>("api/courses", "department");
             var getDepartmentsTask = GetHttpResponMessageResultAsyc<List<DepartmentModel>>("api/departments");
 

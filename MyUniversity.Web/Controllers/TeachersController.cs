@@ -143,16 +143,8 @@ namespace MyUniversity.Web.Controllers
 
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Guid id)
+        public async Task<ActionResult> Edit(Guid id, TeacherModel teacherToUpdate)
         {
-            var teacherToUpdate = await GetHttpResponMessageResultAsyc<TeacherModel>(string.Format("api/teachers/{0}", id));
-            if (TryUpdateModel(teacherToUpdate, "",
-                new string[]
-                {
-                    "EffectiveDate", "ExpiryDate", "EnrollmentDate", "DepartmentId",
-                    "Person.IdentityNumber", "Person.LastName", "Person.FirstName", "Person.DateOfBirth", "Person.Address"
-                }))
-            {
                 try
                 {
                     var updated = await PutJsonAsyc(string.Format("api/teachers/{0}", id), teacherToUpdate);
@@ -171,8 +163,7 @@ namespace MyUniversity.Web.Controllers
                     ModelState.AddModelError("",
                         "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
                 }
-            }
-            return View(teacherToUpdate);
+                return RedirectToAction("Details", "Teachers", new { id = teacherToUpdate.Id });
         }
 
     }

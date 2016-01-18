@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using MyUniversity.Contracts.Models;
 using MyUniversity.Contracts.Services;
 using MyUniversity.Contracts.ViewModels;
+using Newtonsoft.Json;
 
 namespace MyUniversity.Api.Controllers
 {
@@ -45,6 +47,24 @@ namespace MyUniversity.Api.Controllers
                 }
             }
             return BadRequest();
+        }
+
+        [HttpPut]
+        [Route("{id:guid}")]
+        public HttpResponseMessage Edit(Guid id, StudentModel studentModel)
+        {
+            var result = new HttpResponseMessage();
+            if (ModelState.IsValid)
+            {
+                var updated = studentService.Update(id, studentModel);
+                result.StatusCode = HttpStatusCode.OK;
+                result.Content = new StringContent(JsonConvert.SerializeObject(updated));
+            }
+            else
+            {
+                result.StatusCode = HttpStatusCode.BadRequest;
+            }
+            return result;
         }
 
         [HttpGet]

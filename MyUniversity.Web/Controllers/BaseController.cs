@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
+using log4net;
 using MyUniversity.Contracts.Services;
 using Newtonsoft.Json;
 
@@ -70,29 +71,17 @@ namespace MyUniversity.Web.Controllers
             result = result + "?$expand=" + includesString.Substring(0, includesString.Length - 1);
             return result;
         }
-        //protected override void OnException(ExceptionContext filterContext)
-        //{
-        //    var log = LogManager.GetLogger("DAL");
-        //    GlobalContext.Properties["Type"] = "DAL";
-        //    filterContext.ExceptionHandled = true;
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            var log = LogManager.GetLogger("Web");
+            filterContext.ExceptionHandled = true;
 
-        //    if (filterContext.Exception is ItemNotFoundException)
-        //    {
-        //        filterContext.Result = new RedirectResult("~/Error/NotFound");
-        //        log.Error("Page Not Found");
-        //    }
-        //    else if (filterContext.Exception is CustomException)
-        //    {
-        //        TempData["ERROR_MESSAGE"] = filterContext.Exception.Message;
-        //        filterContext.Result = new RedirectResult("~/Error/CustomError");
-        //        log.Error(filterContext.Exception.Message, filterContext.Exception);
-        //    }
-        //    else
-        //    {
-        //        TempData["LAST_ERROR"] = filterContext.Exception;
-        //        filterContext.Result = new RedirectResult("~/Error/ServerError");
-        //        log.Error(filterContext.Exception.Message, filterContext.Exception);
-        //    }
-        //}
+            if (filterContext.Exception is HttpException)
+            {
+                //filterContext.Result = new RedirectResult("~/Error/NotFound");
+                (filterContext.Exception as HttpException).GetHttpCode();
+                log.Error("Page Not Found");
+            }
+        }
     }
 }
