@@ -12,8 +12,14 @@ namespace MyUniversity.Web.Controllers
 
         public ActionResult BadRequest()
         {
-            Response.StatusCode = 500;
+            Response.StatusCode = 400;
             return View("BadRequest");
+        }
+
+        public ActionResult InternalServerError()
+        {
+            Response.StatusCode = 500;
+            return View("Error");
         }
     }
 }

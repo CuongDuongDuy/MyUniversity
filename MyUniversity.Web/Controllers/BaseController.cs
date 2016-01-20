@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
+using System.Web.Razor.Generator;
 using log4net;
 using MyUniversity.Contracts.Services;
 using Newtonsoft.Json;
@@ -16,9 +17,11 @@ namespace MyUniversity.Web.Controllers
     public class BaseController : Controller
     {
         protected HttpClient Client { get; set; }
+        private static readonly ILog log = LogManager.GetLogger("Web");
+
         public BaseController()
         {
-            Client = new HttpClient {BaseAddress = new Uri(WebConfigurationManager.AppSettings.Get("ApiBaseAddress"))};
+            Client = new HttpClient { BaseAddress = new Uri(WebConfigurationManager.AppSettings.Get("ApiBaseAddress")) };
             Client.DefaultRequestHeaders.Accept.Clear();
             Client.DefaultRequestHeaders.Add("contentType", "application/json; charset=utf-8");
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -40,7 +43,7 @@ namespace MyUniversity.Web.Controllers
             {
                 return response.Content.ReadAsStringAsync().Result.Replace("\"", string.Empty);
             }
-            throw new HttpException((int) response.StatusCode, "Error");
+            throw new HttpException((int)response.StatusCode, "HttpException from API");
         }
 
         public async Task<ModificationServiceResult> PutJsonAsyc(string requestUri, object value)
@@ -50,7 +53,7 @@ namespace MyUniversity.Web.Controllers
             {
                 return JsonConvert.DeserializeObject<ModificationServiceResult>(response.Content.ReadAsStringAsync().Result);
             }
-            throw new HttpException((int)response.StatusCode, "Error");
+            throw new HttpException((int)response.StatusCode, "HttpException from API");
         }
 
         public async Task<ModificationServiceResult> DeleteJsonAsyc(string requestUri)
@@ -60,7 +63,7 @@ namespace MyUniversity.Web.Controllers
             {
                 return JsonConvert.DeserializeObject<ModificationServiceResult>(response.Content.ReadAsStringAsync().Result);
             }
-            throw new HttpException((int)response.StatusCode, "Error");
+            throw new HttpException((int)response.StatusCode, "HttpException from API");
         }
 
         private string GetFullRequestUri(string requestUri, params string[] includes)
@@ -71,17 +74,35 @@ namespace MyUniversity.Web.Controllers
             result = result + "?$expand=" + includesString.Substring(0, includesString.Length - 1);
             return result;
         }
+
         protected override void OnException(ExceptionContext filterContext)
         {
-            var log = LogManager.GetLogger("Web");
             filterContext.ExceptionHandled = true;
-
             if (filterContext.Exception is HttpException)
             {
-                //filterContext.Result = new RedirectResult("~/Error/NotFound");
-                (filterContext.Exception as HttpException).GetHttpCode();
-                log.Error("Page Not Found");
+                var httpExceoption = filterContext.Exception as HttpException;
+                switch (httpExceoption.GetHttpCode())
+                {
+                    case 404:
+                        filterContext.Result = new RedirectResult("~/Error/NotFound");
+                        break;
+                    case 400:
+                        filterContext.Result = new RedirectResult("~/Error/BadRequest");
+                        break;
+                    default:
+                        filterContext.Result = new RedirectResult("~/Error/Error");
+                        break;
+                }
             }
+            else if (filterContext.Exception is HttpRequestException)
+            {
+                filterContext.Result = new RedirectResult("~/Error/Error");
+            }
+            else
+            {
+                filterContext.Result = new RedirectResult("~/Error/Error");
+            }
+            log.Error(filterContext.Exception.Message, filterContext.Exception);
         }
     }
 }
