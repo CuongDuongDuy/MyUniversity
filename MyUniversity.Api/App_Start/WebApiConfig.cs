@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
 using System.Web.Http.OData.Builder;
 using System.Web.Http.OData.Extensions;
 using MyUniversity.Contracts.Models;
@@ -26,6 +27,8 @@ namespace MyUniversity.Api
             builder.EntitySet<DepartmentModel>("Departments");
             builder.EntitySet<EnrollmentModel>("Enrollments");
             config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
+
+            config.Services.Add(typeof (IExceptionLogger), new GlobalErrorLogger());
 
         }
     }

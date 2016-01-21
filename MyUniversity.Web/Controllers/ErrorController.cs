@@ -16,10 +16,10 @@ namespace MyUniversity.Web.Controllers
             return View("BadRequest");
         }
 
-        public ActionResult InternalServerError()
+        public ActionResult Index()
         {
             Response.StatusCode = 500;
-            return View("Error");
+            return View("Index");
         }
     }
 }

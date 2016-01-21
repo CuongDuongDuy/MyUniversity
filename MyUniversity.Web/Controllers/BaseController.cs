@@ -17,7 +17,7 @@ namespace MyUniversity.Web.Controllers
     public class BaseController : Controller
     {
         protected HttpClient Client { get; set; }
-        private static readonly ILog log = LogManager.GetLogger("Web");
+        private static readonly ILog Log = LogManager.GetLogger("Web");
 
         public BaseController()
         {
@@ -77,6 +77,7 @@ namespace MyUniversity.Web.Controllers
 
         protected override void OnException(ExceptionContext filterContext)
         {
+            Log.Error(filterContext.Exception.Message, filterContext.Exception);
             filterContext.ExceptionHandled = true;
             if (filterContext.Exception is HttpException)
             {
@@ -90,19 +91,14 @@ namespace MyUniversity.Web.Controllers
                         filterContext.Result = new RedirectResult("~/Error/BadRequest");
                         break;
                     default:
-                        filterContext.Result = new RedirectResult("~/Error/Error");
+                        filterContext.Result = new RedirectResult("~/Error/Index");
                         break;
                 }
             }
-            else if (filterContext.Exception is HttpRequestException)
-            {
-                filterContext.Result = new RedirectResult("~/Error/Error");
-            }
             else
             {
-                filterContext.Result = new RedirectResult("~/Error/Error");
+                filterContext.Result = new RedirectResult("~/Error/Index");
             }
-            log.Error(filterContext.Exception.Message, filterContext.Exception);
         }
     }
 }
