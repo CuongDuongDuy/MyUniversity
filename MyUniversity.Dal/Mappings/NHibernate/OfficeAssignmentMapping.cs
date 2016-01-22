@@ -15,8 +15,8 @@ namespace MyUniversity.Dal.Mappings.NHibernate
             Map(t => t.DepartmentId).Nullable();
 
             Map(t => t.Deactive).Nullable();
-            Map(t => t.CreatedOn).Not.Nullable();
-            Map(t => t.CreatedBy).Not.Nullable();
+            Map(t => t.CreatedOn).Nullable();
+            Map(t => t.CreatedBy).Nullable();
             Map(t => t.UpdatedOn).Nullable();
             Map(t => t.UpdatedBy).Nullable();
 

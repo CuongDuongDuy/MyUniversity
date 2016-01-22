@@ -14,8 +14,8 @@ namespace MyUniversity.Dal.Mappings.NHibernate
             Map(t => t.InstructorProfileId).Not.Nullable();
             Map(t => t.Mark).Nullable();
             Map(t => t.Deactive);
-            Map(t => t.CreatedOn).Not.Nullable();
-            Map(t => t.CreatedBy).Not.Nullable();
+            Map(t => t.CreatedOn).Nullable();
+            Map(t => t.CreatedBy).Nullable();
             Map(t => t.UpdatedOn);
             Map(t => t.UpdatedBy);
 
