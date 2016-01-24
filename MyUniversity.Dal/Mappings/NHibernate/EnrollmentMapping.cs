@@ -23,6 +23,14 @@ namespace MyUniversity.Dal.Mappings.NHibernate
             References(t => t.StudentProfile).Column("StudentProfileId").Cascade.None();
             References(t => t.InstructorProfile).Column("InstructorProfileId").Cascade.None();
 
+            Version(x => x.RowVersion)
+                .Generated.Always()
+                .UnsavedValue("null")
+                .CustomType("BinaryBlob")
+                .Column("RowVersion")
+                .CustomSqlType("timestamp")
+                .Not.Nullable();
+
             Table("Enrollments");
             Schema("dbo");
         }

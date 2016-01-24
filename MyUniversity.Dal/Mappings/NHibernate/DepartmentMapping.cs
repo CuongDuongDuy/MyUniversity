@@ -21,6 +21,14 @@ namespace MyUniversity.Dal.Mappings.NHibernate
             HasMany(x => x.StudentProfiles).KeyColumn("DepartmentId").Inverse().Cascade.None();
             HasMany(x => x.Courses).KeyColumn("DepartmentId").Inverse().Cascade.None();
 
+            Version(x => x.RowVersion)
+                .Generated.Always()
+                .UnsavedValue("null")
+                .CustomType("BinaryBlob")
+                .Column("RowVersion")
+                .CustomSqlType("timestamp")
+                .Not.Nullable();
+
             Table("Departments");
             Schema("dbo");
         }

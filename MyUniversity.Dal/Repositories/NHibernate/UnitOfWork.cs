@@ -35,20 +35,12 @@ namespace MyUniversity.Dal.Repositories.NHibernate
             {
                 transaction = session.BeginTransaction();
             }
-
-            try
-            {
-                var sessionContext = session.GetSessionImplementation().PersistenceContext;
-                foreach (var entity in sessionContext.EntitiesByKey.Values)
-                {
-                }
-                transaction.Commit();
-                return 0;
-            }
-            catch (Exception ex)
-            {
-                return -1;
-            }
+            //var sessionContext = session.GetSessionImplementation().PersistenceContext;
+            //foreach (var entity in sessionContext.EntitiesByKey.Values)
+            //{
+            //}
+            transaction.Commit();
+            return 0;
         }
     }
 }

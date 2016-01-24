@@ -67,6 +67,16 @@ namespace MyUniversity.Dal
                     Set(persister, state, "Department", department);
                     (entity as InstructorProfile).Department = department;
                     break;
+                case "Department":
+                    var deanId = (entity as Department).DeanId;
+                    if (deanId != null)
+                    {
+                        var instructor = session.Load<InstructorProfile>(deanId);
+                        Set(persister, state, "Dean", instructor);
+                        (entity as Department).Dean = instructor;
+                    }
+                   
+                    break;
             }
         }
 
@@ -84,6 +94,13 @@ namespace MyUniversity.Dal
                     break;
                 case "InstructorProfile":
                     (entity as InstructorProfile).DepartmentId = (entity as InstructorProfile).Department.Id;
+                    break;
+                case "Department":
+                    var dean = (entity as Department).Dean;
+                    if (dean != null)
+                    {
+                        (entity as Department).DeanId = dean.Id;
+                    }
                     break;
             }
         }

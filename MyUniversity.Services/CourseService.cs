@@ -7,6 +7,7 @@ using MyUniversity.Contracts.Models;
 using MyUniversity.Contracts.Services;
 using MyUniversity.Dal.Entities;
 using MyUniversity.Dal.Repositories.Contracts;
+using NHibernate;
 
 namespace MyUniversity.Services
 {
@@ -76,6 +77,10 @@ namespace MyUniversity.Services
             catch (DataException)
             {
                 result.Type = ResultType.DataException;
+            }
+            catch (StaleObjectStateException)
+            {
+                result.Type = ResultType.DbUpdateConcurrencyException;
             }
             return result;
         }

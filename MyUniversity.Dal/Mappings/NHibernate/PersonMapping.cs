@@ -21,6 +21,14 @@ namespace MyUniversity.Dal.Mappings.NHibernate
             Map(t => t.UpdatedOn);
             Map(t => t.UpdatedBy);
 
+            Version(x => x.RowVersion)
+                .Generated.Always()
+                .UnsavedValue("null")
+                .CustomType("BinaryBlob")
+                .Column("RowVersion")
+                .CustomSqlType("timestamp")
+                .Not.Nullable();
+
             Table("People");
             Schema("dbo");
         }
