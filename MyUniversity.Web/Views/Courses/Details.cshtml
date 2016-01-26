@@ -1,51 +1,60 @@
-﻿@model MyUniversity.Contracts.Models.CourseModel
-
+﻿@model Guid
 @{
     ViewBag.Title = "Course Details";
 }
 
 <h2>Details</h2>
-
 <div>
     <h4>Course</h4>
     <hr />
+    @Html.Hidden("id", Model)
     <dl class="dl-horizontal">
         <dt>
             Department
         </dt>
+        <dd id="departmentname">
 
-        <dd>
-            @Html.DisplayFor(model => model.Department.Name)
         </dd>
-
         <dt>
-            @Html.DisplayNameFor(model => model.Id)
+            Title
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Id)
-        </dd>
+        <dd id="title">
 
+        </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Title)
+            Credits
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
+        <dd id="credits">
+
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Credits)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Credits)
-        </dd>
-
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            sendRequest();
+        });
 
+        function sendRequest() {
+            var courseid = $('#id').val();
+            var serviceUrl = 'http://localhost:22641/api/courses/' + courseid;
+            $.ajax({
+                type: 'get',
+                url: serviceUrl,
+                contentType: "application/json"
+            }).done(function (data) {
+                $('#departmentname').html(data.Department.Name);
+                $('#title').html(data.Title);
+                $('#credits').html(data.Credits);
+            }).error(function (jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.responseText || textStatus);
+            });
+        }
+    </script>
+}

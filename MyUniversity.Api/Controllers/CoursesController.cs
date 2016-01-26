@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using MyUniversity.Contracts.Models;
 using MyUniversity.Contracts.Services;
 using Newtonsoft.Json;
@@ -35,6 +36,7 @@ namespace MyUniversity.Api.Controllers
         //    return result;
         //}
 
+        [EnableCors(origins: "http://localhost:22094", headers: "*", methods: "GET")]
         [HttpGet]
         [Route("{id:guid}")]
         public CourseModel GetById(Guid id)

@@ -28,8 +28,8 @@ namespace MyUniversity.Api
             builder.EntitySet<EnrollmentModel>("Enrollments");
             config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
 
+            config.EnableCors();
             config.Services.Add(typeof (IExceptionLogger), new GlobalErrorLogger());
-
         }
     }
 }
