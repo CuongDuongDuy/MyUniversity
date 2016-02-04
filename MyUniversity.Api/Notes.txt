@@ -1,0 +1,29 @@
+*** Load secured image/file: 
+<img id="imageFrame" alt="Sample"/>
+<br />
+<input type="text" id="imageId"><input type="button" id="btnShow" value="Load"/>
+
+@section Scripts {
+   <script type="text/javascript">
+    $("#btnShow").click(function () {
+        $("#imageFrame").attr("src", "http://localhost:22641/api/courses/getimage/" + $('#imageId').val()+'?height=20&width=20');
+    });
+</script>
+
+[EnableCors(origins: "*", headers: "*", methods: "*")]
+        [HttpGet]
+        [Route("GetImage/{id:int}")]
+        public HttpResponseMessage GetImage(int id, int height, int width)
+        {
+            var imagePath = string.Format("~/Images/{0}.png", id);
+            imagePath = System.Web.Hosting.HostingEnvironment.MapPath(imagePath);
+            if (!File.Exists(imagePath))
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+
+            var newImage = new WebImage(imagePath).Resize(width, height, true, true); 
+            var ms = new MemoryStream(newImage.GetBytes());
+            var response = new HttpResponseMessage { Content = new StreamContent(ms) };
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/png");
+            response.Content.Headers.ContentLength = ms.Length;
+            return response;
+        }
