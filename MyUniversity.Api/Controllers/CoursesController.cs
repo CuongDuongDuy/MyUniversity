@@ -36,7 +36,7 @@ namespace MyUniversity.Api.Controllers
         //    return result;
         //}
 
-        [EnableCors(origins: "http://localhost:22094", headers: "*", methods: "GET")]
+        [EnableCors("http://localhost:22094", "*", "GET")]
         [HttpGet]
         [Route("{id:guid}")]
         public CourseModel GetById(Guid id)

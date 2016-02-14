@@ -4,10 +4,10 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using MyUniversity.Contracts.Helpers;
 using MyUniversity.Contracts.Models;
 using MyUniversity.Contracts.Services;
 using MyUniversity.Contracts.ViewModels;
-using MyUniversity.Contracts.Helpers;
 
 namespace MyUniversity.Web.Controllers
 {
