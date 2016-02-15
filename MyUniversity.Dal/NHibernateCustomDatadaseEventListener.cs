@@ -75,7 +75,14 @@ namespace MyUniversity.Dal
                         Set(persister, state, "Dean", instructor);
                         (entity as Department).Dean = instructor;
                     }
-                   
+                    break;
+                case "Enrollment":
+                    var course = session.Load<Course>((entity as Enrollment).CourseId);
+                    Set(persister, state, "Course", course);
+                    var student = session.Load<StudentProfile>((entity as Enrollment).StudentProfileId);
+                    Set(persister, state, "StudentProfile", student);
+                    var teacher = session.Load<InstructorProfile>((entity as Enrollment).InstructorProfileId);
+                    Set(persister, state, "InstructorProfile", teacher);
                     break;
             }
         }

@@ -66,9 +66,10 @@ namespace MyUniversity.Api.Controllers
                     result.StatusCode = HttpStatusCode.Created;
                     result.Content = new StringContent(newGuid.ToString());
                 }
-                catch
+                catch(Exception ex)
                 {
                     result.StatusCode = HttpStatusCode.BadRequest;
+                    InternalServerError(ex);
                 }
 
             }

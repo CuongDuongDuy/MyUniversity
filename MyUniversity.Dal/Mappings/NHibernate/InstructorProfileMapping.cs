@@ -20,7 +20,7 @@ namespace MyUniversity.Dal.Mappings.NHibernate
             Map(t => t.Deactive).Column("Deactive").Nullable();
 
             References(t => t.Department).Column("DepartmentId").Cascade.None();
-            References(t => t.Person).Column("PersonId").Cascade.None();
+            References(t => t.Person).Column("PersonId").Cascade.All();
 
             Version(x => x.RowVersion)
                 .Generated.Always()
