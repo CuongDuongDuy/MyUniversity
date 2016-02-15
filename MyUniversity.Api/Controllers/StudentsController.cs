@@ -5,7 +5,6 @@ using System.Net.Http;
 using System.Web.Http;
 using MyUniversity.Contracts.Models;
 using MyUniversity.Contracts.Services;
-using MyUniversity.Contracts.ViewModels;
 using Newtonsoft.Json;
 
 namespace MyUniversity.Api.Controllers

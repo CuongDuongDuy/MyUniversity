@@ -1,9 +1,8 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Web.Http;
-using Autofac;
 using Autofac.Integration.WebApi;
 using MyUniversity.Api.Helpers;
+using MyUniversity.ApiStart;
 
 namespace MyUniversity.Api
 {
@@ -15,19 +14,19 @@ namespace MyUniversity.Api
             var config = GlobalConfiguration.Configuration;
 
             var dbFrameworkUse = AppSettingHelper.GetDbFrameworkType();
-            ApiStart.AutoMapperConfig.Configure();
+            AutoMapperConfig.Configure();
           
 
             // Register for autofac
-            var builder = ApiStart.SetAutofacContainer.GetBuilder(dbFrameworkUse);
+            var builder = SetAutofacContainer.GetBuilder(dbFrameworkUse);
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 
-            ApiStart.DatabaseInitialization.Run(dbFrameworkUse);
+            DatabaseInitialization.Run(dbFrameworkUse);
 
             // Config for Auto Mapper
-            ApiStart.AutoMapperConfig.Configure();
+            AutoMapperConfig.Configure();
 
         }
     }
