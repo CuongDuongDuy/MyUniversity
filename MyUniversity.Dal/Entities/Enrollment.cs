@@ -5,10 +5,10 @@ namespace MyUniversity.Dal.Entities
 {
     public class Enrollment : EntityBase
     {
-        public Guid CourseId { get; set; }
-        public Guid StudentProfileId { get; set; }
-        public Guid InstructorProfileId { get; set; }
-        public double? Mark { get; set; }
+        public virtual Guid CourseId { get; set; }
+        public virtual Guid StudentProfileId { get; set; }
+        public virtual Guid InstructorProfileId { get; set; }
+        public virtual double? Mark { get; set; }
         [JsonIgnore]
         public virtual Course Course { get; set; }
         [JsonIgnore]

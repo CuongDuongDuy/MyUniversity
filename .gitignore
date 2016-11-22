@@ -1,0 +1,19 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/MyUniversity.Dal/obj/Debug
+/MyUniversity.ApiStart/bin/Debug
+/MyUniversity.ApiStart/obj/Debug
+/MyUniversity.Contracts/bin/Debug
+/MyUniversity.Contracts/obj/Debug
+/MyUniversity.Dal/bin/Debug
+/MyUniversity.Services/bin/Debug
+/MyUniversity.Services/obj/Debug
+/MyUniversity.Web/bin
+/MyUniversity.Web/Logs
+/MyUniversity.Web/obj/Debug
+/packages
+/MyUniversity.Api/bin
+/MyUniversity.Api/obj/Debug
+/MyUniversity.Api/Logs

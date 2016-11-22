@@ -47,7 +47,14 @@ namespace MyUniversity.Dal.Repositories.NHibernate
 
         public void Insert(TEntity entity)
         {
-            session.Save(entity);
+            try
+            {
+                session.Save(entity);
+            }
+            catch (Exception ex)
+            {
+                
+            }
         }
 
         public void Insert(IEnumerable<TEntity> entities)

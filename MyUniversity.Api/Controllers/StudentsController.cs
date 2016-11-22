@@ -40,7 +40,7 @@ namespace MyUniversity.Api.Controllers
                     var newGuid = studentService.Create(studentModel);
                     return Created("api/students/" + newGuid, newGuid);
                 }
-                catch
+                catch(Exception ex)
                 {
                     return BadRequest();
                 }

@@ -6,15 +6,15 @@ namespace MyUniversity.Dal.Entities
 {
     public class Person : EntityBase
     {
-        public string IdentityNumber { get; set; }
+        public virtual string IdentityNumber { get; set; }
 
-        public string FirstName { get; set; }
+        public virtual string FirstName { get; set; }
 
-        public string LastName { get; set; }
+        public virtual string LastName { get; set; }
 
-        public DateTime DateOfBirth { get; set; }
+        public virtual DateTime DateOfBirth { get; set; }
 
-        public string Address { get; set; }
+        public virtual string Address { get; set; }
 
         [JsonIgnore]
         public virtual ICollection<Profile> Profiles { get; set; }  

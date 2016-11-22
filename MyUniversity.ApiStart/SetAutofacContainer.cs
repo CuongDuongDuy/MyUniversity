@@ -39,7 +39,7 @@ namespace MyUniversity.ApiStart
                     builder.RegisterType<NHUnitOfWork>()
                         .As<IUnitOfWork>()
                         .InstancePerLifetimeScope();
-                    builder.Register(x => DatabaseInitialization.GetConfig()
+                    builder.Register(x => DatabaseInitialization.GetNHibernateDbConfig()
                         .BuildSessionFactory()).As<ISessionFactory>().SingleInstance();
                     builder.Register(x => x.Resolve<ISessionFactory>().OpenSession()).InstancePerLifetimeScope();
                     break;

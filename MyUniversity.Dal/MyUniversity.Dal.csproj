@@ -86,7 +86,7 @@
     <Compile Include="Migrations\201601120955201_AddVirtualIntoOthers.Designer.cs">
       <DependentUpon>201601120955201_AddVirtualIntoOthers.cs</DependentUpon>
     </Compile>
-    <Compile Include="NHibernateCustomDatadaseEventListener.cs" />
+    <Compile Include="NHibernateEventListener.cs" />
     <Compile Include="Repositories\Contracts\IEnrollmentRepository.cs" />
     <Compile Include="Entities\OfficeAssignment.cs" />
     <Compile Include="Entities\Profile.cs" />
